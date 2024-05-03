@@ -21,7 +21,7 @@
         "weight": 3000,
         "loadLocation": "Av. La Playa km 2 - Ventanilla",
         "loadImage": "https://logisticaytransportedecarga.pe/wp-content/uploads/2022/07/WhatsApp-Image-2022-07-18-at-7.38.54-AM-5-769x1024.jpeg",
-        "loadDate": "2024-05-15",
+        "loadDate": "2024-05-16",
         "unloadLocation": "Carretera Central km 141 - Morococha",
         "unloadDate": "2024-07-23"
       },
@@ -124,6 +124,21 @@
         "amount": "400",
         "description": "El viaje tuvo una duración de 2 días. Se brindó S/. 200 cada día al conductor para cubrir hospedaje y alimentación."
       }
+    },
+    {
+      "fuel": {
+        "amount": "250",
+        "description": "Gasolina gastada en 2 días de viaje"
+      },
+      "toll": {
+        "amount": "250",
+        "description": "Se pasaron por 11 peajes "
+      },
+      "viatics": {
+        "amount": "400",
+        "description": "200 soles diarios para los dos días"
+      },
+      "id": "3"
     }
   ],
   "ongoingTrips": [
