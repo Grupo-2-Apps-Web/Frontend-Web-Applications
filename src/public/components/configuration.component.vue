@@ -48,7 +48,9 @@ export default {
   <div class="subscription">
     <h2>Subscription</h2>
     <div class="subscription-buttons">
-      <pv-button class="button">Manage subscription</pv-button>
+      <router-link to="/subscription">
+        <pv-button class="button">Manage subscription</pv-button>
+      </router-link>
       <pv-button class="button">Manage payment method</pv-button>
     </div>
   </div>

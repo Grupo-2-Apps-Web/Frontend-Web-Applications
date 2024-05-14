@@ -15,6 +15,7 @@ import ModifyTripComponent from "../entrepreneur/components/modify-trip.componen
 import ModifyExpenseComponent from "../entrepreneur/components/modify-expense.component.vue";
 import ModifyRequestIdComponent from "../entrepreneur/components/modify-request-id.component.vue";
 import ConfigurationComponent from "../public/components/configuration.component.vue";
+import SubscriptionComponent from "../public/components/subscription.component.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -22,6 +23,7 @@ const router = createRouter({
         { path: '/', redirect: '/home' },
         { path: '/home', component: UserComponent },
         { path: '/configuration', component: ConfigurationComponent },
+        { path: '/subscription', component: SubscriptionComponent },
         { path: '/client', redirect: '/client/history'},
         { path: '/client/history', component: TripList },
         { path: '/client/history/:id', component: TripDescription },
