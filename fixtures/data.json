@@ -1,4 +1,68 @@
 {
+  "users": [
+    {
+      "id": "1",
+      "name": "Piero Díaz S.A.C.",
+      "email": "pierod081@gmail.com",
+      "password": "123456",
+      "phone": "987654321",
+      "ruc": "20123486690",
+      "address": "Av. La Marina 123 - Callao",
+      "subscription_id": "1"
+    },
+    {
+      "id": "2",
+      "name": "Moran Alimentos S.A.",
+      "email": "juan92@gmail.com",
+      "password": "014821",
+      "phone": "999235001",
+      "ruc": "21390081200",
+      "address": "Calle Independencia 116 - Villa María del Triunfo",
+      "subscription_id": "2"
+    },
+    {
+      "id": "3",
+      "name": "Transportes Semarfe S.A.C.",
+      "email": "carlitos0@gmail.com",
+      "password": "abc888",
+      "phone": "982630015",
+      "ruc": "20123456789",
+      "address": "Av. Huancaray 560 - Santa Anita",
+      "subscription_id": "1"
+    },
+    {
+      "id": "4",
+      "name": "Transportes El Chino S.A.C.",
+      "email": "pedro431@gmail.com",
+      "password": "maria123",
+      "phone": "945010682",
+      "ruc": "20455690152",
+      "address": "Av. Los Incas 123 - San Juan de Lurigancho",
+      "subscription_id": "2"
+    }
+  ],
+  "clients": [
+    {
+      "id": "1",
+      "user_id": "1"
+    },
+    {
+      "id": "2",
+      "user_id": "2"
+    }
+  ],
+  "entrepreneurs": [
+    {
+      "id": "1",
+      "logoImage": "https://img.freepik.com/vector-premium/plantilla-silueta-empresa-camiones_183875-933.jpg",
+      "user_id": "3"
+    },
+    {
+      "id": "2",
+      "logoImage": "https://img.freepik.com/vector-premium/plantilla-silueta-empresa-camiones_183875-933.jpg",
+      "user_id": "4"
+    }
+  ],
   "trips": [
     {
       "id": "1",
@@ -21,7 +85,7 @@
         "weight": 3000,
         "loadLocation": "Av. La Playa km 2 - Ventanilla",
         "loadImage": "https://logisticaytransportedecarga.pe/wp-content/uploads/2022/07/WhatsApp-Image-2022-07-18-at-7.38.54-AM-5-769x1024.jpeg",
-        "loadDate": "2024-05-16",
+        "loadDate": "2024-05-15",
         "unloadLocation": "Carretera Central km 141 - Morococha",
         "unloadDate": "2024-07-23"
       },
@@ -124,21 +188,6 @@
         "amount": "400",
         "description": "El viaje tuvo una duración de 2 días. Se brindó S/. 200 cada día al conductor para cubrir hospedaje y alimentación."
       }
-    },
-    {
-      "fuel": {
-        "amount": "250",
-        "description": "Gasolina gastada en 2 días de viaje"
-      },
-      "toll": {
-        "amount": "250",
-        "description": "Se pasaron por 11 peajes "
-      },
-      "viatics": {
-        "amount": "400",
-        "description": "200 soles diarios para los dos días"
-      },
-      "id": "3"
     }
   ],
   "ongoingTrips": [
