@@ -17,12 +17,18 @@ import ModifyRequestIdComponent from "../entrepreneur/components/modify-request-
 import ConfigurationComponent from "../public/components/configuration.component.vue";
 import SubscriptionComponent from "../public/components/subscription.component.vue";
 import PaymentComponent from "../public/components/payment.component.vue";
+import RegisterUserComponent from "../public/components/register-user.component.vue";
+import RegisterClientComponent from "../public/components/register-client.component.vue";
+import RegisterEntrepreneurComponent from "../public/components/register-entrepreneur.component.vue";
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [
         { path: '/', redirect: '/home' },
         { path: '/home', component: UserComponent },
+        { path: '/register-user', component: RegisterUserComponent },
+        { path: '/register-client', component: RegisterClientComponent },
+        { path: '/register-entrepreneur', component: RegisterEntrepreneurComponent },
         { path: '/configuration', component: ConfigurationComponent },
         { path: '/subscription', component: SubscriptionComponent },
         { path: '/payment', component: PaymentComponent },
