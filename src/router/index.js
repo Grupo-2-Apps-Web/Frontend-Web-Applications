@@ -14,12 +14,14 @@ import AlertList from "../client/components/alert-list.component.vue";
 import ModifyTripComponent from "../entrepreneur/components/modify-trip.component.vue";
 import ModifyExpenseComponent from "../entrepreneur/components/modify-expense.component.vue";
 import ModifyRequestIdComponent from "../entrepreneur/components/modify-request-id.component.vue";
+import ConfigurationComponent from "../public/components/configuration.component.vue";
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [
         { path: '/', redirect: '/home' },
         { path: '/home', component: UserComponent },
+        { path: '/configuration', component: ConfigurationComponent },
         { path: '/client', redirect: '/client/history'},
         { path: '/client/history', component: TripList },
         { path: '/client/history/:id', component: TripDescription },

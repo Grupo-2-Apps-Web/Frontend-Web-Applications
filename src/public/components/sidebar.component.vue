@@ -71,9 +71,11 @@ const logOut = () => {
       <h1>CargoApp</h1>
     </template>
     <template #end>
-      <pv-button class="config-button">
-        <i class="pi pi-cog" style="font-size: 2rem; color: white" />
-      </pv-button>
+      <router-link to="/configuration">
+        <pv-button class="config-button">
+          <i class="pi pi-cog" style="font-size: 2rem; color: white" />
+        </pv-button>
+      </router-link>
     </template>
   </pv-toolbar>
 </template>
