@@ -7,7 +7,7 @@ import BarGraph from "../client/components/bargraph.component.vue";
 import TravelList from "../client/components/travel-list.component.vue";
 import Map from "../client/components/map.component.vue";
 import Registration from "../entrepreneur/components/registration.component.vue";
-import UserComponent from "../public/user.component.vue"
+import UserComponent from "../public/components/user.component.vue"
 import RegisterTripComponent from "../entrepreneur/components/register-trip.component.vue";
 import RegisterExpenseComponent from "../entrepreneur/components/register-expense.component.vue";
 import AlertList from "../client/components/alert-list.component.vue";
