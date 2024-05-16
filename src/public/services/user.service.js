@@ -47,6 +47,30 @@ export class UserService {
         return this.addUser(user);
 
     }
+
+    async getUserByEmail(email) {
+        const response = await http.get("users");
+        const users = response.data;
+        const user = users.find(user => user.email === email);
+        return user || null;
+    }
+
+    // Methods that get the client or entrepreneur by user id
+    async getClientByUserId(userId) {
+        const response = await http.get("clients");
+        const clients = response.data;
+        const client = clients.find(client => client.user_id === userId);
+        return client || null;
+    }
+
+    async getEntrepreneurByUserId(userId) {
+        const response = await http.get("entrepreneurs");
+        const entrepreneurs = response.data;
+        const entrepreneur = entrepreneurs.find(entrepreneur => entrepreneur.user_id === userId);
+        return entrepreneur || null;
+    }
+
+
     setUser(id, user) {
         return http.put(`users/${id}`, user);
     }

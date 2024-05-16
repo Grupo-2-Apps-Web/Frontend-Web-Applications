@@ -15,54 +15,51 @@ const props = defineProps({
 });
 
 const localVisible = ref(props.visible);
+
 const togglesidebar = () => {
   localVisible.value = !localVisible.value;
   props.toggleSidebar();
 };
 
 let store = useStore();
-let isClient = computed(() => store.state.isClient)
+let userType = computed(() => store.state.user_type) // Nuevo
+let isActive = computed( () => store.state.isActive)
 
 const logOut = () => {
-  store.commit('setIsClient', 0);
-  console.log(store.state.isClient);
+  store.commit('setIsActive', false);
 };
-
 
 </script>
 
 <template>
-  <pv-sidebar v-model:visible="localVisible" header="Menu">
+    <pv-sidebar v-model:visible="localVisible" header="Menu">
     <template #header>
-      <h1 class="sidebar-title">CargoApp</h1>
+        <h1 class="sidebar-title">CargoApp</h1>
     </template>
-    <template #closeicon>
-      <i class="pi pi-times" style="font-size: 2rem; color: #686f75" @click="togglesidebar"/>
-    </template>
-    <ul>
-      <li v-if="isClient === 1"><router-link to="/client/history">Record</router-link></li>
-      <li v-if="isClient === 1"><router-link to="/client/expenses">Expenses</router-link></li>
-      <li v-if="isClient === 1"><router-link to="/client/gps">GPS</router-link></li>
-      <li v-if="isClient === 1"><router-link to="/client/statistics">Statistics</router-link></li>
-      <li v-if="isClient === 2"><router-link to="/entrepreneur/register">Registry</router-link></li>
-      <li v-if="isClient === 2"><router-link to="/entrepreneur/history">Record</router-link></li>
-      <li v-if="isClient === 2"><router-link to="/entrepreneur/gps">GPS</router-link></li>
-    </ul>
-    <div v-if="isClient !== 0" class = "button-container">
-      <router-link to="/home">
-        <pv-button style="background-color: #1E3A8A; font-size: 24px; border-radius: 5px;" @click="logOut">
-          Log Out
-        </pv-button>
-      </router-link>
-    </div>
-    <div v-if="isClient === 0">
-      <p>Inicia sesión o regístrate para vivir la experiencia que ofrece CargoApp :)</p>
-    </div>
+      <template #closeicon>
+        <i class="pi pi-times" style="font-size: 2rem; color: #686f75" @click="togglesidebar"/>
+      </template>
+      <ul>
+        <li v-if="userType === 'client' && isActive === true"><router-link to="/client/history">Record</router-link></li>
+        <li v-if="userType === 'client' && isActive === true"><router-link to="/client/expenses">Expenses</router-link></li>
+        <li v-if="userType === 'client' && isActive === true"><router-link to="/client/gps">GPS</router-link></li>
+        <li v-if="userType === 'client' && isActive === true"><router-link to="/client/statistics">Statistics</router-link></li>
+        <li v-if="userType === 'entrepreneur' && isActive === true"><router-link to="/entrepreneur/register">Registry</router-link></li>
+        <li v-if="userType === 'entrepreneur' && isActive === true"><router-link to="/entrepreneur/history">Record</router-link></li>
+        <li v-if="userType === 'entrepreneur' && isActive === true"><router-link to="/entrepreneur/gps">GPS</router-link></li>
+      </ul>
+      <div v-if="isActive === true" class = "button-container">
+        <router-link to="/">
+          <pv-button style="background-color: #1E3A8A; font-size: 24px; border-radius: 5px;" @click="logOut">
+            Log Out
+          </pv-button>
+        </router-link>
+      </div>
 
-  </pv-sidebar>
+    </pv-sidebar>
   <pv-toolbar id="toolbar-header">
     <template #start>
-      <pv-button class="sidebar-button" @click="togglesidebar">
+      <pv-button class="sidebar-button" @click="togglesidebar" v-if="isActive === true">
         <i class="pi pi-bars" style="font-size: 2rem; color: white" />
       </pv-button>
     </template>
@@ -70,7 +67,7 @@ const logOut = () => {
       <img src="../../assets/images/logo.png" alt="CargoApp logo">
       <h1>CargoApp</h1>
     </template>
-    <template #end>
+    <template #end v-if="isActive === true">
       <router-link to="/configuration">
         <pv-button class="config-button">
           <i class="pi pi-cog" style="font-size: 2rem; color: white" />
