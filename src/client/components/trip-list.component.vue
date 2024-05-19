@@ -2,11 +2,15 @@
 import { TripService } from '../services/trip.service.js';
 import { Trip } from '../models/trip.entity.js';
 import TripCard from "./trip-card.component.vue";
+import {mapGetters} from "vuex";
 
 export default {
   name: "trip-list",
   components: {
     TripCard
+  },
+  computed: {
+    ...mapGetters(['getView'])
   },
   data() {
     return {
@@ -107,12 +111,27 @@ export default {
 
 
   <div class="main-body">
+    <table v-if="getView === 'list'">
+      <thead>
+      <tr>
+        <th>Viaje</th>
+        <th>Id</th>
+        <th>Load Date</th>
+        <th>Load Location</th>
+        <th>View</th>
+      </tr>
+      </thead>
+
+    </table>
+
     <trip-card v-for="trip in filteredTrips" :trip="trip"/>
+
   </div>
 
 </template>
 
 <style scoped>
+
 .main-top{
   display: flex;
   justify-content: space-evenly;
@@ -167,6 +186,39 @@ h1{
     justify-content: normal;
     margin-left: 500px;
   }
+}
+
+/*-------------------List View------------------*/
+
+table {
+  width: 55%;
+  border-collapse: separate;
+  border-spacing: 10px;
+  table-layout: fixed;
+  background-color: #FFA500;
+  color: #2c2c2c;
+}
+
+table th, table td {
+  border-bottom: 1px solid black;
+  padding: 4px;
+  text-align: left;
+}
+
+table thead {
+  color: black; /* Cambia esto al color que prefieras */
+}
+
+table thead tr {
+  height: 50px;
+}
+
+@media (max-width: 767px) {
+
+  table {
+    width: 80%;
+  }
+
 }
 
 
