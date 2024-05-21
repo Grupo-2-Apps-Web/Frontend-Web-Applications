@@ -1,26 +1,46 @@
 <script>
-
 import {useRouter} from "vue-router";
+import SwitcherthemeComponent from "./switcher-theme.component.vue";
+import DataCollectionComponent from "./data-collection.component.vue";
+import SwitcherViewDataComponent from "./switcher-view-data.component.vue";
+import {useStore} from "vuex";
 
 export default {
   name: "configuration.component",
+  components: {
+    SwitcherthemeComponent,
+    DataCollectionComponent,
+    SwitcherViewDataComponent
+  },
   setup() {
     const router = useRouter()
+    const store = useStore()
 
     const goBack = () => {
+      if (store.state.theme !== store.state.initialConfig.theme || store.state.view !== store.state.initialConfig.view) {
+        if (window.confirm("You have unsaved changes. Do you want to save them?")) {
+          saveConfig();
+        } else {
+          store.commit('RESET_CONFIG');
+        }
+      }
       router.back();
     }
 
     const saveConfig = () => {
+      store.commit('SET_THEME', store.state.theme);
+      store.commit('SET_VIEW', store.state.view);
       alert("Configuration saved successfully!");
-      //add logic to save configuration
       router.back();
     }
 
     return {
       goBack,
-      saveConfig
+      saveConfig,
     }
+  },
+  created() {
+    this.$store.commit('SET_INITIAL_CONFIG');
   }
 }
 </script>
@@ -30,20 +50,15 @@ export default {
   <div class="configuration">
     <div class="personalization">
       <div class="theme">
-        <h2>Theme Selection</h2> <!-- Change p for select button -->
-        <p>Light</p>
-        <p>Dark</p>
+        <h2>Theme Selection</h2>
+        <switchertheme-component/>
       </div>
       <div class="view">
-        <h2>View Selection</h2> <!-- Change p for select button -->
-        <p>List</p>
-        <p>Grid</p>
+        <h2>View Data</h2>
+        <switcher-view-data-component/>
       </div>
     </div>
-    <div class="data">
-      <h2>Allow data collection</h2> <!-- Add checkbox -->
-      <h2>Allow third-party data sharing</h2> <!-- Add checkbox -->
-    </div>
+    <data-collection-component/>
   </div>
   <div class="subscription">
     <h2>Subscription</h2>
@@ -64,6 +79,11 @@ export default {
 </template>
 
 <style scoped>
+
+
+
+
+/*----------------------------------*/
 .configuration{
   display: grid;
   grid-template-columns: 1fr 1fr;

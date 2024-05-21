@@ -1,5 +1,5 @@
 <script setup>
-import {computed, ref, watch} from "vue";
+import {computed, ref, watch, onMounted} from "vue";
 import { defineProps } from "vue";
 import { useStore } from 'vuex';
 
@@ -24,6 +24,19 @@ const togglesidebar = () => {
 let store = useStore();
 let userType = computed(() => store.state.user_type) // Nuevo
 let isActive = computed( () => store.state.isActive)
+
+// Observa el estado del tema en el store de Vuex
+let theme = computed(() => store.state.theme)
+
+// Aplica el tema al cuerpo del documento cada vez que cambie
+watch(theme, (newTheme) => {
+  document.body.className = newTheme;
+});
+
+
+onMounted(() => {
+  document.body.className = theme.value;
+});
 
 const logOut = () => {
   store.commit('setIsActive', false);
