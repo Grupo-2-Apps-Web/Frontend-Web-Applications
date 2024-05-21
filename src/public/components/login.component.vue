@@ -36,6 +36,7 @@ export default {
         }
       } else {
         console.error('El nombre de usuario o la contraseña ingresados no son válidos.');
+        alert('Email or password not valid');
       }
     };
 
@@ -50,20 +51,20 @@ export default {
 
 <template>
   <form class="registration-form">
-    <h2>Iniciar sesion</h2>
+    <h2>Login</h2>
     <div class="form-group">
-      <label for="username">Usuario</label><br>
-      <input type="text" id="username" v-model="username">
+      <label for="username">Email</label><br>
+      <input type="email" id="username" v-model="username" required>
     </div>
     <div class="form-group">
-      <label for="password">Contraseña</label><br>
-      <input type="password" id="password" v-model="password">
+      <label for="password">Password</label><br>
+      <input type="password" id="password" v-model="password" required>
     </div>
-    <p class="link"> <router-link to="/recover-account">¿Se te olvido la contraseña?</router-link></p>
+    <p class="link"> <router-link to="/recover-account">Forgot password?</router-link></p>
     <div class="form-group-btn">
-      <pv-button label="Acceder" class="btn" @click="login"></pv-button>
+      <pv-button label="Login" class="btn" @click="login"></pv-button>
     </div>
-    <p class="link">¿No tienes una cuenta? <router-link to="/register">Registrate aqui</router-link></p>
+    <p class="link">Don't have an account? <a><router-link to="/signup">Sign Up</router-link></a></p>
   </form>
 </template>
 <style scoped>
@@ -84,7 +85,7 @@ h2 {
   margin: 25px auto;
   border-radius: 25px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  height: 371px;
+  height: 380px;
   width: 391px
 }
 .form-group {
@@ -128,6 +129,18 @@ h2 {
 .link {
   margin: auto 10px;
   font-weight: lighter;
-  font-size: 12px;
+  font-size: 16px;
+}
+a {
+  cursor: pointer;
+  color: #1E3A8A;
+}
+a:visited {
+  cursor: pointer;
+  color: #1E3A8A;
+}
+a:hover {
+  cursor: pointer;
+  color: #108c10;
 }
 </style>

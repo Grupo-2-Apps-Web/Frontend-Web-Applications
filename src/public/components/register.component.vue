@@ -8,15 +8,15 @@ export default {
     const router = useRouter();
     const store = useStore();
     const goToClient = () => {
-      router.push('/client');
-      store.commit('setUserId', user.id); // Almacena el user_id en Vuex y en el almacenamiento local
-      store.commit('setUserType', 'client'); // Almacena el tipo de usuario en Vuex y en el almacenamiento local
+      router.push('/signup/client');
+      //store.commit('setUserId', user.id); // Almacena el user_id en Vuex y en el almacenamiento local
+      //store.commit('setUserType', 'client'); // Almacena el tipo de usuario en Vuex y en el almacenamiento local
     };
 
     const goToEntrepreneur = () => {
-      router.push('/entrepreneur');
-      store.commit('setUserId', user.id); // Almacena el user_id en Vuex y en el almacenamiento local
-      store.commit('setUserType', 'entrepreneur'); // Almacena el tipo de usuario en Vuex y en el almacenamiento local
+      router.push('/signup/entrepreneur');
+      //store.commit('setUserId', user.id); // Almacena el user_id en Vuex y en el almacenamiento local
+      //store.commit('setUserType', 'entrepreneur'); // Almacena el tipo de usuario en Vuex y en el almacenamiento local
     };
 
     return {
@@ -29,28 +29,18 @@ export default {
 
 <template>
   <form class="registration-form">
-    <h2>Registrate</h2>
-    <div class="form-group">
-      <label for="username">Usuario</label><br>
-      <input type="text" id="username">
-    </div>
-    <div class="form-group">
-      <label for="email">Correo electrónico</label><br>
-      <input type="email" id="email">
-    </div>
-    <div class="form-group">
-      <label for="password">Contraseña</label><br>
-      <input type="password" id="password">
-    </div>
-    <div class="form-group">
-      <label for="confirmPassword">Confirmar contraseña</label><br>
-      <input type="password" id="confirmPassword">
-    </div>
+    <h2>Sign Up</h2>
+    <p>Welcome to CargoApp! We are happy that you decided to join us😊!</p>
+    <h4>Please, select your role.</h4>
+    <ul>
+      <li>Client: Looking for a transparent and safe transportation service.</li>
+      <li>Entrepreneur: Offering transportation service.</li>
+    </ul>
     <div class="form-group-btn">
-      <pv-button label="Gestion logística" class="btn" @click="goToEntrepreneur"></pv-button>
-      <pv-button label="Cliente" class="btn" @click="goToClient"></pv-button>
+      <pv-button label="Client" class="btn" @click="goToClient"></pv-button>
+      <pv-button label="Entrepreneur" class="btn" @click="goToEntrepreneur"></pv-button>
     </div>
-    <p class="link form-group">¿Tienes una cuenta? <router-link to="/login">Accede desde aquí</router-link></p>
+    <p class="link form-group">Already have an account? <a><router-link to="/login">Login</router-link></a></p>
   </form>
 </template>
 
@@ -72,7 +62,7 @@ h2 {
   margin: 25px auto;
   border-radius: 25px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  height: 371px;
+  height: 380px;
   width: 391px
 }
 .form-group {
@@ -115,6 +105,18 @@ h2 {
 }
 .link {
   font-weight: lighter;
-  font-size: 12px;
+  font-size: 16px;
+}
+a {
+  cursor: pointer;
+  color: #1E3A8A;
+}
+a:visited {
+  cursor: pointer;
+  color: #1E3A8A;
+}
+a:hover {
+  cursor: pointer;
+  color: #108c10;
 }
 </style>

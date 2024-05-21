@@ -21,6 +21,8 @@ import PaymentComponent from "../public/components/payment.component.vue";
 import FormRegister from '../public/components/register.component.vue';
 import FormLogin from '../public/components/login.component.vue';
 import FormRecoverAccount from '../public/components/recover-account.component.vue';
+import RegisterClientComponent from "../public/components/register-client.component.vue";
+import RegisterEntrepreneurComponent from "../public/components/register-entrepreneur.component.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -50,9 +52,10 @@ const router = createRouter({
         { path: '/entrepreneur/history', component: TripList },
         { path: '/entrepreneur/gps', component: TravelList},
 
-
         { path: '/login', component: FormLogin },
-        { path: '/register', component: FormRegister },
+        { path: '/signup', component: FormRegister },
+        { path: '/signup/client', component: RegisterClientComponent },
+        { path: '/signup/entrepreneur', component: RegisterEntrepreneurComponent },
         { path: '/recover-account', component: FormRecoverAccount }
     ]
 });

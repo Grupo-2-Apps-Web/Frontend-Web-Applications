@@ -29,17 +29,48 @@ export default {
     };
   },
   methods: {
+    isValidEmail(email) {
+      const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(String(email).toLowerCase());
+    },
+    isNumeric(value) {
+      const re = /^\d+$/;
+      return re.test(String(value));
+    },
     registerClient() {
+      // Validations
       if (!this.name || !this.email || !this.password || !this.phone || !this.ruc || !this.address) {
         alert('All fields are required');
         return;
       }
+      if (!this.isValidEmail(this.email)) {
+        alert('Please enter a valid email');
+        return;
+      }
+      if (this.password.length < 8){
+        alert('Password must be at least 8 characters long');
+        return;
+      }
+      if (!this.isNumeric(this.phone) || !this.isNumeric(this.ruc)){
+        alert('Phone and RUC only contain numbers');
+        return;
+      }
+      if (this.phone.length !== 9) {
+        alert('Phone must be at 9 characters long');
+        return;
+      }
+      if (this.ruc.length !== 11) {
+        alert('RUC must be at 11 characters long');
+        return;
+      }
+
+      // Register user
       console.log('Registering client...');
       let client = new User(this.name, this.email, this.password, this.phone, this.ruc, this.address);
       this.userService.saveUser(client, 1)
         .then(() => {
           alert('Client registered successfully');
-          this.$router.push('/home');
+          this.$router.push('/login');
         })
         .catch((error) => {
           alert('Error registering client');
@@ -53,49 +84,48 @@ export default {
 
 <template>
   <div class="register-client">
-    <pv-card class="card">
-      <template #content>
-        <h1>Sign Up</h1>
-        <div>
-          <h3>Name</h3>
-          <pv-inputtext v-model="name" style="width: 100%;" required></pv-inputtext>
-        </div>
-        <div>
-          <h3>Email</h3>
-          <pv-inputtext type="email" v-model="email" style="width: 100%;" required></pv-inputtext>
-        </div>
-        <div>
-          <h3>Password</h3>
-          <pv-inputtext type="password" v-model="password" style="width: 100%;" required></pv-inputtext>
-        </div>
-        <div>
-          <h3>Phone</h3>
-          <pv-inputtext v-model="phone" style="width: 100%;" required></pv-inputtext>
-        </div>
-        <div>
-          <h3>RUC</h3>
-          <pv-inputtext v-model="ruc" style="width: 100%;" required></pv-inputtext>
-        </div>
-        <div>
-          <h3>Address</h3>
-          <pv-inputtext v-model="address" style="width: 100%;" required></pv-inputtext>
-        </div>
-        <div class="buttons">
-          <pv-button @click="goBack">Discard</pv-button>
-          <pv-button type="submit" @click="registerClient">Register</pv-button>
-        </div>
-      </template>
-    </pv-card>
+    <form class="registration-form">
+      <h2>Sign Up - Client</h2>
+      <div class="form-group">
+        <label >Name</label>
+        <input v-model="name" style="width: 100%;" required>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" v-model="email" required>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" v-model="password" required>
+      </div>
+      <div class="form-group">
+        <label>Phone</label>
+        <input v-model="phone" required>
+      </div>
+      <div class="form-group">
+        <label>RUC</label>
+        <input v-model="ruc" required>
+      </div>
+      <div class="form-group">
+        <label>Address</label>
+        <input v-model="address" required>
+      </div>
+      <div class="form-group-btn">
+        <pv-button label="Discard" class="btn" style="background-color: red;" @click="goBack"></pv-button>
+        <pv-button label="Sign Up" class="btn" @click="registerClient"></pv-button>
+      </div>
+    </form>
   </div>
 
 </template>
 
 <style scoped>
 
-.card {
-  width: 80%;
-  max-width: 500px;
-
+h2 {
+  font-weight: normal;
+  font-size: 24px;
+  text-align:center;
+  margin-bottom: 7px;
 }
 
 .register-client {
@@ -105,12 +135,54 @@ export default {
   align-items: center;
 }
 
-.buttons {
-  margin-top: 15px;
+.registration-form {
+  font-family: Roboto, "sans-serif";
+  background-color: #FFA500;
+  color: #1E3A8A;
+  padding: 20px;
+  max-width: 500px;
+  margin: 25px auto;
+  border-radius: 25px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  height: 610px;
+  width: 391px
+}
+
+.form-group {
+  margin: 20px;
+}
+/*Labels*/
+.form-group label {
+  font-weight: lighter;
+  font-size: 15px;
+}
+/*Inputs*/
+.form-group input {
+  width: 100%;
+  height: 28px;
+  border-radius: 3px;
+  background-color: #FCE8CC;
+  border: none;
+  margin-bottom: 5px;
+}
+.btn {
+  font-size: 18px;
+  font-weight: lighter;
+  color: #FFFFFF;
+  background-color: #1E3A8A;
+  margin: 0 10px;
+  width: 326px;
+  height: 33px;
+  border-radius: 25px;
+  border: none;
+  cursor:pointer;
+}
+
+.form-group-btn {
+  margin: 30px auto 8px; /*top | both sides | bottom*/
   display: flex;
-  flex-direction: row;
-  gap: 1rem;
   justify-content: center;
+  align-items: center;
 }
 
 </style>
