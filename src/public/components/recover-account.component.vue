@@ -6,17 +6,17 @@ export default {
 
 <template>
   <form class="registration-form">
-    <h2>Recuperación de contraseña</h2>
+    <h2>Recover your account</h2>
     <div class="form-group">
       <div class="container">
-        <label for="email">Introduce tu correo electrónico para recibir instrucciones de como reestablecer tu contraseña</label><br>
+        <label for="email">Enter your email to receive instructions on how to reset your password</label><br>
       </div>
       <input type="email" id="email">
     </div>
     <div class="form-group-btn">
-      <pv-button label="Recuperar" class="btn"></pv-button>
+      <pv-button label="Recover" class="btn"></pv-button>
     </div>
-    <p class="link">¿Te has equivocado? <router-link to="/login">Regresa al inicio de sesion</router-link></p>
+    <p class="link">Go back to <a><router-link to="/login">Login</router-link></a></p>
 
   </form>
 </template>
@@ -90,7 +90,19 @@ h2 {
 .link {
   margin: auto 10px;
   font-weight: lighter;
-  font-size: 12px;
+  font-size: 14px;
+}
+a {
+  cursor: pointer;
+  color: #1E3A8A;
+}
+a:visited {
+  cursor: pointer;
+  color: #1E3A8A;
+}
+a:hover {
+  cursor: pointer;
+  color: #108c10;
 }
 
 </style>
