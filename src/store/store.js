@@ -15,7 +15,10 @@ export default createStore({
         SET_THEME(state, theme) {
             state.theme = theme;
             localStorage.setItem('theme', theme);
-            document.body.className = theme;
+            this.commit('APPLY_THEME'); // Llama a la nueva mutación
+        },
+        APPLY_THEME(state) { // Nueva mutación para aplicar el tema
+            document.body.className = state.theme;
         },
         SET_VIEW(state, view) { // nueva mutación
             state.view = view;
@@ -33,7 +36,7 @@ export default createStore({
                 state.view = state.initialConfig.view;
                 localStorage.setItem('theme', state.theme);
                 localStorage.setItem('view', state.view);
-                document.body.className = state.theme;
+                this.commit('APPLY_THEME'); // Llama a la nueva mutación
             }
         },
     },
