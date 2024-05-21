@@ -7,6 +7,8 @@ import {TripService} from "../services/trip.service.js";
 import {OnGoingTripService} from "../services/ongoing-trip.service.js";
 import { useRouter } from 'vue-router';
 
+import axios from 'axios';
+
 export default defineComponent({
   name: 'LMap',
   computed: {
@@ -25,14 +27,14 @@ export default defineComponent({
       speed: 0,
       distance: 0,
       latitude: 0,
-      longitude: 0
+      longitude: 0,
+      googleMapsApiKey: 'AIzaSyCe0niCYse11QSi-ydywisYM0KEOV-cmdk',
     }
   },
   setup(){
     const router = useRouter();
-
     const goToAlerts = (id) => {
-      router.push(`/client/alerts/${id}`);
+      router.push(`/cliente/alertas/${id}`);
     }
     return{
       goToAlerts
@@ -58,6 +60,7 @@ export default defineComponent({
       this.latitude = response.data[0].latitude;
       this.longitude = response.data[0].longitude;
 
+      // Leaflet Map y marcadores:
       const map = L.map('mapContainer').setView([this.latitude, this.longitude], 13);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors'
@@ -65,13 +68,63 @@ export default defineComponent({
       L.marker([this.latitude, this.longitude], {icon: carIcon}).addTo(map)
           .bindPopup('Current location')
           .openPopup();
+      L.marker([-12.0464, -77.0428]).addTo(map)
+          .bindPopup('Lima')
+          .openPopup();
+
+
+      // Google Maps API (Routes) y logica de movimiento:
+      let stepIndex = 0;
+      let segmentIndex = 0;
+      let segmentsPerStep = 500; // Número de segmentos en los que dividir cada paso
+      let marker = L.marker([this.latitude, this.longitude], {icon: carIcon}).addTo(map);
+      let routePolyline;
+
+      axios.get(`/maps/api/directions/json?origin=${this.latitude},${this.longitude}&destination=-12.0464,-77.0428&key=${this.googleMapsApiKey}`)
+          .then(response => {
+            const steps = response.data.routes[0].legs[0].steps;
+
+            // Crea la ruta completa al inicio (routeCoordinates contiene el conjunto de puntos)
+            const routeCoordinates = steps.map(step => [step.start_location.lat, step.start_location.lng]);
+            routePolyline = L.polyline(routeCoordinates, {color: 'blue'}).addTo(map);
+
+            setInterval(() => {
+              if (stepIndex < steps.length) {
+                const currentStep = steps[stepIndex];
+                const startLatLng = [currentStep.start_location.lat, currentStep.start_location.lng];
+                const endLatLng = [currentStep.end_location.lat, currentStep.end_location.lng];
+
+                // Calcula la latitud y longitud del segmento actual
+                const segmentLat = startLatLng[0] + (endLatLng[0] - startLatLng[0]) * (segmentIndex / segmentsPerStep);
+                const segmentLng = startLatLng[1] + (endLatLng[1] - startLatLng[1]) * (segmentIndex / segmentsPerStep);
+                const segmentLatLng = [segmentLat, segmentLng];
+
+                // Mueve el marcador al segmento actual
+                marker.setLatLng(segmentLatLng);
+
+                // Actualiza la ruta para mostrar solo la parte que falta por recorrer
+                const remainingRouteCoordinates = steps.slice(stepIndex).map(step => [step.start_location.lat, step.start_location.lng]);
+                map.removeLayer(routePolyline);
+                routePolyline = L.polyline(remainingRouteCoordinates, {color: 'blue'}).addTo(map);
+
+                // Avanza al siguiente segmento o paso
+                segmentIndex++;
+                if (segmentIndex >= segmentsPerStep) {
+                  segmentIndex = 0;
+                  stepIndex++;
+                }
+              }
+            }, 300000 / segmentsPerStep); // Mueve el marcador y actualiza la ruta cada segundo / segmentsPerStep
+          })
+          .catch(error => {
+            console.log("Ocurrio un:", error);
+          });
     });
 
   }
 })
 </script>
 <template>
-  <pv-button style="margin-top: 20px; margin-left: 10px;" @click="this.$router.go(-1);">Return</pv-button>
   <div class="container">
     <div class="info-card">
       <pv-card>
@@ -132,19 +185,6 @@ export default defineComponent({
 
 #mapContainer {
   height: calc(100vh - 81px);
-}
-
-@media (max-width: 1000px) {
-  .container{
-    display: flex;
-    flex-direction: column;
-  }
-  .info-card{
-    margin-top: 20px;
-  }
-  #mapContainer {
-    height: 500px;
-  }
 }
 
 </style>
