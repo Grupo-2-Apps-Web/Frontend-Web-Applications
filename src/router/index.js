@@ -7,7 +7,7 @@ import BarGraph from "../client/components/bargraph.component.vue";
 import TravelList from "../client/components/travel-list.component.vue";
 import Map from "../client/components/map.component.vue";
 import Registration from "../entrepreneur/components/registration.component.vue";
-import UserComponent from "../public/components/user.component.vue"
+//import UserComponent from "../public/components/user.component.vue"
 import RegisterTripComponent from "../entrepreneur/components/register-trip.component.vue";
 import RegisterExpenseComponent from "../entrepreneur/components/register-expense.component.vue";
 import AlertList from "../client/components/alert-list.component.vue";
@@ -18,11 +18,17 @@ import ConfigurationComponent from "../public/components/configuration.component
 import SubscriptionComponent from "../public/components/subscription.component.vue";
 import PaymentComponent from "../public/components/payment.component.vue";
 
+import FormRegister from '../public/components/register.component.vue';
+import FormLogin from '../public/components/login.component.vue';
+import FormRecoverAccount from '../public/components/recover-account.component.vue';
+import RegisterClientComponent from "../public/components/register-client.component.vue";
+import RegisterEntrepreneurComponent from "../public/components/register-entrepreneur.component.vue";
+
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-        { path: '/', redirect: '/home' },
-        { path: '/home', component: UserComponent },
+        { path: '/', redirect: '/login' },
+        //{ path: '/home', component: UserComponent },
         { path: '/configuration', component: ConfigurationComponent },
         { path: '/subscription', component: SubscriptionComponent },
         { path: '/payment', component: PaymentComponent },
@@ -44,7 +50,13 @@ const router = createRouter({
         { path: '/entrepreneur/modify/trip/:id', component: ModifyTripComponent },
         { path: '/entrepreneur/modify/expense/:id', component: ModifyExpenseComponent },
         { path: '/entrepreneur/history', component: TripList },
-        { path: '/entrepreneur/gps', component: TravelList}
+        { path: '/entrepreneur/gps', component: TravelList},
+
+        { path: '/login', component: FormLogin },
+        { path: '/signup', component: FormRegister },
+        { path: '/signup/client', component: RegisterClientComponent },
+        { path: '/signup/entrepreneur', component: RegisterEntrepreneurComponent },
+        { path: '/recover-account', component: FormRecoverAccount }
     ]
 });
 

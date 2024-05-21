@@ -73,22 +73,29 @@ export default {
 }
 
 .card {
+  color: black;
   margin: 20px;
   width: 300px; /* Ancho fijo */
   height: 400px; /* Altura fija */
   text-align: center;
+  background-color: #FFA500;
+}
+
+.card h3 {
+  color: #1E3A8A;
+  font-weight: lighter;
 }
 
 .register-button {
   margin-top: 20px;
   margin-right: 20px; /* Añadido margen a la derecha */
-  background-color: #006400;
-  border-color: #006400;
+  background-color: #1E3A8A;
+  border-color: #1E3A8A;
 }
 
 .modify-button {
   margin-top: 20px;
-  background-color: #d5ab22;
-  border-color: #d5ab22;
+  background-color: #1E3A8A;
+  border-color: #1E3A8A;
 }
 </style>
