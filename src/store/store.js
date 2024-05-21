@@ -22,6 +22,7 @@ export default createStore({
         setIsActive(state, value) { // Nueva mutación para isActive
             state.isActive = value;
             localStorage.setItem('isActive', value);
+        },
         setIsClient(state, value) {
             state.isClient = value;
             localStorage.setItem('isClient', value);
