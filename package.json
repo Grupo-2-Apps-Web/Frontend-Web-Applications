@@ -10,16 +10,17 @@
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.16.6",
-    "axios": "^1.7.2",
-    "chart.js": "^4.4.3",
-    "json-server": "^1.0.0-beta.0",
+    "axios": "^1.6.8",
+    "chart.js": "^4.4.2",
+    "json-server": "^1.0.0-alpha.23",
     "leaflet": "^1.9.4",
     "primeflex": "^3.3.1",
+    "primeicons": "^7.0.0",
     "primevue": "^3.52.0",
-    "vue": "^3.4.27",
+    "vue": "^3.4.21",
     "vue-chartjs": "^5.3.1",
     "vue-router": "^4.3.2",
-    "vuex": "^4.1.0"
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
