@@ -1,6 +1,6 @@
 <script>
-import { TripService } from '../services/trip.service.js';
-import { Trip } from '../models/trip.entity.js';
+import { TripService } from '../../client/services/trip.service.js';
+import { Trip } from '../../client/models/trip.entity.js';
 
 export default {
   name: "trip-description",

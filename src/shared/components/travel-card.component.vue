@@ -1,5 +1,5 @@
 <template>
-  <div class="trip" :class="getView">
+  <div class="travel" :class="getView || 'grid'">
     <div v-if="getView === 'list'">
       <div class="table-button-container">
         <table>
@@ -13,12 +13,12 @@
           </tbody>
         </table>
         <div class="button-view-list">
-          <pv-button label="View more" :class="['btn', getView]" @click="goToTrip(trip.id)"></pv-button>
+          <pv-button label="View GPS" :class="['btn', getView]" @click="goToGPS(trip.id)"></pv-button>
         </div>
       </div>
     </div>
     <div v-else>
-      <pv-card class="trip-card">
+      <pv-card class="travel-card">
         <template #content>
           <div class="title">
             <h2>{{trip.name}}</h2>
@@ -30,18 +30,18 @@
           </div>
         </template>
       </pv-card>
-      <pv-button label="View more" :class="['btn', getView]" @click="goToTrip(trip.id)"></pv-button>
+      <pv-button label="View GPS" :class="['btn', getView]" @click="goToGPS(trip.id)"></pv-button>
     </div>
   </div>
 </template>
 
 <script>
-import {Trip} from "../models/trip.entity.js";
+import {Trip} from "../../client/models/trip.entity.js"
 import {useRouter} from "vue-router";
-import { mapGetters } from 'vuex';
+import {mapGetters} from "vuex";
 
 export default {
-  name: "trip-card",
+  name: "travel-card",
   props: {
     trip: {
       type: Trip,
@@ -50,11 +50,14 @@ export default {
   },
   setup(){
     const router = useRouter();
-    const goToTrip = (id) => {
-      router.push(`/client/history/${id}`);
+    const goToGPS = (id) => {
+      const currentPath = window.location.pathname;
+      const isClient = currentPath.includes('client');
+      const newPath = isClient ? `/client/gps/${id}` : `/entrepreneur/gps/${id}`;
+      router.push(newPath);
     }
     return{
-      goToTrip
+      goToGPS
     };
   },
   computed: {
@@ -70,29 +73,29 @@ export default {
 </script>
 
 <style scoped>
-
 h2, h3{
-  font-family: Roboto, sans-serif;
   color: black;
+  font-family: Roboto, sans-serif;
 }
 p{
-  font-family: Roboto, sans-serif;
   color: black;
+  font-family: Roboto, sans-serif;
 }
 
-.trip.grid {
+.travel.grid {
   margin: 40px 0 4px auto;
-  width: 75%;
+  width: 70%;
   display: flex;
   flex-direction: column;
 }
 
-.trip.grid {
+.travel.grid {
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
-.trip-card {
+
+.travel-card {
   background-color: #FFA500;
   border-radius: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
@@ -100,43 +103,13 @@ p{
   max-width: 700px;
 }
 
-.trip-card.grid {
-  width: calc(50% - 10px);
+.travel-card.grid {
+  width: calc(50% - 160px);
 }
 
 .content-info-preview {
   position: absolute;
   margin: -94px 15px 0 170px;
-}
-
-@media (max-width: 1050px) {
-  .trip {
-    margin: 40px 2px 4px 110px;
-    width: 100%;
-  }
-}
-
-@media (max-width: 750px) {
-  .trip {
-    margin: 40px 2px 4px 0;
-    width: 100%;
-  }
-  .content-info-preview {
-    margin: -94px 15px 0 210px;
-  }
-  .btn {
-    margin-left: 250px;
-    margin-top: -5px;
-  }
-}
-
-@media (max-width: 450px) {
-  .title {
-    margin-bottom: 30px;
-  }
-  .content-info-preview {
-    margin: -120px 15px 0 170px;
-  }
 }
 
 .btn.grid {
@@ -145,13 +118,43 @@ p{
   border-radius: 15px;
   width: 25%;
   max-width: 320px;
-  margin-left: 250px;
-  margin-top: -25px;
+  margin-left: calc(30% - 160px);
+  margin-top: -20px;
+}
+
+@media (max-width: 1050px) {
+  .travel.grid {
+    margin: 40px 2px 4px 110px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 750px) {
+  .travel.grid {
+    margin: 40px 2px 4px 0;
+    width: 100%;
+  }
+  .content-info-preview {
+    margin: -94px 15px 0 160px;
+  }
+  .btn.grid {
+    margin-top: -5px;
+    margin-left: calc(50% - 160px);
+  }
+}
+
+@media (max-width: 450px) {
+  .title {
+    margin-bottom: 30px;
+  }
+  .content-info-preview {
+    margin: -120px 15px 0 160px;
+  }
 }
 
 /*-----------------------------List View--------------------------------------*/
 
-.trip.list {
+.travel.list {
   margin: 2px;
   width: 55%;
   display: flex;
@@ -215,10 +218,9 @@ table th, table td {
   background-color: #45a049;
 }
 
-
 @media (max-width: 767px) {
 
-  .trip.list {
+  .travel.list {
     width: 80%;
   }
 
@@ -233,7 +235,6 @@ table th, table td {
     font-size: 10px;
     display: flex;
     text-align: center;
-
   }
 
 }

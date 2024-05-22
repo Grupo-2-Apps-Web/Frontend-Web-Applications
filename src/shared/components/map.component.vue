@@ -2,9 +2,9 @@
 import { defineComponent, onMounted, onBeforeMount } from 'vue'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
-import { Trip } from "../models/trip.entity.js";
-import {TripService} from "../services/trip.service.js";
-import {OnGoingTripService} from "../services/ongoing-trip.service.js";
+import { Trip } from "../../client/models/trip.entity.js";
+import {TripService} from "../../client/services/trip.service.js";
+import {OnGoingTripService} from "../../client/services/ongoing-trip.service.js";
 import { useRouter } from 'vue-router';
 
 import axios from 'axios';
@@ -20,6 +20,7 @@ export default defineComponent({
     return {
       tripAPI: new TripService(),
       onGoingTripAPI: new OnGoingTripService(),
+      isClient: window.location.pathname.includes('client'),
       trip: Trip,
       driver: '',
       plate : '',
@@ -34,7 +35,7 @@ export default defineComponent({
   setup(){
     const router = useRouter();
     const goToAlerts = (id) => {
-      router.push(`/cliente/alertas/${id}`);
+      router.push(`/client/alerts/${id}`);
     }
     return{
       goToAlerts
@@ -141,7 +142,7 @@ export default defineComponent({
           </div>
         </template>
       </pv-card>
-      <pv-button label="Alerts" class="btn" @click="goToAlerts(id)"></pv-button>
+      <pv-button v-if="isClient" label="Alerts" class="btn" @click="goToAlerts(id)"></pv-button>
     </div>
     <div id="mapContainer"></div>
   </div>
