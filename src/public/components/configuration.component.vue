@@ -1,9 +1,11 @@
 <script>
-import {useRouter} from "vue-router";
 import SwitcherthemeComponent from "./switcher-theme.component.vue";
 import DataCollectionComponent from "./data-collection.component.vue";
 import SwitcherViewDataComponent from "./switcher-view-data.component.vue";
-import {useStore} from "vuex";
+import {ConfigurationService} from "../services/configuration.service.js";
+import router from "../../router/index.js";
+import store from "../../store/store.js";
+import {Configuration} from "../models/configuration.entity.js";
 
 export default {
   name: "configuration.component",
@@ -12,35 +14,49 @@ export default {
     DataCollectionComponent,
     SwitcherViewDataComponent
   },
-  setup() {
-    const router = useRouter()
-    const store = useStore()
+  data(){
+    return {
+      configurationService: new ConfigurationService(),
+    }
+  },
+  methods: {
+    saveConfig(){
+      store.commit('SET_THEME', store.state.theme);
+      store.commit('SET_VIEW', store.state.view);
+      const configuration = new Configuration(
+          localStorage.getItem('user_id'),
+          store.state.theme,
+          store.state.view,
+          localStorage.getItem('dataCollection'),
+          localStorage.getItem('dataSharing')
+      );
 
-    const goBack = () => {
+      this.configurationService.updateConfiguration(configuration.id, configuration);
+      alert("Configuration saved successfully!");
+      router.back();
+    },
+    goBack() {
       if (store.state.theme !== store.state.initialConfig.theme || store.state.view !== store.state.initialConfig.view) {
         if (window.confirm("You have unsaved changes. Do you want to save them?")) {
-          saveConfig();
+          this.saveConfig();
         } else {
           store.commit('RESET_CONFIG');
         }
       }
       router.back();
     }
-
-    const saveConfig = () => {
-      store.commit('SET_THEME', store.state.theme);
-      store.commit('SET_VIEW', store.state.view);
-      alert("Configuration saved successfully!");
-      router.back();
-    }
-
-    return {
-      goBack,
-      saveConfig,
-    }
   },
   created() {
-    this.$store.commit('SET_INITIAL_CONFIG');
+    this.configurationService.getConfigurationById(localStorage.getItem('user_id'))
+        .then(response => {
+          const configuration = response.data;
+          store.commit('SET_THEME', configuration.theme);
+          store.commit('SET_VIEW', configuration.view);
+          this.$store.commit('SET_INITIAL_CONFIG');
+        })
+        .catch(error => {
+          console.error('Error loading configuration:', error);
+        });
   }
 }
 </script>

@@ -1,8 +1,8 @@
 <script>
-import {Trip} from "../models/trip.entity.js";
+import {Trip} from "../../client/models/trip.entity.js";
 import TravelCard from "./travel-card.component.vue";
-import {OnGoingTripService} from "../services/ongoing-trip.service.js";
-import {TripService} from "../services/trip.service.js";
+import {OnGoingTripService} from "../../client/services/ongoing-trip.service.js";
+import {TripService} from "../../client/services/trip.service.js";
 import {mapGetters} from "vuex";
 
 export default {
