@@ -8,7 +8,7 @@
       "phone": "987654321",
       "ruc": "20123486690",
       "address": "Av. La Marina 123 - Callao",
-      "subscription_id": "1"
+      "subscription": "Premium"
     },
     {
       "id": "2",
@@ -18,7 +18,7 @@
       "phone": "999235001",
       "ruc": "21390081200",
       "address": "Calle Independencia 116 - Villa María del Triunfo",
-      "subscription_id": "2"
+      "subscription": "Premium"
     },
     {
       "id": "3",
@@ -28,7 +28,7 @@
       "phone": "982630015",
       "ruc": "20123456789",
       "address": "Av. Huancaray 560 - Santa Anita",
-      "subscription_id": "1"
+      "subscription": "Basic"
     },
     {
       "id": "4",
@@ -38,7 +38,7 @@
       "phone": "945010682",
       "ruc": "20455690152",
       "address": "Av. Los Incas 123 - San Juan de Lurigancho",
-      "subscription_id": "2"
+      "subscription_id": "Premium"
     }
   ],
   "clients": [
@@ -223,6 +223,36 @@
           "date": "2024-05-25T05:05:46Z"
         }
       ]
+    }
+  ],
+  "configurations": [
+    {
+      "id": "1",
+      "theme": "light",
+      "view": "grid",
+      "allowDataCollection": "true",
+      "updateDataSharing": "true"
+    },
+    {
+      "id": "2",
+      "theme": "dark",
+      "view": "list",
+      "allowDataCollection": "false",
+      "updateDataSharing": "false"
+    },
+    {
+      "id": "3",
+      "theme": "light",
+      "view": "grid",
+      "allowDataCollection": "true",
+      "updateDataSharing": "true"
+    },
+    {
+      "id": "4",
+      "theme": "dark",
+      "view": "list",
+      "allowDataCollection": "false",
+      "updateDataSharing": "true"
     }
   ]
 }
