@@ -37,7 +37,12 @@ export default {
       const re = /^\d+$/;
       return re.test(String(value));
     },
-    registerClient() {
+    async alreadyExists(email) {
+      const user = await this.userService.getUserByEmail(email);
+      if (user !== null) return true;
+      return false;
+    },
+    async registerClient() {
       // Validations
       if (!this.name || !this.email || !this.password || !this.phone || !this.ruc || !this.address) {
         alert('All fields are required');
@@ -45,6 +50,10 @@ export default {
       }
       if (!this.isValidEmail(this.email)) {
         alert('Please enter a valid email');
+        return;
+      }
+      if (await this.alreadyExists(this.email)) {
+        alert('Email already signed up');
         return;
       }
       if (this.password.length < 8){
@@ -66,7 +75,7 @@ export default {
 
       // Register user
       console.log('Registering client...');
-      let client = new User(this.name, this.email, this.password, this.phone, this.ruc, this.address);
+      let client = new User("", this.name, this.email, this.password, this.phone, this.ruc, this.address, "Basic");
       this.userService.saveUser(client, 1)
         .then(() => {
           alert('Client registered successfully');
