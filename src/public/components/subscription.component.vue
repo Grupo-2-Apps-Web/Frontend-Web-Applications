@@ -1,27 +1,42 @@
 <script>
 import {useRouter} from "vue-router";
 import {ref} from "vue";
+import {UserService} from "../services/user.service.js";
 
 export default {
   name: "subscription.component",
+  data(){
+    return {
+      userId: localStorage.getItem('user_id'),
+      userService: new UserService(),
+      selectedPlan: 'Basic'
+    }
+  },
+  created(){
+    this.userService.getUserById(this.userId).then(response => {
+      const user = response.data;
+      this.selectedPlan = user.subscription;
+    });
+  },
   setup() {
     const router = useRouter();
-    const selectedPlan = ref('Basic'); //hard coded
-
     const goBack = () => {
       router.back()
     }
-
-    const selectPlan = (plan) => {
-      selectedPlan.value = plan;
-      alert(`You have selected the ${plan} plan.`)
-      // add logic to select plan and update the database
-    }
-
     return {
       goBack,
-      selectPlan,
-      selectedPlan
+    }
+  },
+  methods:{
+    selectPlan(plan){
+      this.selectedPlan = plan;
+      alert(`You have selected the ${plan} plan.`)
+
+      this.userService.getUserById(this.userId).then(response => {
+        const user = response.data;
+        user.subscription = plan;
+        this.userService.setUser(this.userId, user).then();
+      });
     }
   }
 }
