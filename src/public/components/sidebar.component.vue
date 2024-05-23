@@ -23,7 +23,7 @@ const togglesidebar = () => {
 
 let store = useStore();
 let userType = computed(() => store.state.user_type) // Nuevo
-let isActive = computed( () => store.state.isActive)
+let isActive = computed(() => store.state.isActive === 'true' || store.state.isActive === true)
 
 // Observa el estado del tema en el store de Vuex
 let theme = computed(() => store.state.theme)
@@ -36,10 +36,14 @@ watch(theme, (newTheme) => {
 
 onMounted(() => {
   document.body.className = theme.value;
+  if (localStorage.getItem('isActive')) {
+    store.commit('setIsActive', JSON.parse(localStorage.getItem('isActive')));
+  }
 });
 
 const logOut = () => {
   store.commit('setIsActive', false);
+  togglesidebar();
 };
 
 </script>
@@ -53,13 +57,13 @@ const logOut = () => {
         <i class="pi pi-times" style="font-size: 2rem; color: #686f75" @click="togglesidebar"/>
       </template>
       <ul>
-        <li v-if="userType === 'client' && isActive === true"><router-link to="/client/history">Record</router-link></li>
-        <li v-if="userType === 'client' && isActive === true"><router-link to="/client/expenses">Expenses</router-link></li>
-        <li v-if="userType === 'client' && isActive === true"><router-link to="/client/gps">GPS</router-link></li>
-        <li v-if="userType === 'client' && isActive === true"><router-link to="/client/statistics">Statistics</router-link></li>
-        <li v-if="userType === 'entrepreneur' && isActive === true"><router-link to="/entrepreneur/register">Registry</router-link></li>
-        <li v-if="userType === 'entrepreneur' && isActive === true"><router-link to="/entrepreneur/history">Record</router-link></li>
-        <li v-if="userType === 'entrepreneur' && isActive === true"><router-link to="/entrepreneur/gps">GPS</router-link></li>
+        <li v-if="userType === 'client'"><router-link to="/client/history">Record</router-link></li>
+        <li v-if="userType === 'client'"><router-link to="/client/expenses">Expenses</router-link></li>
+        <li v-if="userType === 'client'"><router-link to="/client/gps">GPS</router-link></li>
+        <li v-if="userType === 'client'"><router-link to="/client/statistics">Statistics</router-link></li>
+        <li v-if="userType === 'entrepreneur'"><router-link to="/entrepreneur/register">Registry</router-link></li>
+        <li v-if="userType === 'entrepreneur'"><router-link to="/entrepreneur/history">Record</router-link></li>
+        <li v-if="userType === 'entrepreneur'"><router-link to="/entrepreneur/gps">GPS</router-link></li>
       </ul>
       <div v-if="isActive === true" class = "button-container">
         <router-link to="/">

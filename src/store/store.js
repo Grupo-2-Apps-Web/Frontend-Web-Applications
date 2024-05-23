@@ -4,7 +4,7 @@ export default createStore({
     state: {
         user_id: localStorage.getItem('user_id') || null,
         user_type: localStorage.getItem('user_type') || null,
-        isActive: false,
+        isActive: localStorage.getItem('isActive') || false,
         isClient: localStorage.getItem('isClient') ? parseInt(localStorage.getItem('isClient')) : 0,
         theme: localStorage.getItem('theme') || 'light',
         view: localStorage.getItem('view') || 'grid',
