@@ -8,7 +8,7 @@
       "phone": "987654321",
       "ruc": "20123486690",
       "address": "Av. La Marina 123 - Callao",
-      "subscription": "Premium"
+      "subscription": "Basic"
     },
     {
       "id": "2",
@@ -228,10 +228,10 @@
   "configurations": [
     {
       "id": "1",
-      "theme": "light",
+      "theme": "dark",
       "view": "grid",
-      "allowDataCollection": "true",
-      "updateDataSharing": "true"
+      "allowDataCollection": "false",
+      "updateDataSharing": "false"
     },
     {
       "id": "2",
