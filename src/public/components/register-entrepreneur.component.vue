@@ -38,7 +38,12 @@ export default {
       const re = /^\d+$/;
       return re.test(String(value));
     },
-    registerEntrepreneur() {
+    async alreadyExists(email) {
+      const user = await this.userService.getUserByEmail(email);
+      if (user !== null) return true;
+      return false;
+    },
+    async registerEntrepreneur() {
       // Validations
       if (!this.name || !this.email || !this.password || !this.phone || !this.ruc || !this.address) {
         alert('All fields are required');
@@ -46,6 +51,10 @@ export default {
       }
       if (!this.isValidEmail(this.email)) {
         alert('Please enter a valid email');
+        return;
+      }
+      if (await this.alreadyExists(this.email)) {
+        alert('Email already signed up');
         return;
       }
       if (this.password.length < 8){
