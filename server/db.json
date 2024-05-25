@@ -199,7 +199,7 @@
       "tolls_description": "Se pasaron por seis peajes en total, los costos respectivos son: 50, 47, 40, 40, 45, 53"
     },
     {
-      "id":2,
+      "id": 2,
       "trip_id": 2,
       "fuel_amount": "540",
       "fuel_description": "Se utilizaron 120 litros de gasolina diésel para el recorrido de 300 km. El precio por litro es S/. 4.50. Por lo tanto, el total es: 120 x 4.50 = 540",

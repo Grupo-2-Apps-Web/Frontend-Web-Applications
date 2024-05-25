@@ -15,6 +15,7 @@ export default {
     };
 
     return {
+      router,
       goBack
     };
 
@@ -75,9 +76,9 @@ export default {
         return;
       }
       // Register user
-      let user = new User(0, this.name, this.email, this.phone, this.password, this.ruc, this.address, "Basic");
-      this.userService.post(user).then((user) => {
-        let client = new Client(0, user.id);
+      let newUser = new User(0, this.name, this.email, this.phone, this.password, this.ruc, this.address, "Basic");
+      this.userService.create(newUser).then((user) => {
+        let client = new Client(0, user.data.id);
         this.clientService.create(client).then(() => {
           this.router.push('/login');
         });

@@ -16,6 +16,7 @@ export default {
     };
 
     return {
+      router,
       goBack
     };
 
@@ -44,8 +45,8 @@ export default {
     },
     async alreadyExists(email) {
       const user = await this.userService.getUserByEmail(email);
-      if (user !== null) return true;
-      return false;
+      return user !== null;
+
     },
     async registerEntrepreneur() {
       // Validations
@@ -78,9 +79,9 @@ export default {
         return;
       }
       // Register user
-      let user = new User(0, this.name, this.email, this.phone, this.password, this.ruc, this.address, "Basic");
-      this.userService.post(user).then((user) => {
-        let entrepreneur = new Entrepreneur(0, this.logoImage, user.id);
+      let newUser = new User(0, this.name, this.email, this.phone, this.password, this.ruc, this.address, "Basic");
+      this.userService.create(newUser).then((user) => {
+        let entrepreneur = new Entrepreneur(0, this.logoImage, user.data.id);
         this.entrepreneurService.create(entrepreneur).then(() => {
           this.router.push('/login');
         });
@@ -89,24 +90,16 @@ export default {
         console.error(error);
       });
     },
-    triggerFileUploadLoad() {
-      this.$refs.fileInputLoad.click();
-    },
     triggerFileUploadLogo() {
-      this.$refs.fileInputLogo.click();
-    },
-    handleFileUpload(event) {
-      const file = event.target.files[0];
-      if (file) {
-        this.trip.cargo.loadImage = URL.createObjectURL(file);
-      }
+      if(this.$refs.fileInputLogo)
+        this.$refs.fileInputLogo.click();
     },
     handleFileUploadLogo(event) {
       const file = event.target.files[0];
       if (file) {
-        this.trip.company.logoImage = URL.createObjectURL(file);
+        this.logoImage = URL.createObjectURL(file);
       }
-    },
+    }
   }
 }
 </script>
