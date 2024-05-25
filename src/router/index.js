@@ -1,39 +1,36 @@
 import {createRouter, createWebHistory} from "vue-router";
-import ExpenseList from "../client/components/expense-list.component.vue";
-import ExpenseDescription from "../client/components/expense-description.component.vue"
-import TripList from "../shared/components/trip-list.component.vue";
-import TripDescription from "../shared/components/trip-description.component.vue";
-import BarGraph from "../client/components/bargraph.component.vue";
+import ExpenseList from "../visualization/pages/expense-list.component.vue";
+import ExpenseDescription from "../visualization/pages/expense-description.component.vue"
+import TripList from "../visualization/pages/trip-list.component.vue";
+import TripDescription from "../visualization/pages/trip-description.component.vue";
+import BarGraph from "../visualization/pages/bargraph.component.vue";
 
-import TravelList from "../shared/components/travel-list.component.vue";
-import Map from "../shared/components/map.component.vue";
-
-
-import Registration from "../entrepreneur/components/registration.component.vue";
+import TravelList from "../visualization/pages/travel-list.component.vue";
+import Map from "../visualization/pages/map.component.vue";
 
 
-//import UserComponent from "../public/components/user.component.vue"
-import RegisterTripComponent from "../entrepreneur/components/register-trip.component.vue";
-import RegisterExpenseComponent from "../entrepreneur/components/register-expense.component.vue";
-import AlertList from "../client/components/alert-list.component.vue";
-import ModifyTripComponent from "../entrepreneur/components/modify-trip.component.vue";
-import ModifyExpenseComponent from "../entrepreneur/components/modify-expense.component.vue";
-import ModifyRequestIdComponent from "../entrepreneur/components/modify-request-id.component.vue";
-import ConfigurationComponent from "../public/components/configuration.component.vue";
-import SubscriptionComponent from "../public/components/subscription.component.vue";
-import PaymentComponent from "../public/components/payment.component.vue";
+import Registration from "../registration/pages/registration.component.vue";
 
-import FormRegister from '../public/components/register.component.vue';
-import FormLogin from '../public/components/login.component.vue';
-import FormRecoverAccount from '../public/components/recover-account.component.vue';
-import RegisterClientComponent from "../public/components/register-client.component.vue";
-import RegisterEntrepreneurComponent from "../public/components/register-entrepreneur.component.vue";
+import RegisterTripComponent from "../registration/pages/register-trip.component.vue";
+import RegisterExpenseComponent from "../registration/pages/register-expense.component.vue";
+import AlertList from "../visualization/pages/alert-list.component.vue";
+import ModifyTripComponent from "../registration/pages/modify-trip.component.vue";
+import ModifyExpenseComponent from "../registration/pages/modify-expense.component.vue";
+import ModifyRequestIdComponent from "../registration/pages/modify-request-id.component.vue";
+import ConfigurationComponent from "../user/pages/configuration.component.vue";
+import SubscriptionComponent from "../user/pages/subscription.component.vue";
+import PaymentComponent from "../user/pages/payment.component.vue";
+
+import FormRegister from '../user/pages/register.component.vue';
+import FormLogin from '../user/pages/login.component.vue';
+import FormRecoverAccount from '../user/pages/recover-account.component.vue';
+import RegisterClientComponent from "../user/pages/register-client.component.vue";
+import RegisterEntrepreneurComponent from "../user/pages/register-entrepreneur.component.vue";
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [
         { path: '/', redirect: '/login' },
-        //{ path: '/home', component: UserComponent },
         { path: '/configuration', component: ConfigurationComponent },
         { path: '/subscription', component: SubscriptionComponent },
         { path: '/payment', component: PaymentComponent },

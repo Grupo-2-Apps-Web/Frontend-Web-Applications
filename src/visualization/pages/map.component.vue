@@ -2,9 +2,9 @@
 import { defineComponent, onMounted, onBeforeMount } from 'vue'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
-import { Trip } from "../../client/models/trip.entity.js";
-import {TripService} from "../../client/services/trip.service.js";
-import {OnGoingTripService} from "../../client/services/ongoing-trip.service.js";
+import { Trip } from "../../registration/models/trip.entity.js";
+import {TripService} from "../../registration/services/trip.service.js";
+import {OnGoingTripService} from "../../registration/services/ongoing-trip.service.js";
 import { useRouter } from 'vue-router';
 
 import axios from 'axios';

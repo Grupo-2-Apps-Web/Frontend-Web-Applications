@@ -1,6 +1,6 @@
 
 <script>
-import {ExpenseService} from "../../client/services/expense.service.js";
+import {ExpenseService} from "../services/expense.service.js";
 
 export default {
   name: "modify-expense",

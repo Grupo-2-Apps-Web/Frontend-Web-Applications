@@ -2,7 +2,7 @@
 import { useRouter } from 'vue-router';
 import { ref, reactive } from "vue";
 import { useConfirm } from 'primevue/useconfirm';
-import { TripService } from '../services/trip.service.js'
+import { TripService } from '../../entrepreneur/services/trip.service.js'
 
 export default {
   name: "register-trip",

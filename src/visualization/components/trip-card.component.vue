@@ -1,5 +1,5 @@
 <template>
-  <div class="travel" :class="getView || 'grid'">
+  <div class="trip" :class="getView">
     <div v-if="getView === 'list'">
       <div class="table-button-container">
         <table>
@@ -13,12 +13,12 @@
           </tbody>
         </table>
         <div class="button-view-list">
-          <pv-button label="View GPS" :class="['btn', getView]" @click="goToGPS(trip.id)"></pv-button>
+          <pv-button label="View more" :class="['btn', getView]" @click="goToTrip(trip.id)"></pv-button>
         </div>
       </div>
     </div>
     <div v-else>
-      <pv-card class="travel-card">
+      <pv-card class="trip-card">
         <template #content>
           <div class="title">
             <h2>{{trip.name}}</h2>
@@ -30,18 +30,18 @@
           </div>
         </template>
       </pv-card>
-      <pv-button label="View GPS" :class="['btn', getView]" @click="goToGPS(trip.id)"></pv-button>
+      <pv-button label="View more" :class="['btn', getView]" @click="goToTrip(trip.id)"></pv-button>
     </div>
   </div>
 </template>
 
 <script>
-import {Trip} from "../../client/models/trip.entity.js"
+import {Trip} from "../../registration/models/trip.entity.js";
 import {useRouter} from "vue-router";
-import {mapGetters} from "vuex";
+import { mapGetters } from 'vuex';
 
 export default {
-  name: "travel-card",
+  name: "trip-card",
   props: {
     trip: {
       type: Trip,
@@ -50,14 +50,14 @@ export default {
   },
   setup(){
     const router = useRouter();
-    const goToGPS = (id) => {
+    const goToTrip = (id) => {
       const currentPath = window.location.pathname;
       const isClient = currentPath.includes('client');
-      const newPath = isClient ? `/client/gps/${id}` : `/entrepreneur/gps/${id}`;
+      const newPath = isClient ? `/client/history/${id}` : `/entrepreneur/history/${id}`;
       router.push(newPath);
     }
     return{
-      goToGPS
+      goToTrip
     };
   },
   computed: {
@@ -73,29 +73,29 @@ export default {
 </script>
 
 <style scoped>
+
 h2, h3{
-  color: black;
   font-family: Roboto, sans-serif;
+  color: black;
 }
 p{
-  color: black;
   font-family: Roboto, sans-serif;
+  color: black;
 }
 
-.travel.grid {
+.trip.grid {
   margin: 40px 0 4px auto;
-  width: 70%;
+  width: 75%;
   display: flex;
   flex-direction: column;
 }
 
-.travel.grid {
+.trip.grid {
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
-
-.travel-card {
+.trip-card {
   background-color: #FFA500;
   border-radius: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
@@ -103,8 +103,8 @@ p{
   max-width: 700px;
 }
 
-.travel-card.grid {
-  width: calc(50% - 160px);
+.trip-card.grid {
+  width: calc(50% - 10px);
 }
 
 .content-info-preview {
@@ -112,34 +112,24 @@ p{
   margin: -94px 15px 0 170px;
 }
 
-.btn.grid {
-  font-family: Rubik, sans-serif;
-  background-color: #006400;
-  border-radius: 15px;
-  width: 25%;
-  max-width: 320px;
-  margin-left: calc(30% - 160px);
-  margin-top: -20px;
-}
-
 @media (max-width: 1050px) {
-  .travel.grid {
+  .trip {
     margin: 40px 2px 4px 110px;
     width: 100%;
   }
 }
 
 @media (max-width: 750px) {
-  .travel.grid {
+  .trip {
     margin: 40px 2px 4px 0;
     width: 100%;
   }
   .content-info-preview {
-    margin: -94px 15px 0 160px;
+    margin: -94px 15px 0 210px;
   }
-  .btn.grid {
+  .btn {
+    margin-left: 250px;
     margin-top: -5px;
-    margin-left: calc(50% - 160px);
   }
 }
 
@@ -148,13 +138,23 @@ p{
     margin-bottom: 30px;
   }
   .content-info-preview {
-    margin: -120px 15px 0 160px;
+    margin: -120px 15px 0 170px;
   }
+}
+
+.btn.grid {
+  font-family: Rubik, sans-serif;
+  background-color: #006400;
+  border-radius: 15px;
+  width: 25%;
+  max-width: 320px;
+  margin-left: 250px;
+  margin-top: -25px;
 }
 
 /*-----------------------------List View--------------------------------------*/
 
-.travel.list {
+.trip.list {
   margin: 2px;
   width: 55%;
   display: flex;
@@ -218,9 +218,10 @@ table th, table td {
   background-color: #45a049;
 }
 
+
 @media (max-width: 767px) {
 
-  .travel.list {
+  .trip.list {
     width: 80%;
   }
 
@@ -235,6 +236,7 @@ table th, table td {
     font-size: 10px;
     display: flex;
     text-align: center;
+
   }
 
 }

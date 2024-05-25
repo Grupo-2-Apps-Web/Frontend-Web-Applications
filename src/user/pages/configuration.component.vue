@@ -1,7 +1,7 @@
 <script>
-import SwitcherthemeComponent from "./switcher-theme.component.vue";
-import DataCollectionComponent from "./data-collection.component.vue";
-import SwitcherViewDataComponent from "./switcher-view-data.component.vue";
+import SwitcherthemeComponent from "../components/switcher-theme.component.vue";
+import DataCollectionComponent from "../components/data-collection.component.vue";
+import SwitcherViewDataComponent from "../components/switcher-view-data.component.vue";
 import {ConfigurationService} from "../services/configuration.service.js";
 import router from "../../router/index.js";
 import store from "../../store/store.js";

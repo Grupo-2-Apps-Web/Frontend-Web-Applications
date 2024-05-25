@@ -2,7 +2,7 @@
 import { useRouter } from 'vue-router';
 import { ref, reactive } from "vue";
 import { useConfirm } from 'primevue/useconfirm';
-import {ExpenseService} from "../../client/services/expense.service.js";
+import {ExpenseService} from "../services/expense.service.js";
 
 export default {
   name: "register-expense.component",

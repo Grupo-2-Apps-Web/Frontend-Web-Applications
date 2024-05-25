@@ -1,7 +1,7 @@
 <script>
-import AlertCard from './alert-card.component.vue';
-import { OnGoingTripService } from '../services/ongoing-trip.service.js';
-import { Alert } from '../models/alert.entity.js';
+import AlertCard from '../components/alert-card.component.vue';
+import { OnGoingTripService } from '../../registration/services/ongoing-trip.service.js';
+import { Alert } from '../../registration/models/alert.entity.js';
 
 export default {
   name: "alert-list",

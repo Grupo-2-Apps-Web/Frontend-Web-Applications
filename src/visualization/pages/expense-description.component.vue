@@ -1,7 +1,7 @@
 <script>
-import {Expense} from "../models/expense.entity.js";
-import {TripService} from "../services/trip.service.js";
-import {ExpenseService} from "../services/expense.service.js";
+import {Expense} from "../../registration/models/expense.entity.js";
+import {TripService} from "../../registration/services/trip.service.js";
+import {ExpenseService} from "../../registration/services/expense.service.js";
 
 export default {
   name: "expense-description",

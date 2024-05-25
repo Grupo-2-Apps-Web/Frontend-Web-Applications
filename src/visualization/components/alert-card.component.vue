@@ -1,5 +1,5 @@
 <script>
-import {Alert} from "../models/alert.entity.js";
+import {Alert} from "../../registration/models/alert.entity.js";
 
 export default {
   name: "alert-card",

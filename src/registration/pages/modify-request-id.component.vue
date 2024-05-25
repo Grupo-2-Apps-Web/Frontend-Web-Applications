@@ -1,7 +1,7 @@
 <script>
 import {useRouter} from "vue-router";
-import {TripService} from "../../client/services/trip.service.js";
-import {ExpenseService} from "../../client/services/expense.service.js";
+import {TripService} from "../services/trip.service.js";
+import {ExpenseService} from "../services/expense.service.js";
 
 export default {
   data(){

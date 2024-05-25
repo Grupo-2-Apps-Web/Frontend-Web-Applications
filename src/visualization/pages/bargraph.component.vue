@@ -1,7 +1,7 @@
 <script>
 
-import monthStatistic from "./month-statistic.component.vue";
-import destinationStatistic from "./destination-statistic.component.vue";
+import monthStatistic from "../components/month-statistic.component.vue";
+import destinationStatistic from "../components/destination-statistic.component.vue";
 
 export default {
   name: 'App',

@@ -1,5 +1,5 @@
 <template>
-  <div class="expense" :class="getView || 'grid'">
+  <div class="travel" :class="getView || 'grid'">
     <div v-if="getView === 'list'">
       <div class="table-button-container">
         <table>
@@ -13,49 +13,51 @@
           </tbody>
         </table>
         <div class="button-view-list">
-          <pv-button label="View expenses" :class="['btn', getView]" @click="goToExpenses(trip.id)"></pv-button>
+          <pv-button label="View GPS" :class="['btn', getView]" @click="goToGPS(trip.id)"></pv-button>
         </div>
       </div>
     </div>
     <div v-else>
-      <pv-card class="expense-card">
+      <pv-card class="travel-card">
         <template #content>
           <div class="title">
             <h2>{{trip.name}}</h2>
             <h3>ID: {{trip.id}}</h3>
           </div>
           <div class="content-info-preview">
-            <p>FECHA DE CARGA: {{ formatDate(trip.loadDate) }}</p>
-            <p>LUGAR DE CARGA: {{ trip.loadLocation }}</p>
+            <p>LOAD DATE: {{ formatDate(trip.loadDate) }}</p>
+            <p>LOAD LOCATION: {{ trip.loadLocation }}</p>
           </div>
         </template>
       </pv-card>
-      <pv-button label="View expenses" :class="['btn', getView]" @click="goToExpenses(trip.id)"></pv-button>
+      <pv-button label="View GPS" :class="['btn', getView]" @click="goToGPS(trip.id)"></pv-button>
     </div>
   </div>
 </template>
 
 <script>
-import { Expense } from "../models/expense.entity.js";
-import { Trip } from "../models/trip.entity.js";
+import {Trip} from "../../registration/models/trip.entity.js"
 import {useRouter} from "vue-router";
 import {mapGetters} from "vuex";
 
 export default {
-  name: "expense-card",
+  name: "travel-card",
   props: {
-    trip : {
+    trip: {
       type: Trip,
       required: true
-    },
+    }
   },
   setup(){
     const router = useRouter();
-    const goToExpenses = (id) => {
-      router.push(`/client/expenses/${id}`);
+    const goToGPS = (id) => {
+      const currentPath = window.location.pathname;
+      const isClient = currentPath.includes('client');
+      const newPath = isClient ? `/client/gps/${id}` : `/entrepreneur/gps/${id}`;
+      router.push(newPath);
     }
     return{
-      goToExpenses
+      goToGPS
     };
   },
   computed: {
@@ -72,27 +74,28 @@ export default {
 
 <style scoped>
 h2, h3{
-  font-family: Roboto, sans-serif;
   color: black;
+  font-family: Roboto, sans-serif;
 }
 p{
-  font-family: Roboto, sans-serif;
   color: black;
+  font-family: Roboto, sans-serif;
 }
 
-.expense.grid {
+.travel.grid {
   margin: 40px 0 4px auto;
   width: 70%;
   display: flex;
   flex-direction: column;
 }
 
-.expense.grid {
+.travel.grid {
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
-.expense-card {
+
+.travel-card {
   background-color: #FFA500;
   border-radius: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
@@ -100,7 +103,7 @@ p{
   max-width: 700px;
 }
 
-.expense-card.grid {
+.travel-card.grid {
   width: calc(50% - 160px);
 }
 
@@ -120,14 +123,14 @@ p{
 }
 
 @media (max-width: 1050px) {
-  .expense.grid {
+  .travel.grid {
     margin: 40px 2px 4px 110px;
     width: 100%;
   }
 }
 
 @media (max-width: 750px) {
-  .expense.grid {
+  .travel.grid {
     margin: 40px 2px 4px 0;
     width: 100%;
   }
@@ -135,7 +138,7 @@ p{
     margin: -94px 15px 0 160px;
   }
   .btn.grid {
-    margin-top: -10px;
+    margin-top: -5px;
     margin-left: calc(50% - 160px);
   }
 }
@@ -149,10 +152,9 @@ p{
   }
 }
 
-
 /*-----------------------------List View--------------------------------------*/
 
-.expense.list {
+.travel.list {
   margin: 2px;
   width: 55%;
   display: flex;
@@ -214,6 +216,27 @@ table th, table td {
 
 .btn:hover.list {
   background-color: #45a049;
+}
+
+@media (max-width: 767px) {
+
+  .travel.list {
+    width: 80%;
+  }
+
+  table th, table td {
+    padding: 2px;
+    font-size: 10px;
+  }
+
+  .btn.list {
+    width: 40px;
+    height: 40px;
+    font-size: 10px;
+    display: flex;
+    text-align: center;
+  }
+
 }
 
 </style>

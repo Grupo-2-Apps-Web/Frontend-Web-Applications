@@ -1,5 +1,5 @@
 <script>
-import {TripService} from "../services/trip.service";
+
 
 export default {
   name: "modify-trip.component",
