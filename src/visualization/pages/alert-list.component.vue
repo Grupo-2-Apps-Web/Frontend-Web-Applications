@@ -2,6 +2,7 @@
 import AlertCard from '../components/alert-card.component.vue';
 import { OnGoingTripService } from '../../registration/services/ongoing-trip.service.js';
 import { Alert } from '../../registration/models/alert.entity.js';
+import {AlertService} from "../../registration/services/alert.service.js";
 
 export default {
   name: "alert-list",
@@ -15,20 +16,21 @@ export default {
   },
   data() {
     return {
-      alertService: new OnGoingTripService(),
+      alertService: new AlertService(),
       alerts: [],
       alert: Alert,
     }
   },
   created() {
-    this.alertService.getTripByID(this.id).then(response => {
-      response.data[0].alerts.forEach(alert => {
-        this.alerts.push(new Alert(
-          alert.type,
-          alert.description,
-          alert.date
-        ));
-      });
+    this.alertService.getByTripId(this.id).then(response => {
+      console.log(response);
+      this.alerts = response.map(alert => new Alert(
+        alert.id,
+        alert.trip_id,
+        alert.title,
+        alert.description,
+        alert.date
+      ));
     });
   },
 }

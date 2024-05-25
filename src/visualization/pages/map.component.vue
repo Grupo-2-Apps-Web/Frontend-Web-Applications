@@ -58,21 +58,22 @@ export default defineComponent({
       this.driverId = response.data.driver_id;
       this.vehicleId = response.data.vehicle_id;
       this.load = response.data.weight;
-    })
 
-    this.driverAPI.getOne(this.driverId).then(response => {
-      this.driver = response.data.name
-    });
+      this.driverAPI.getOne(this.driverId).then(response => {
+        this.driver = response.data.name
+      });
 
-    this.vehicleAPI.getOne(this.vehicleId).then(response => {
-      this.plate = response.data.plate
+      this.vehicleAPI.getOne(this.vehicleId).then(response => {
+        this.plate = response.data.plate
+      });
     });
 
     this.onGoingTripAPI.getByTripId(this.id).then(response => {
-      this.speed = response.data.speed;
-      this.distance = response.data.distance;
-      this.latitude = response.data.latitude;
-      this.longitude = response.data.longitude;
+      console.log(response);
+      this.speed = response.speed;
+      this.distance = response.distance;
+      this.latitude = response.latitude;
+      this.longitude = response.longitude;
 
       // Leaflet Map y marcadores:
       const map = L.map('mapContainer').setView([this.latitude, this.longitude], 13);

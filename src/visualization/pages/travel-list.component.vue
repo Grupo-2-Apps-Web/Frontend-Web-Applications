@@ -26,8 +26,9 @@ export default {
   created() {
     this.onGoingTripService.getAll().then(response => {
       response.data.forEach(trip => {
-        this.tripsID.push(trip.id);
+        this.tripsID.push(trip.trip_id);
       });
+
     });
 
     this.tripService.getAll().then(response => {

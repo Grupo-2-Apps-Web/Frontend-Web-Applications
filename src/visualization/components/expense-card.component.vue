@@ -61,8 +61,9 @@ export default {
   methods: {
     async goToExpenses(tripId){
       const response = await this.expenseService.getByTripId(tripId);
+      console.log(response);
       if(response){
-        this.router.push(`/client/expenses/${response.data.id}`);
+        this.router.push(`/client/expenses/${response.id}`);
       } else {
         alert('There are no expenses for this trip');
       }

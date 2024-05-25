@@ -8,7 +8,7 @@ export class ExpenseService extends BaseService {
     async getByTripId(tripId){
         const response = await this.getAll();
         const expenses = response.data;
-        const expense = expenses.find(expense => expense.tripId === tripId);
+        const expense = expenses.find(expense => expense.trip_id === Number(tripId));
         return expense || null;
     }
 

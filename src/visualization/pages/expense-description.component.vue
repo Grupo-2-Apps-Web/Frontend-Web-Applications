@@ -24,18 +24,18 @@ export default {
   created() {
     this.expenseService.getByTripId(this.id).then(response => {
         this.expense = new Expense(
-            response.data.id,
+            response.id,
             this.id,
-            response.data.fuel_amount,
-            response.data.fuel_description,
-            response.data.tolls_amount,
-            response.data.tolls_description,
-            response.data.viatics_amount,
-            response.data.viatics_description,
+            response.fuel_amount,
+            response.fuel_description,
+            response.tolls_amount,
+            response.tolls_description,
+            response.viatics_amount,
+            response .viatics_description,
         );
         this.totalExpenses = JSON.parse(this.expense.fuel_amount) + JSON.parse(this.expense.tolls_amount) + JSON.parse(this.expense.viatics_amount);
     });
-    this.tripService.getOne(response.data.trip_id).then(response => {
+    this.tripService.getOne(this.id).then(response => {
       this.name = response.data.name;
       this.entrepreneurService.getOne(response.data.entrepreneur_id).then(response => {
         this.logoURL = response.data.logo_image;

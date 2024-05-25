@@ -8,7 +8,7 @@ export class OnGoingTripService extends BaseService {
     async getByTripId(tripId) {
         const response = await this.getAll();
         const trips = response.data;
-        const trip = trips.find(trip => trip.tripId === tripId);
-        return trip || null;
+        const foundTrip = trips.find(trip => trip.trip_id === Number(tripId));
+        return foundTrip || null;
     }
 }

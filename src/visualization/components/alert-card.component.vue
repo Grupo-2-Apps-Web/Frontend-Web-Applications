@@ -25,7 +25,7 @@ export default {
 <template>
   <pv-card>
     <template #content>
-      <h2>{{ alert.name }}</h2>
+      <h2>{{ alert.title }}</h2>
       <p class="description">{{ alert.description }}</p>
       <p><strong>Date:</strong> {{ formatDate(alert.date) }}</p>
       <p><strong>Time:</strong> {{ formatHour(alert.date) }}</p>

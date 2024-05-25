@@ -71,24 +71,6 @@ export default {
           }
       );
     },
-    triggerFileUploadLoad() {
-      this.$refs.fileInputLoad.click();
-    },
-    triggerFileUploadLogo() {
-      this.$refs.fileInputLogo.click();
-    },
-    handleFileUpload(event) {
-      const file = event.target.files[0];
-      if (file) {
-        this.trip.cargo.loadImage = URL.createObjectURL(file);
-      }
-    },
-    handleFileUploadLogo(event) {
-      const file = event.target.files[0];
-      if (file) {
-        this.trip.company.logoImage = URL.createObjectURL(file);
-      }
-    },
     goBack() {
       this.$router.go(-1);
     }
