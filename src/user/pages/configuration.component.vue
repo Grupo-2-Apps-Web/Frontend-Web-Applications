@@ -17,13 +17,16 @@ export default {
   data(){
     return {
       configurationService: new ConfigurationService(),
+      configuration: Configuration
     }
   },
   methods: {
     saveConfig(){
+
       store.commit('SET_THEME', store.state.theme);
       store.commit('SET_VIEW', store.state.view);
       const configuration = new Configuration(
+          configuration.id,
           localStorage.getItem('user_id'),
           store.state.theme,
           store.state.view,
@@ -31,7 +34,7 @@ export default {
           localStorage.getItem('dataSharing')
       );
 
-      this.configurationService.updateConfiguration(configuration.id, configuration);
+      this.configurationService.update(configuration.id, configuration);
       alert("Configuration saved successfully!");
       router.back();
     },
@@ -47,11 +50,11 @@ export default {
     }
   },
   created() {
-    this.configurationService.getConfigurationById(localStorage.getItem('user_id'))
+    this.configurationService.getOne(localStorage.getItem('user_id'))
         .then(response => {
-          const configuration = response.data;
-          store.commit('SET_THEME', configuration.theme);
-          store.commit('SET_VIEW', configuration.view);
+          this.configuration = response.data;
+          store.commit('SET_THEME', this.configuration.theme);
+          store.commit('SET_VIEW', this.configuration.view);
           this.$store.commit('SET_INITIAL_CONFIG');
         })
         .catch(error => {

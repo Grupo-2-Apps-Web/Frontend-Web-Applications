@@ -13,7 +13,7 @@ export default {
     }
   },
   created(){
-    this.userService.getUserById(this.userId).then(response => {
+    this.userService.getOne(this.userId).then(response => {
       const user = response.data;
       this.selectedPlan = user.subscription;
     });
@@ -32,10 +32,10 @@ export default {
       this.selectedPlan = plan;
       alert(`You have selected the ${plan} plan.`)
 
-      this.userService.getUserById(this.userId).then(response => {
+      this.userService.getOne(this.userId).then(response => {
         const user = response.data;
         user.subscription = plan;
-        this.userService.setUser(this.userId, user).then();
+        this.userService.update(this.userId, user).then();
       });
     }
   }
@@ -65,7 +65,7 @@ export default {
           <div class="card-footer">
             <pv-button
                 class="button select-button"
-                :class="{ 'selected': selectedPlan === 'Basic' }"
+                :class="{ 'selected': this.selectedPlan === 'Basic' }"
                 @click="selectPlan('Basic')"
             >
               {{ selectedPlan === 'Basic' ? 'Selected' : 'Select' }}
@@ -93,7 +93,7 @@ export default {
           <div class="card-footer">
             <pv-button
                 class="button select-button"
-                :class="{ 'selected': selectedPlan === 'Premium' }"
+                :class="{ 'selected': this.selectedPlan === 'Premium' }"
                 @click="selectPlan('Premium')"
             >
               {{ selectedPlan === 'Premium' ? 'Selected' : 'Select' }}

@@ -2,6 +2,8 @@
 import { useRouter } from 'vue-router';
 import {UserService} from "../services/user.service.js";
 import {User} from "../models/user.entity.js";
+import {Client} from "../models/client.entity.js";
+import {ClientService} from "../services/client.service.js";
 
 export default {
   name: "RegisterClientComponent",
@@ -20,6 +22,7 @@ export default {
   data() {
     return {
       userService: new UserService(),
+      clientService: new ClientService(),
       name: '',
       email: '',
       password: '',
@@ -39,8 +42,7 @@ export default {
     },
     async alreadyExists(email) {
       const user = await this.userService.getUserByEmail(email);
-      if (user !== null) return true;
-      return false;
+      return user !== null;
     },
     async registerClient() {
       // Validations
@@ -72,20 +74,17 @@ export default {
         alert('RUC must be at 11 characters long');
         return;
       }
-
       // Register user
-      console.log('Registering client...');
-      let client = new User("", this.name, this.email, this.password, this.phone, this.ruc, this.address, "Basic");
-      this.userService.saveUser(client, 1)
-        .then(() => {
-          alert('Client registered successfully');
-          this.$router.push('/login');
-        })
-        .catch((error) => {
-          alert('Error registering client');
-          console.error(error);
+      let user = new User(0, this.name, this.email, this.phone, this.password, this.ruc, this.address, "Basic");
+      this.userService.post(user).then((user) => {
+        let client = new Client(0, user.id);
+        this.clientService.create(client).then(() => {
+          this.router.push('/login');
         });
-
+      }).catch((error) => {
+        alert('Error registering client');
+        console.error(error);
+      });
     }
   }
 }

@@ -1,7 +1,27 @@
 {
   "users": [
     {
-      "id": "1",
+      "id": 1,
+      "name": "Juan Perez",
+      "email": "client@example.com",
+      "password": "12345678",
+      "phone": "999999999",
+      "ruc": "20000000000",
+      "address": "Av. Perú 123 - Lima",
+      "subscription": "Premium"
+    },
+    {
+      "id": 2,
+      "name": "Empresa de Transportes S.A.C.",
+      "email": "entrepreneur@example.com",
+      "password": "12345678",
+      "phone": "999999999",
+      "ruc": "20000000001",
+      "address": "Av. Lima 123 - Lima",
+      "subscription": "Premium"
+    },
+    {
+      "id": 3,
       "name": "Piero Díaz S.A.C.",
       "email": "pierod081@gmail.com",
       "password": "123456",
@@ -11,7 +31,7 @@
       "subscription": "Basic"
     },
     {
-      "id": "2",
+      "id": 4,
       "name": "Moran Alimentos S.A.",
       "email": "juan92@gmail.com",
       "password": "014821",
@@ -21,7 +41,7 @@
       "subscription": "Premium"
     },
     {
-      "id": "3",
+      "id": 5,
       "name": "Transportes Semarfe S.A.C.",
       "email": "carlitos0@gmail.com",
       "password": "abc888",
@@ -31,7 +51,7 @@
       "subscription": "Basic"
     },
     {
-      "id": "4",
+      "id": 6,
       "name": "Transportes El Chino S.A.C.",
       "email": "pedro431@gmail.com",
       "password": "maria123",
@@ -43,24 +63,67 @@
   ],
   "clients": [
     {
-      "id": "1",
-      "user_id": "1"
+      "id": 1,
+      "user_id": 1
     },
     {
-      "id": "2",
-      "user_id": "2"
+      "id": 2,
+      "user_id": 3
+    },
+    {
+      "id": 3,
+      "user_id": 4
     }
   ],
   "entrepreneurs": [
     {
-      "id": "1",
-      "logoImage": "https://img.freepik.com/vector-premium/plantilla-silueta-empresa-camiones_183875-933.jpg",
-      "user_id": "3"
+      "id": 1,
+      "logo_image": "https://img.freepik.com/vector-premium/plantilla-silueta-empresa-camiones_183875-933.jpg",
+      "user_id": 2
     },
     {
-      "id": "2",
-      "logoImage": "https://img.freepik.com/vector-premium/plantilla-silueta-empresa-camiones_183875-933.jpg",
-      "user_id": "4"
+      "id": 4,
+      "logo_image": "https://img.freepik.com/vector-premium/plantilla-silueta-empresa-camiones_183875-933.jpg",
+      "user_id": 5
+    },
+    {
+      "id": 6,
+      "logo_image": "https://img.freepik.com/vector-premium/plantilla-silueta-empresa-camiones_183875-933.jpg",
+      "user_id": 6
+    }
+  ],
+  "configurations": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "theme": "light",
+      "view": "grid",
+      "allowDataCollection": "true",
+      "updateDataSharing": "true"
+    },
+    {
+      "id": 2,
+      "user_id": 2,
+      "theme": "light",
+      "view": "grid",
+      "allowDataCollection": "true",
+      "updateDataSharing": "true"
+    },
+    {
+      "id": 3,
+      "user_id": 3,
+      "theme": "light",
+      "view": "grid",
+      "allowDataCollection": "true",
+      "updateDataSharing": "true"
+    },
+    {
+      "id": 4,
+      "user_id": 4,
+      "theme": "dark",
+      "view": "list",
+      "allowDataCollection": "false",
+      "updateDataSharing": "true"
     }
   ],
   "trips": [
@@ -223,36 +286,6 @@
           "date": "2024-05-25T05:05:46Z"
         }
       ]
-    }
-  ],
-  "configurations": [
-    {
-      "id": "1",
-      "theme": "dark",
-      "view": "grid",
-      "allowDataCollection": "false",
-      "updateDataSharing": "false"
-    },
-    {
-      "id": "2",
-      "theme": "dark",
-      "view": "list",
-      "allowDataCollection": "false",
-      "updateDataSharing": "false"
-    },
-    {
-      "id": "3",
-      "theme": "light",
-      "view": "grid",
-      "allowDataCollection": "true",
-      "updateDataSharing": "true"
-    },
-    {
-      "id": "4",
-      "theme": "dark",
-      "view": "list",
-      "allowDataCollection": "false",
-      "updateDataSharing": "true"
     }
   ]
 }

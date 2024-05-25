@@ -2,6 +2,9 @@
 import { useRouter } from 'vue-router';
 import {UserService} from "../services/user.service.js";
 import {User} from "../models/user.entity.js";
+import {Client} from "../models/client.entity.js";
+import {Entrepreneur} from "../models/entrepreneur.entity.js";
+import {EntrepreneurService} from "../services/entrepreneur.service.js";
 
 export default {
   name: "RegisterEntrepreneurComponent",
@@ -20,6 +23,7 @@ export default {
   data() {
     return {
       userService: new UserService(),
+      entrepreneurService: new EntrepreneurService(),
       name: '',
       email: '',
       password: '',
@@ -74,18 +78,16 @@ export default {
         return;
       }
       // Register user
-      console.log('Registering client...');
-      let entrepreneur = new User(this.name, this.email, this.password, this.phone, this.ruc, this.address);
-      this.userService.saveUser(entrepreneur, 2)
-          .then(() => {
-            alert('Entrepreneur registered successfully');
-            this.$router.push('/login');
-          })
-          .catch((error) => {
-            alert('Error registering entrepreneur');
-            console.error(error);
-          });
-
+      let user = new User(0, this.name, this.email, this.phone, this.password, this.ruc, this.address, "Basic");
+      this.userService.post(user).then((user) => {
+        let entrepreneur = new Entrepreneur(0, this.logoImage, user.id);
+        this.entrepreneurService.create(entrepreneur).then(() => {
+          this.router.push('/login');
+        });
+      }).catch((error) => {
+        alert('Error registering client');
+        console.error(error);
+      });
     },
     triggerFileUploadLoad() {
       this.$refs.fileInputLoad.click();

@@ -4,4 +4,11 @@ export class UserService extends BaseService {
     constructor() {
         super("users");
     }
+
+    async getUserByEmail(email) {
+        const response = await this.getAll();
+        const users = response.data;
+        const user = users.find(user => user.email === email);
+        return user || null;
+    }
 }

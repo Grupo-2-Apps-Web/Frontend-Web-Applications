@@ -2,11 +2,15 @@
 import {UserService} from "../services/user.service.js";
 import {useRouter} from "vue-router";
 import {ref, inject} from "vue";
+import {ClientService} from "../services/client.service.js";
+import {EntrepreneurService} from "../services/entrepreneur.service.js";
 
 export default {
   name: "login.component",
   setup() {
     const userService = new UserService();
+    const clientService = new ClientService();
+    const entrepreneurService = new EntrepreneurService();
     const router = useRouter();
     const username = ref(''); // Variable para almacenar el nombre de usuario
     const password = ref(''); // Variable para almacenar la contraseña
@@ -16,8 +20,8 @@ export default {
       const user = await userService.getUserByEmail(username.value);
 
       if (user && user.password === password.value) {
-        const client = await userService.getClientByUserId(user.id);
-        const entrepreneur = await userService.getEntrepreneurByUserId(user.id);
+        const client = await clientService.getByUserId(user.id);
+        const entrepreneur = await entrepreneurService.getByUserId(user.id);
 
         if (client) {
           store.commit('setUserId', user.id); // Almacena el user_id en Vuex y en el almacenamiento local
@@ -32,10 +36,10 @@ export default {
           console.log('El empresario con user-id ' + user.id + ' logeado con éxito');
           await router.push('/entrepreneur');
         } else {
-          console.error('El usuario no es ni cliente ni emprendedor.');
+          console.log('El usuario no es ni cliente ni emprendedor.');
         }
       } else {
-        console.error('El nombre de usuario o la contraseña ingresados no son válidos.');
+        console.log('El nombre de usuario o la contraseña ingresados no son válidos.');
         alert('Email or password not valid');
       }
     };

@@ -1,22 +1,16 @@
 <script>
 import {useRouter} from "vue-router";
-import {useStore} from "vuex";
 
 export default {
   name: "register.component",
   setup() {
     const router = useRouter();
-    const store = useStore();
     const goToClient = () => {
       router.push('/signup/client');
-      //store.commit('setUserId', user.id); // Almacena el user_id en Vuex y en el almacenamiento local
-      //store.commit('setUserType', 'client'); // Almacena el tipo de usuario en Vuex y en el almacenamiento local
     };
 
     const goToEntrepreneur = () => {
       router.push('/signup/entrepreneur');
-      //store.commit('setUserId', user.id); // Almacena el user_id en Vuex y en el almacenamiento local
-      //store.commit('setUserType', 'entrepreneur'); // Almacena el tipo de usuario en Vuex y en el almacenamiento local
     };
 
     return {
