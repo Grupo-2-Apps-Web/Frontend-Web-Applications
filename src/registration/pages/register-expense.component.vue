@@ -48,11 +48,11 @@ export default {
                 const newExpense = new Expense(
                     0,
                     Number(expenseData.tripId),
-                    expenseData.fuelAmount,
+                    Number(expenseData.fuelAmount),
                     expenseData.fuelDescription,
-                    expenseData.viaticsAmount,
+                    Number(expenseData.viaticsAmount),
                     expenseData.viaticsDescription,
-                    expenseData.tollsAmount,
+                    Number(expenseData.tollsAmount),
                     expenseData.tollsDescription
                 );
                 expenseService.create(newExpense);
@@ -76,7 +76,8 @@ export default {
     return {
       openDialog,
       goBack,
-      expenseData
+      expenseData,
+      isVisible
     };
   }
 }
@@ -127,7 +128,7 @@ export default {
         Cancel
       </pv-button>
       <pv-confirm-dialog id="confirm" />
-      <pv-button @click="openDialog()" label="Confirm" :aria-expanded="visible" :aria-controls="visible ? 'confirm' : null"
+      <pv-button @click="openDialog()" label="Confirm" :aria-expanded="isVisible" :aria-controls="isVisible ? 'confirm' : null"
                  style="background-color: #006400; padding: 15px 45px;" >
         Register
       </pv-button>

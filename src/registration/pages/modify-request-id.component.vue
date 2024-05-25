@@ -1,5 +1,4 @@
 <script>
-import {useRouter} from "vue-router";
 import {TripService} from "../services/trip.service.js";
 import {ExpenseService} from "../services/expense.service.js";
 
@@ -24,13 +23,16 @@ export default {
       if (this.$route.path.includes('expense')) {
         response = await expenseService.getByTripId(this.tripId);
         if(response){
-          this.expenseId = response.data.id;
+          this.expenseId = response.id;
         }
       } else if (this.$route.path.includes('trip')) {
-        response = await tripService.getOne(this.tripId);
+        response = await tripService.getOneByTripId(this.tripId);
+        if(response){
+          this.tripId = response.id;
+        }
       }
 
-      if (response && response.data.length > 0){
+      if (response){
         if (this.$route.path.includes('expense')) {
           this.$router.push(`/entrepreneur/modify/expense/${this.expenseId}`);
         } else if (this.$route.path.includes('trip')) {

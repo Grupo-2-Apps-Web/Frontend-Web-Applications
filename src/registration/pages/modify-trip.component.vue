@@ -49,15 +49,15 @@ export default {
           this.id,
           this.name,
           this.type,
-          this.weight,
+          Number(this.weight),
           this.loadLocation,
           this.loadDate,
           this.unloadLocation,
           this.unloadDate,
-          this.driverId,
-          this.vehicleId,
-          this.clientId,
-          this.entrepreneurId
+          Number(this.driverId),
+          Number(this.vehicleId),
+          Number(this.clientId),
+          Number(this.entrepreneurId)
       );
 
       console.log(tripA);

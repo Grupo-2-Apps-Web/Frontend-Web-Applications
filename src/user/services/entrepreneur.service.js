@@ -8,7 +8,7 @@ export class EntrepreneurService extends BaseService {
     async getByUserId(userId) {
         const response = await this.getAll();
         const entrepreneurs = response.data;
-        const entrepreneur = entrepreneurs.find(entrepreneur => entrepreneur.user_id === userId);
+        const entrepreneur = entrepreneurs.find(entrepreneur => entrepreneur.user_id === Number(userId));
         return entrepreneur || null;
     }
 }

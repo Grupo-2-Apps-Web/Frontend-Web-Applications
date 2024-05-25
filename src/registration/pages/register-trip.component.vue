@@ -64,14 +64,20 @@ export default {
           isVisible.value = false;
         },
         accept: async () => {
-          const response = await entrepreneurService.getByUserId(localStorage.getItem('userId'));
-          trip.entrepreneurId = response.data.id;
-          tripService.create(trip);
+          const response = await entrepreneurService.getByUserId(localStorage.getItem('user_id'));
+          trip.entrepreneurId = Number(response.id);
+          trip.id = Number(trip.id);
+          trip.driverId = Number(trip.driverId);
+          trip.vehicleId = Number(trip.vehicleId);
+          trip.clientId = Number(trip.clientId);
+          trip.weight = Number(trip.weight);
 
-          evidence.tripId = trip.id;
-          evidenceService.create(evidence);
-          alert('Trip registered successfully');
-          goBack();
+          tripService.create(trip).then(response => {
+            evidence.trip_id = response.data.id;
+            evidenceService.create(evidence);
+            alert('Trip registered successfully');
+            goBack();
+          });
         }
       });
     };
@@ -84,7 +90,8 @@ export default {
       openDialog,
       goBack,
       trip,
-      evidence
+      evidence,
+      isVisible
     };
   }
 }
@@ -145,7 +152,7 @@ export default {
       </div>
       <div class="grid-container-1-columns">
         <p>Load Evidence</p>
-        <img src="../../assets/images/upload-image.jpg" height="250px">
+        <img src="../../assets/images/upload-image.jpg" alt="upload image template" height="250px">
         <div style="text-align: center; width: 20%; margin-left: 25px;">
           <input type="file" ref="fileInputLoad" @change="handleFileUpload" style="display: none" />
           <pv-button @click="triggerFileUploadLoad" style="background-color:#006400;">Upload</pv-button>
@@ -156,7 +163,7 @@ export default {
           Cancel
         </pv-button>
         <pv-confirm-dialog id="confirm" />
-        <pv-button @click="openDialog()" label="Confirm" :aria-expanded="visible" :aria-controls="visible ? 'confirm' : null"
+        <pv-button @click="openDialog()" label="Confirm" :aria-expanded="isVisible" :aria-controls="isVisible ? 'confirm' : null"
                    style="background-color: #006400; padding: 15px 45px;" >
           Register
         </pv-button>

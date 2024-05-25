@@ -201,21 +201,21 @@
     {
       "id": 1,
       "trip_id": 1,
-      "fuel_amount": "299",
+      "fuel_amount": 299,
       "fuel_description": "Se utilizaron 66 litros de Gasolina Diesel para el recorrido de 175 km. El litro está S/. 4.50. Así que el total es: 66 x 4.50 = 297",
-      "viatics_amount": "400",
+      "viatics_amount": 400,
       "viatics_description": "El viaje tuvo una duración de 2 días. Se brindó S/. 200 cada día al conductor para cubrir hospedaje y alimentación",
-      "tolls_amount": "275",
+      "tolls_amount": 275,
       "tolls_description": "Se pasaron por seis peajes en total, los costos respectivos son: 50, 47, 40, 40, 45, 53"
     },
     {
       "id": 2,
       "trip_id": 2,
-      "fuel_amount": "540",
+      "fuel_amount": 540,
       "fuel_description": "Se utilizaron 120 litros de gasolina diésel para el recorrido de 300 km. El precio por litro es S/. 4.50. Por lo tanto, el total es: 120 x 4.50 = 540",
-      "viatics_amount": "400",
+      "viatics_amount": 400,
       "viatics_description": "El viaje tuvo una duración de 2 días. Se brindó S/. 200 cada día al conductor para cubrir hospedaje y alimentación.",
-      "tolls_amount": "275",
+      "tolls_amount": 275,
       "tolls_description": "Se pasaron por seis peajes en total, los costos respectivos son: 50, 47, 40, 40, 45, 53"
     }
   ],

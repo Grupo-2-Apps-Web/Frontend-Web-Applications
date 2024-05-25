@@ -20,17 +20,14 @@ export default {
     const expenseService = new ExpenseService();
     expenseService.getOne(this.id)
         .then(response => {
-          const expense = response.data.find(expense => expense.id === this.id);
-          if (expense) {
-            this.id = expense.id;
-            this.tripId = expense.trip_id;
-            this.fuelAmount = expense.fuel_amount;
-            this.fuelDescription = expense.fuel_description;
-            this.tollsAmount = expense.tolls_amount;
-            this.tollsDescription = expense.tolls_description;
-            this.viaticsAmount = expense.viatics_amount;
-            this.viaticsDescription = expense.viatics_description;
-          }
+            this.id = response.data.id;
+            this.tripId = response.data.trip_id;
+            this.fuelAmount = response.data.fuel_amount;
+            this.fuelDescription = response.data.fuel_description;
+            this.tollsAmount = response.data.tolls_amount;
+            this.tollsDescription = response.data.tolls_description;
+            this.viaticsAmount = response.data.viatics_amount;
+            this.viaticsDescription = response.data.viatics_description;
         });
   },
   methods: {
@@ -39,12 +36,12 @@ export default {
       const expense = new Expense(
           this.id,
           this.tripId,
-          this.fuelAmount,
+          Number(this.fuelAmount),
           this.fuelDescription,
-          this.tollsAmount,
-          this.tollsDescription,
-          this.viaticsAmount,
-          this.viaticsDescription
+          Number(this.viaticsAmount),
+          this.viaticsDescription,
+          Number(this.tollsAmount),
+          this.tollsDescription
       )
       expenseService.update(expense.id, expense)
           .then(() => {
@@ -95,7 +92,7 @@ export default {
     <div class="grid-container-2-columns">
       <div>
         <p>Viatics - Amount</p>
-        <pv-inputtext v-model="viaticsAmount" style="width: 50%;"></pv-inputtext>
+        <pv-inputtext type="number" v-model="viaticsAmount" style="width: 50%;"></pv-inputtext>
       </div>
       <div>
         <p>Viatics - Details</p>
