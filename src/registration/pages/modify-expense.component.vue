@@ -1,53 +1,52 @@
-
 <script>
 import {ExpenseService} from "../services/expense.service.js";
+import {Expense} from "../models/expense.entity.js";
 
 export default {
   name: "modify-expense",
   data() {
     return {
       id: this.$route.params.id,
-      fuelAmount: '',
+      tripId: 0,
+      fuelAmount: 0,
       fuelDescription: '',
-      tollAmount: '',
-      tollDescription: '',
-      viaticsAmount: '',
+      tollsAmount: 0,
+      tollsDescription: '',
+      viaticsAmount: 0,
       viaticsDescription: ''
     }
   },
   created() {
     const expenseService = new ExpenseService();
-    expenseService.getExpensesByID(this.id)
+    expenseService.getOne(this.id)
         .then(response => {
           const expense = response.data.find(expense => expense.id === this.id);
           if (expense) {
-            this.fuelAmount = expense.fuel.amount;
-            this.fuelDescription = expense.fuel.description;
-            this.tollAmount = expense.toll.amount;
-            this.tollDescription = expense.toll.description;
-            this.viaticsAmount = expense.viatics.amount;
-            this.viaticsDescription = expense.viatics.description;
+            this.id = expense.id;
+            this.tripId = expense.tripId;
+            this.fuelAmount = expense.fuelAmount;
+            this.fuelDescription = expense.fuelDescription;
+            this.tollsAmount = expense.tollsAmount;
+            this.tollsDescription = expense.tollsDescription;
+            this.viaticsAmount = expense.viaticsAmount;
+            this.viaticsDescription = expense.viaticsDescription;
           }
         });
   },
   methods: {
     saveChanges() {
       const expenseService = new ExpenseService();
-      const expense = {
-        fuel: {
-          amount: this.fuelAmount,
-          description: this.fuelDescription
-        },
-        toll: {
-          amount: this.tollAmount,
-          description: this.tollDescription
-        },
-        viatics: {
-          amount: this.viaticsAmount,
-          description: this.viaticsDescription
-        }
-      };
-      expenseService.setExpense(this.id, expense)
+      const expense = new Expense(
+          this.id,
+          this.tripId,
+          this.fuelAmount,
+          this.fuelDescription,
+          this.tollsAmount,
+          this.tollsDescription,
+          this.viaticsAmount,
+          this.viaticsDescription
+      )
+      expenseService.update(expense.id, expense)
           .then(() => {
             alert('Changes saved successfully.');
           })
@@ -66,10 +65,10 @@ export default {
 <template>
   <div class="container">
     <h1>Modify Expenses</h1>
-    <h2>Trip - ID</h2>
+    <h2>Trip ID</h2>
     <div class="grid-container-1-column">
       <div>
-        <pv-inputtext v-model="id" disabled style="width: 8%;"></pv-inputtext>
+        <pv-inputtext v-model="tripId" disabled style="width: 8%;"></pv-inputtext>
       </div>
     </div>
     <h2>Expenses</h2>
@@ -86,11 +85,11 @@ export default {
     <div class="grid-container-2-columns">
       <div>
         <p>Toll - Amount</p>
-        <pv-inputtext type="number" v-model="tollAmount" style="width: 50%;"></pv-inputtext>
+        <pv-inputtext type="number" v-model="tollsAmount" style="width: 50%;"></pv-inputtext>
       </div>
       <div>
         <p>Toll - Details</p>
-        <pv-textarea v-model="tollDescription" style="width: 100%;"></pv-textarea>
+        <pv-textarea v-model="tollsDescription" style="width: 100%;"></pv-textarea>
       </div>
     </div>
     <div class="grid-container-2-columns">

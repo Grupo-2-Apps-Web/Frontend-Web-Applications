@@ -17,11 +17,14 @@ export default {
     const store = inject('store'); // Inyecta el store de Vuex
 
     const login = async () => { // Modificado para no tomar parámetros
-      const user = await userService.getUserByEmail(username.value);
+      const userResponse = await userService.getUserByEmail(username.value);
+      const user = userResponse.data;
 
       if (user && user.password === password.value) {
-        const client = await clientService.getByUserId(user.id);
-        const entrepreneur = await entrepreneurService.getByUserId(user.id);
+        const clientResponse = await clientService.getByUserId(user.id);
+        const client = clientResponse.data;
+        const entrepreneurResponse = await entrepreneurService.getByUserId(user.id);
+        const entrepreneur = entrepreneurResponse.data;
 
         if (client) {
           store.commit('setUserId', user.id); // Almacena el user_id en Vuex y en el almacenamiento local

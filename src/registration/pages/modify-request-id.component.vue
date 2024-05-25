@@ -6,7 +6,8 @@ import {ExpenseService} from "../services/expense.service.js";
 export default {
   data(){
     return {
-      tripId: ''
+      tripId: 0,
+      expenseId: 0
     }
   },
   computed: {
@@ -21,14 +22,17 @@ export default {
       let response;
 
       if (this.$route.path.includes('expense')) {
-        response = await expenseService.getExpensesByID(this.tripId);
+        response = await expenseService.getByTripId(this.tripId);
+        if(response){
+          this.expenseId = response.data.id;
+        }
       } else if (this.$route.path.includes('trip')) {
-        response = await tripService.getTripByID(this.tripId);
+        response = await tripService.getOne(this.tripId);
       }
 
       if (response && response.data.length > 0){
         if (this.$route.path.includes('expense')) {
-          this.$router.push(`/entrepreneur/modify/expense/${this.tripId}`);
+          this.$router.push(`/entrepreneur/modify/expense/${this.expenseId}`);
         } else if (this.$route.path.includes('trip')) {
           this.$router.push(`/entrepreneur/modify/trip/${this.tripId}`);
         }

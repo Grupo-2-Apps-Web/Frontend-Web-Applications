@@ -18,24 +18,23 @@ export default {
     };
   },
   created(){
-    this.tripService.getTrips().then(response => {
+    this.tripService.getAll().then(response => {
       this.rawTrips = response.data;
       this.rawTrips.forEach(trip => {
         this.trips.push(new Trip(
-              trip.id,
-              trip.name,
-              trip.cargo.loadDate,
-              trip.cargo.unloadDate,
-              trip.cargo.loadLocation,
-              trip.cargo.unloadLocation,
-              trip.driver.fullName,
-              trip.vehicle.plate,
-              trip.vehicle.tractorPlate,
-              trip.company.name,
-              trip.company.ruc,
-              trip.company.logoImage
-            )
-        );
+            trip.id,
+            trip.name,
+            trip.type,
+            trip.weight,
+            trip.load_location,
+            trip.load_date,
+            trip.unload_location,
+            trip.unload_date,
+            trip.driver_id,
+            trip.vehicle_id,
+            trip.client_id,
+            trip.entrepreneur_id
+        ));
       });
     });
   }

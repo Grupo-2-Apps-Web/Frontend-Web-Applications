@@ -82,12 +82,12 @@
       "user_id": 2
     },
     {
-      "id": 4,
+      "id": 2,
       "logo_image": "https://img.freepik.com/vector-premium/plantilla-silueta-empresa-camiones_183875-933.jpg",
       "user_id": 5
     },
     {
-      "id": 6,
+      "id": 3,
       "logo_image": "https://img.freepik.com/vector-premium/plantilla-silueta-empresa-camiones_183875-933.jpg",
       "user_id": 6
     }
@@ -128,129 +128,68 @@
   ],
   "trips": [
     {
-      "id": "1",
+      "id": 1,
       "name": "Viaje #MA251",
-      "driver": {
-        "fullName": "Juan Perez",
-        "DNI": "12345678",
-        "license": "B12345678",
-        "contactNumber": "987654321"
-      },
-      "vehicle": {
-        "model": "Volkswagen Transporter",
-        "plate": "A1B-234",
-        "tractorPlate": "EF3-TD3",
-        "maxLoad": 5000,
-        "volume": 20
-      },
-      "cargo": {
-        "type": "Electronica",
-        "weight": 3000,
-        "loadLocation": "Av. La Playa km 2 - Ventanilla",
-        "loadImage": "https://logisticaytransportedecarga.pe/wp-content/uploads/2022/07/WhatsApp-Image-2022-07-18-at-7.38.54-AM-5-769x1024.jpeg",
-        "loadDate": "2024-05-15",
-        "unloadLocation": "Carretera Central km 141 - Morococha",
-        "unloadDate": "2024-07-23"
-      },
-      "company": {
-        "name": "Transportes Semarfe S.A.C.",
-        "ruc": "20123456789",
-        "logoImage": "https://img.freepik.com/vector-premium/plantilla-silueta-empresa-camiones_183875-933.jpg"
-      }
+      "type": "Electronica",
+      "weight": 3000,
+      "load_location": "Av. La Playa km 2 - Ventanilla",
+      "load_date": "2024-05-15",
+      "unload_location": "Carretera Central km 141 - Morococha",
+      "unload_date": "2024-07-23",
+      "driver_id": "12345678",
+      "vehicle_id": "A1B-234",
+      "client_id": 1,
+      "entrepreneur_id": 1
     },
     {
-      "id": "2",
+      "id": 2,
       "name": "Viaje #MA252",
-      "driver": {
-        "fullName": "Carlos Sanchez",
-        "DNI": "23456789",
-        "license": "C23456789",
-        "contactNumber": "987654322"
-      },
-      "vehicle": {
-        "model": "Mercedes-Benz Sprinter",
-        "plate": "B2C-345",
-        "tractorPlate": "GF4-UE4",
-        "maxLoad": 6000,
-        "volume": 25
-      },
-      "cargo": {
-        "type": "Alimentos",
-        "weight": 4000,
-        "loadLocation": "Av. El Sol km 3 - Callao",
-        "loadImage": "https://logisticaytransportedecarga.pe/wp-content/uploads/2022/07/WhatsApp-Image-2022-07-18-at-7.38.54-AM-5-769x1024.jpeg",
-        "loadDate": "2024-04-25",
-        "unloadLocation": "Carretera Central km 200 - La Oroya",
-        "unloadDate": "2024-04-26"
-      },
-      "company": {
-        "name": "Transportes Semarfe S.A.C.",
-        "ruc": "20123456789",
-        "logoImage": "https://img.freepik.com/vector-premium/plantilla-silueta-empresa-camiones_183875-933.jpg"
-      }
+      "type": "Alimentos",
+      "weight": 4000,
+      "load_location": "Av. El Sol km 3 - Callao",
+      "load_date": "2024-04-25",
+      "unload_location": "Carretera Central km 200 - La Oroya",
+      "unload_date": "2024-04-26",
+      "driver_id": "23456789",
+      "vehicle_id": "B2C-345",
+      "client_id": 2,
+      "entrepreneur_id": 2
     },
     {
-      "id": "3",
+      "id": 3,
       "name": "Viaje #MA253",
-      "driver": {
-        "fullName": "Pedro Rodriguez",
-        "DNI": "34567890",
-        "license": "D34567890",
-        "contactNumber": "987654323"
-      },
-      "vehicle": {
-        "model": "Volkswagen Crafter",
-        "plate": "C3D-456",
-        "tractorPlate": "HG5-RT5",
-        "maxLoad": 7000,
-        "volume": 30
-      },
-      "cargo": {
-        "type": "Textiles",
-        "weight": 5000,
-        "loadLocation": "Av. La Marina km 5 - Callao",
-        "loadImage": "https://logisticaytransportedecarga.pe/wp-content/uploads/2022/07/WhatsApp-Image-2022-07-18-at-7.38.54-AM-5-769x1024.jpeg",
-        "loadDate": "2024-05-24",
-        "unloadLocation": "Carretera Central km 300 - La Oroya",
-        "unloadDate": "2024-05-26"
-      },
-      "company": {
-        "name": "Transportes Semarfe S.A.C.",
-        "ruc": "20123456789",
-        "logoImage": "https://img.freepik.com/vector-premium/plantilla-silueta-empresa-camiones_183875-933.jpg"
-      }
+      "type": "Textiles",
+      "weight": 5000,
+      "load_location": "Av. La Marina km 5 - Callao",
+      "load_date": "2024-05-24",
+      "unload_location": "Carretera Central km 300 - La Oroya",
+      "unload_date": "2024-05-26",
+      "driver_id": "34567890",
+      "vehicle_id": "C3D-456",
+      "client_id": 3,
+      "entrepreneur_id": 3
     }
   ],
   "expenses": [
     {
-      "fuel": {
-        "amount": "299",
-        "description": "Se utilizaron 66 litros de Gasolina Diesel para el recorrido de 175 km. El litro está S/. 4.50. Así que el total es: 66 x 4.50 = 297"
-      },
-      "toll": {
-        "amount": "275",
-        "description": "Se pasaron por seis peajes en total, los costos respectivos son: 50, 47, 40, 40, 45, 53"
-      },
-      "viatics": {
-        "amount": "400",
-        "description": "El viaje tuvo una duración de 2 días. Se brindó S/. 200 cada día al conductor para cubrir hospedaje y alimentación"
-      },
-      "id": "1"
+      "id": 1,
+      "trip_id": 1,
+      "fuel_amount": "299",
+      "fuel_description": "Se utilizaron 66 litros de Gasolina Diesel para el recorrido de 175 km. El litro está S/. 4.50. Así que el total es: 66 x 4.50 = 297",
+      "viatics_amount": "400",
+      "viatics_description": "El viaje tuvo una duración de 2 días. Se brindó S/. 200 cada día al conductor para cubrir hospedaje y alimentación",
+      "tolls_amount": "275",
+      "tolls_description": "Se pasaron por seis peajes en total, los costos respectivos son: 50, 47, 40, 40, 45, 53"
     },
     {
-      "id": "2",
-      "fuel": {
-        "amount": "540",
-        "description": "Se utilizaron 120 litros de gasolina diésel para el recorrido de 300 km. El precio por litro es S/. 4.50. Por lo tanto, el total es: 120 x 4.50 = 540"
-      },
-      "toll": {
-        "amount": "275",
-        "description": "Se pasaron por seis peajes en total, los costos respectivos son: 50, 47, 40, 40, 45, 53"
-      },
-      "viatics": {
-        "amount": "400",
-        "description": "El viaje tuvo una duración de 2 días. Se brindó S/. 200 cada día al conductor para cubrir hospedaje y alimentación."
-      }
+      "id":2,
+      "trip_id": 2,
+      "fuel_amount": "540",
+      "fuel_description": "Se utilizaron 120 litros de gasolina diésel para el recorrido de 300 km. El precio por litro es S/. 4.50. Por lo tanto, el total es: 120 x 4.50 = 540",
+      "viatics_amount": "400",
+      "viatics_description": "El viaje tuvo una duración de 2 días. Se brindó S/. 200 cada día al conductor para cubrir hospedaje y alimentación.",
+      "tolls_amount": "275",
+      "tolls_description": "Se pasaron por seis peajes en total, los costos respectivos son: 50, 47, 40, 40, 45, 53"
     }
   ],
   "ongoingTrips": [

@@ -2,7 +2,7 @@
 import {Expense} from "../../registration/models/expense.entity.js";
 import {TripService} from "../../registration/services/trip.service.js";
 import {ExpenseService} from "../../registration/services/expense.service.js";
-
+import {EntrepreneurService} from "../../user/services/entrepreneur.service.js";
 export default {
   name: "expense-description",
   computed: {
@@ -16,25 +16,30 @@ export default {
       expense: Expense,
       expenseService: new ExpenseService(),
       tripService: new TripService(),
+      entrepreneurService: new EntrepreneurService(),
       logoURL: "",
       totalExpenses: 0
     }
   },
   created() {
-    this.expenseService.getExpensesByID(this.id).then(response => {
+    this.expenseService.getByTripId(this.id).then(response => {
         this.expense = new Expense(
-            response.data[0].fuel.amount,
-            response.data[0].fuel.description,
-            response.data[0].toll.amount,
-            response.data[0].toll.description,
-            response.data[0].viatics.amount,
-            response.data[0].viatics.description,
+            response.data.id,
+            this.id,
+            response.data.fuel_amount,
+            response.data.fuel_description,
+            response.data.tolls_amount,
+            response.data.tolls_description,
+            response.data.viatics_amount,
+            response.data.viatics_description,
         );
-        this.totalExpenses = JSON.parse(this.expense.fuel) + JSON.parse(this.expense.tolls) + JSON.parse(this.expense.viatics);
+        this.totalExpenses = JSON.parse(this.expense.fuelAmount) + JSON.parse(this.expense.tollsAmount) + JSON.parse(this.expense.viaticsAmount);
     });
-    this.tripService.getTripByID(this.id).then(response => {
-      this.name = response.data[0].name;
-      this.logoURL = response.data[0].company.logoImage;
+    this.tripService.getOne(response.data.trip_id).then(response => {
+      this.name = response.data.name;
+      this.entrepreneurService.getOne(response.data.entreprenurId).then(response => {
+        this.logoURL = response.data.logo_image;
+      });
     });
   }
 }
@@ -50,7 +55,7 @@ export default {
       <div class="gasto">
         <div class="gasto-header">
           <h2>FUEL</h2>
-          <h2>S/. {{expense.fuel}}</h2>
+          <h2>S/. {{expense.fuelAmount}}</h2>
         </div>
         <div class="gasto-descripcion">
           <p>{{expense.fuelDescription}}</p>
@@ -60,7 +65,7 @@ export default {
       <div class="gasto">
         <div class="gasto-header">
           <h2>TOLLS</h2>
-          <h2>S/. {{expense.tolls}}</h2>
+          <h2>S/. {{expense.tollsAmount}}</h2>
         </div>
         <div class="gasto-descripcion">
           <p>{{expense.tollsDescription}}</p>
@@ -70,7 +75,7 @@ export default {
       <div class="gasto">
         <div class="gasto-header">
           <h2>VIATICS</h2>
-          <h2>S/. {{expense.viatics}}</h2>
+          <h2>S/. {{expense.viaticsAmount}}</h2>
         </div>
         <div class="gasto-descripcion">
           <p>{{expense.viaticsDescription}}</p>

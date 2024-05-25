@@ -40,6 +40,7 @@ import { Expense } from "../../registration/models/expense.entity.js";
 import { Trip } from "../../registration/models/trip.entity.js";
 import {useRouter} from "vue-router";
 import {mapGetters} from "vuex";
+import {ExpenseService} from "../../registration/services/expense.service.js";
 
 export default {
   name: "expense-card",
@@ -49,19 +50,24 @@ export default {
       required: true
     },
   },
-  setup(){
-    const router = useRouter();
-    const goToExpenses = (id) => {
-      router.push(`/client/expenses/${id}`);
-    }
+  data(){
     return{
-      goToExpenses
-    };
+      expenseService: new ExpenseService(),
+      router: useRouter()
+    }
   },
   computed: {
     ...mapGetters(['getView'])
   },
   methods: {
+    async goToExpenses(tripId){
+      const response = await this.expenseService.getByTripId(tripId);
+      if(response){
+        this.router.push(`/client/expenses/${response.data.id}`);
+      } else {
+        alert('There are no expenses for this trip');
+      }
+    },
     formatDate(dateString) {
       const options = { day: '2-digit', month: '2-digit', year: 'numeric'  };
       return new Date(dateString).toLocaleDateString(undefined, options);
