@@ -1,6 +1,8 @@
 <script>
 import { TripService } from '../../registration/services/trip.service.js';
 import { Trip } from '../../registration/models/trip.entity.js';
+import {Evidence} from "../../registration/models/evidence.entity.js";
+import {EvidenceService} from "../../registration/services/evidence.service.js";
 
 export default {
   name: "trip-description",
@@ -12,25 +14,35 @@ export default {
   data() {
     return {
       trip: Trip,
-      tripService: new TripService()
+      evidence: Evidence,
+      tripService: new TripService(),
+      evidenceService: new EvidenceService()
     }
   },
   created() {
-    this.tripService.getTripByID(this.id).then(response => {
+    this.tripService.getOne(this.id).then(response => {
       this.trip = new Trip(
-          response.data[0].id,
-          response.data[0].name,
-          response.data[0].cargo.loadDate,
-          response.data[0].cargo.unloadDate,
-          response.data[0].cargo.loadLocation,
-          response.data[0].cargo.unloadLocation,
-          response.data[0].driver.fullName,
-          response.data[0].vehicle.plate,
-          response.data[0].vehicle.tractorPlate,
-          response.data[0].company.name,
-          response.data[0].company.ruc,
-          response.data[0].cargo.loadImage
+          response.data.id,
+          response.data.name,
+          response.data.type,
+          response.data.weight,
+          response.data.load_location,
+          response.data.load_date,
+          response.data.unload_location,
+          response.data.unload_date,
+          response.data.driver_id,
+          response.data.vehicle_id,
+          response.data.client_id,
+          response.data.entrepreneur_id
       );
+
+      this.evidenceService.getOne(this.trip.id).then(response => {
+        this.evidence = new Evidence(
+          response.data.id,
+          response.data.trip_id,
+          response.data.link
+        );
+      });
     });
   }
 }
@@ -41,7 +53,7 @@ export default {
   <div class="container-general">
     <div class="evidence">
       <h2>Evidence</h2>
-      <img :src="trip.evidence" width="400">
+      <img :src="evidence.link" width="400" alt="Evidence for trip">
     </div>
     <div class="container-info-general">
       <h1>{{ trip.name }}</h1>
@@ -75,6 +87,7 @@ export default {
           {{ trip.unloadLocation }}
         </p>
       </div>
+      <!-- MISSING DRIVER AND TRAILER ENDPOINT CALLING
       <div class="container-info">
         <p>
           <strong>DRIVER:</strong>
@@ -105,6 +118,7 @@ export default {
           {{ trip.ruc }}
         </p>
       </div>
+      -->
     </div>
   </div>
 </template>

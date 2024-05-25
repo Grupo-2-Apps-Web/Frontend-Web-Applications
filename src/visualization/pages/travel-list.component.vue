@@ -15,8 +15,8 @@ export default {
   },
   data() {
     return {
-      tripAPI: new TripService(),
-      onGoingTripAPI: new OnGoingTripService(),
+      tripService: new TripService(),
+      onGoingTripService: new OnGoingTripService(),
       tripsID: [],
       trips: [],
       trip: Trip,
@@ -24,26 +24,26 @@ export default {
     }
   },
   created() {
-    this.onGoingTripAPI.getTrips().then(response => {
+    this.onGoingTripService.getAll().then(response => {
       response.data.forEach(trip => {
         this.tripsID.push(trip.id);
       });
     });
 
-    this.tripAPI.getTrips().then(response => {
+    this.tripService.getAll().then(response => {
       this.trips = response.data.map(trip => new Trip(
         trip.id,
         trip.name,
-        trip.cargo.loadDate,
-        trip.cargo.unloadDate,
-        trip.cargo.loadLocation,
-        trip.cargo.unloadLocation,
-        trip.driver.fullName,
-        trip.vehicle.plate,
-        trip.vehicle.tractorPlate,
-        trip.company.name,
-        trip.company.ruc,
-        trip.company.logoImage
+        trip.type,
+        trip.weight,
+        trip.load_location,
+        trip.load_date,
+        trip.unload_location,
+        trip.unload_date,
+        trip.driver_id,
+        trip.vehicle_id,
+        trip.client_id,
+        trip.entrepreneur_id
       ));
       this.filteredTrips = this.trips.filter(trip => this.tripsID.includes(trip.id));
     });

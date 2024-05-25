@@ -152,8 +152,8 @@
       "unload_date": "2024-04-26",
       "driver_id": "23456789",
       "vehicle_id": "B2C-345",
-      "client_id": 2,
-      "entrepreneur_id": 2
+      "client_id": 1,
+      "entrepreneur_id": 1
     },
     {
       "id": 3,
@@ -166,8 +166,25 @@
       "unload_date": "2024-05-26",
       "driver_id": "34567890",
       "vehicle_id": "C3D-456",
-      "client_id": 3,
-      "entrepreneur_id": 3
+      "client_id": 1,
+      "entrepreneur_id": 1
+    }
+  ],
+  "evidences": [
+    {
+      "id": 1,
+      "trip_id": 1,
+      "link": "https://img.freepik.com/vector-premium/plantilla-silueta-empresa-camiones_183875-933.jpg"
+    },
+    {
+      "id": 2,
+      "trip_id": 2,
+      "link": "https://img.freepik.com/vector-premium/plantilla-silueta-empresa-camiones_183875-933.jpg"
+    },
+    {
+      "id": 3,
+      "trip_id": 3,
+      "link": "https://img.freepik.com/vector-premium/plantilla-silueta-empresa-camiones_183875-933.jpg"
     }
   ],
   "expenses": [
@@ -192,39 +209,45 @@
       "tolls_description": "Se pasaron por seis peajes en total, los costos respectivos son: 50, 47, 40, 40, 45, 53"
     }
   ],
-  "ongoingTrips": [
+  "ongoing_trips": [
     {
-      "id": "2",
+      "id": 1,
+      "trip_id": 2,
       "latitude": -12.096808507450856,
       "longitude": -76.99985340288825,
       "speed": 60,
-      "distance": 100,
-      "alerts": [
-        {
-          "type": "Parada no programada",
-          "description": "Debido a una emergencia médica del conductor, se ha decidido hacer una parada no programada, se estima reanudar el trayecto aproximadamente en una hora",
-          "date": "2024-03-25T05:05:46Z"
-        },
-        {
-          "type": "Cambio de ruta",
-          "description": "Debido a un cierre de carretera, hemos ajustado la ruta de entrega hacia la “Ruta del Pacífico”",
-          "date": "2024-03-25T06:58:10Z"
-        }
-      ]
+      "distance": 100
     },
     {
-      "id": "3",
+      "id": 2,
+      "trip_id": 3,
       "latitude": -11.979,
       "longitude": -77.0587,
       "speed": 70,
-      "distance": 200,
-      "alerts": [
-        {
-          "type": "Retraso de entrega",
-          "description": "Debido a un accidente en la carretera, se ha retrasado la entrega en una hora",
-          "date": "2024-05-25T05:05:46Z"
-        }
-      ]
+      "distance": 200
+    }
+  ],
+  "alerts": [
+    {
+      "id": 1,
+      "trip_id": 2,
+      "title": "Parada no programada",
+      "description": "Debido a una emergencia médica del conductor, se ha decidido hacer una parada no programada, se estima reanudar el trayecto aproximadamente en una hora",
+      "date": "2024-03-25T05:05:46Z"
+    },
+    {
+      "id": 2,
+      "trip_id": 2,
+      "title": "Cambio de ruta",
+      "description": "Debido a un cierre de carretera, hemos ajustado la ruta de entrega hacia la “Ruta del Pacífico”",
+      "date": "2024-03-25T06:58:10Z"
+    },
+    {
+      "id": 3,
+      "trip_id": 3,
+      "title": "Retraso de entrega",
+      "description": "Debido a un accidente en la carretera, se ha retrasado la entrega en una hora",
+      "date": "2024-05-25T05:05:46Z"
     }
   ]
 }

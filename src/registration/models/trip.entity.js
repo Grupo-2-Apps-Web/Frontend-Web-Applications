@@ -11,6 +11,6 @@ export class Trip {
         this.driverId = driverId;
         this.vehicleId = vehicleId;
         this.clientId = clientId;
-        this.entreprenurId = entrepreneurId;
+        this.entrepreneurId = entrepreneurId;
     }
 }

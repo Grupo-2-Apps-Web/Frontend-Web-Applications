@@ -15,13 +15,13 @@ export default {
   },
   data() {
     return {
-      alertAPI: new OnGoingTripService(),
+      alertService: new OnGoingTripService(),
       alerts: [],
       alert: Alert,
     }
   },
   created() {
-    this.alertAPI.getTripByID(this.id).then(response => {
+    this.alertService.getTripByID(this.id).then(response => {
       response.data[0].alerts.forEach(alert => {
         this.alerts.push(new Alert(
           alert.type,

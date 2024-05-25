@@ -47,12 +47,12 @@ export default {
   async mounted() {
     try {
       const statisticService = new TripService();
-      const response = await statisticService.getTrips();
+      const response = await statisticService.getAll();
       if (response.data) {
         const trips = response.data;
         // Create an object to store the counts for each location
         const locationCounts = trips.reduce((counts, trip) => {
-          const location = trip.cargo.loadLocation;
+          const location = trip.load_location;
           counts[location] = (counts[location] || 0) + 1;
           return counts;
         }, {});

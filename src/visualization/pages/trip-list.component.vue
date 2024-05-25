@@ -14,7 +14,8 @@ export default {
   },
   data() {
     return {
-      api: new TripService(),
+      userId: 0,
+      tripService: new TripService(),
       trips: [],
       trip: Trip,
       selectedFilter: null,
@@ -28,22 +29,23 @@ export default {
     }
   },
   created() {
-    this.api.getTrips().then(response => {
+    this.tripService.getAll().then(response => {
       this.trips = response.data.map(trip => new Trip(
           trip.id,
           trip.name,
-          trip.cargo.loadDate,
-          trip.cargo.unloadDate,
-          trip.cargo.loadLocation,
-          trip.cargo.unloadLocation,
-          trip.driver.fullName,
-          trip.vehicle.plate,
-          trip.vehicle.tractorPlate,
-          trip.company.name,
-          trip.company.ruc,
-          trip.company.logoImage
+          trip.type,
+          trip.weight,
+          trip.load_location,
+          trip.load_date,
+          trip.unload_location,
+          trip.unload_date,
+          trip.driver_id,
+          trip.vehicle_id,
+          trip.client_id,
+          trip.entrepreneur_id
       ));
       this.filteredTrips = this.trips;
+
     });
   },
   methods: {
