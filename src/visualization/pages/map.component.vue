@@ -8,6 +8,8 @@ import {OnGoingTripService} from "../../registration/services/ongoing-trip.servi
 import { useRouter } from 'vue-router';
 
 import axios from 'axios';
+import {DriverService} from "../../registration/services/driver.service.js";
+import {VehicleService} from "../../registration/services/vehicle.service.js";
 
 export default defineComponent({
   name: 'LMap',
@@ -20,8 +22,12 @@ export default defineComponent({
     return {
       tripAPI: new TripService(),
       onGoingTripAPI: new OnGoingTripService(),
+      driverAPI: new DriverService(),
+      vehicleAPI: new VehicleService(),
       isClient: window.location.pathname.includes('client'),
       trip: Trip,
+      driverId: 0,
+      vehicleId: 0,
       driver: '',
       plate : '',
       load: '',
@@ -48,18 +54,25 @@ export default defineComponent({
       iconAnchor: [25, 50],
       popupAnchor: [0, -50]
     });
+    this.tripAPI.getOne(this.id).then(response =>{
+      this.driverId = response.data.driver_id;
+      this.vehicleId = response.data.vehicle_id;
+      this.load = response.data.weight;
+    })
 
-    this.tripAPI.getTripByID(this.id).then(response => {
-      this.driver = response.data[0].driver.fullName;
-      this.plate = response.data[0].vehicle.plate;
-      this.load = response.data[0].cargo.weight;
+    this.driverAPI.getOne(this.driverId).then(response => {
+      this.driver = response.data.name
     });
-    this.onGoingTripAPI.getTripByID(this.id).then(response => {
-      console.log(response.data[0]);
-      this.speed = response.data[0].speed;
-      this.distance = response.data[0].distance;
-      this.latitude = response.data[0].latitude;
-      this.longitude = response.data[0].longitude;
+
+    this.vehicleAPI.getOne(this.vehicleId).then(response => {
+      this.plate = response.data.plate
+    });
+
+    this.onGoingTripAPI.getByTripId(this.id).then(response => {
+      this.speed = response.data.speed;
+      this.distance = response.data.distance;
+      this.latitude = response.data.latitude;
+      this.longitude = response.data.longitude;
 
       // Leaflet Map y marcadores:
       const map = L.map('mapContainer').setView([this.latitude, this.longitude], 13);

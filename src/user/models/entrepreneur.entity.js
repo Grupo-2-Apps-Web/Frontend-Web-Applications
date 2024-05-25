@@ -1,7 +1,7 @@
 export class Entrepreneur {
-    constructor(id, logoImage, userId) {
+    constructor(id, logo_image, user_id) {
         this.id = id;
-        this.logoImage = logoImage;
-        this.userId = userId;
+        this.logo_image = logo_image;
+        this.user_id = user_id;
     }
 }

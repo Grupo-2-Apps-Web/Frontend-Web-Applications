@@ -7,8 +7,8 @@
           <tr>
             <td>{{trip.name}}</td>
             <td>{{trip.id}}</td>
-            <td>{{ formatDate(trip.loadDate) }}</td>
-            <td>{{ trip.loadLocation }}</td>
+            <td>{{ formatDate(trip.load_date) }}</td>
+            <td>{{ trip.load_location }}</td>
           </tr>
           </tbody>
         </table>
@@ -25,8 +25,8 @@
             <h3>ID: {{trip.id}}</h3>
           </div>
           <div class="content-info-preview">
-            <p>FECHA DE CARGA: {{ formatDate(trip.loadDate) }}</p>
-            <p>LUGAR DE CARGA: {{ trip.loadLocation }}</p>
+            <p>FECHA DE CARGA: {{ formatDate(trip.load_date) }}</p>
+            <p>LUGAR DE CARGA: {{ trip.load_location }}</p>
           </div>
         </template>
       </pv-card>
@@ -36,7 +36,6 @@
 </template>
 
 <script>
-import { Expense } from "../../registration/models/expense.entity.js";
 import { Trip } from "../../registration/models/trip.entity.js";
 import {useRouter} from "vue-router";
 import {mapGetters} from "vuex";

@@ -59,6 +59,16 @@
       "ruc": "20455690152",
       "address": "Av. Los Incas 123 - San Juan de Lurigancho",
       "subscription": "Premium"
+    },
+    {
+      "id": 7,
+      "name": "client@example.com",
+      "email": "entrepreneur@xd.com",
+      "phone": "912118264",
+      "password": "1111234124141",
+      "ruc": "12345678912",
+      "address": "a",
+      "subscription": "Basic"
     }
   ],
   "clients": [
@@ -95,35 +105,35 @@
   "configurations": [
     {
       "id": 1,
-      "user_id": 1,
+      "userId": "1",
       "theme": "light",
       "view": "grid",
-      "allowDataCollection": "true",
-      "updateDataSharing": "true"
+      "allow_data_collection": "false",
+      "update_data_sharing": "false"
     },
     {
       "id": 2,
       "user_id": 2,
       "theme": "light",
       "view": "grid",
-      "allowDataCollection": "true",
-      "updateDataSharing": "true"
+      "allow_data_collection": "true",
+      "update_data_sharing": "true"
     },
     {
       "id": 3,
       "user_id": 3,
       "theme": "light",
       "view": "grid",
-      "allowDataCollection": "true",
-      "updateDataSharing": "true"
+      "allow_data_collection": "true",
+      "update_data_sharing": "true"
     },
     {
       "id": 4,
       "user_id": 4,
       "theme": "dark",
       "view": "list",
-      "allowDataCollection": "false",
-      "updateDataSharing": "true"
+      "allow_data_collection": "false",
+      "update_data_sharing": "true"
     }
   ],
   "trips": [
@@ -136,8 +146,8 @@
       "load_date": "2024-05-15",
       "unload_location": "Carretera Central km 141 - Morococha",
       "unload_date": "2024-07-23",
-      "driver_id": "12345678",
-      "vehicle_id": "A1B-234",
+      "driver_id": 1,
+      "vehicle_id": 1,
       "client_id": 1,
       "entrepreneur_id": 1
     },
@@ -150,8 +160,8 @@
       "load_date": "2024-04-25",
       "unload_location": "Carretera Central km 200 - La Oroya",
       "unload_date": "2024-04-26",
-      "driver_id": "23456789",
-      "vehicle_id": "B2C-345",
+      "driver_id": 1,
+      "vehicle_id": 1,
       "client_id": 1,
       "entrepreneur_id": 1
     },
@@ -164,8 +174,8 @@
       "load_date": "2024-05-24",
       "unload_location": "Carretera Central km 300 - La Oroya",
       "unload_date": "2024-05-26",
-      "driver_id": "34567890",
-      "vehicle_id": "C3D-456",
+      "driver_id": 1,
+      "vehicle_id": 1,
       "client_id": 1,
       "entrepreneur_id": 1
     }
@@ -248,6 +258,40 @@
       "title": "Retraso de entrega",
       "description": "Debido a un accidente en la carretera, se ha retrasado la entrega en una hora",
       "date": "2024-05-25T05:05:46Z"
+    }
+  ],
+  "vehicles": [
+    {
+      "id": 1,
+      "model": "Volkswagen Transporter",
+      "plate": "A1B-234",
+      "tractor_plate": "EF3-TD3",
+      "max_load": 5000,
+      "volume": 20
+    },
+    {
+      "id": 2,
+      "model": "Mercedes-Benz Sprinter",
+      "plate": "B2C-345",
+      "tractor_plate": "GF4-UE4",
+      "max_load": 6000,
+      "volume": 25
+    }
+  ],
+  "drivers": [
+    {
+      "id": 1,
+      "name": "Carlos Sanchez",
+      "dni": "23456789",
+      "license": "C23456789",
+      "contact_number": "987654322"
+    },
+    {
+        "id": 2,
+        "name": "Armando Paredes",
+        "dni": "22356789",
+        "license": "C14356678",
+        "contact_number": "999654321"
     }
   ]
 }

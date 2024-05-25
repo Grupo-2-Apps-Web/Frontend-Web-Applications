@@ -1,10 +1,10 @@
 export class Configuration {
-    constructor(id, userId, theme, view, allowDataCollection, updateDataSharing) {
+    constructor(id, user_id, theme, view, allow_data_collection, update_data_sharing) {
         this.id = id;
-        this.userId = userId;
+        this.user_id = user_id;
         this.theme = theme;
         this.view = view;
-        this.allowDataCollection = allowDataCollection;
-        this.updateDataSharing = updateDataSharing;
+        this.allow_data_collection = allow_data_collection;
+        this.update_data_sharing = update_data_sharing;
     }
 }

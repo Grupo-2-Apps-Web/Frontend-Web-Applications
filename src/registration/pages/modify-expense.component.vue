@@ -23,13 +23,13 @@ export default {
           const expense = response.data.find(expense => expense.id === this.id);
           if (expense) {
             this.id = expense.id;
-            this.tripId = expense.tripId;
-            this.fuelAmount = expense.fuelAmount;
-            this.fuelDescription = expense.fuelDescription;
-            this.tollsAmount = expense.tollsAmount;
-            this.tollsDescription = expense.tollsDescription;
-            this.viaticsAmount = expense.viaticsAmount;
-            this.viaticsDescription = expense.viaticsDescription;
+            this.tripId = expense.trip_id;
+            this.fuelAmount = expense.fuel_amount;
+            this.fuelDescription = expense.fuel_description;
+            this.tollsAmount = expense.tolls_amount;
+            this.tollsDescription = expense.tolls_description;
+            this.viaticsAmount = expense.viatics_amount;
+            this.viaticsDescription = expense.viatics_description;
           }
         });
   },

@@ -22,11 +22,10 @@ export default {
   },
   methods: {
     saveConfig(){
-
       store.commit('SET_THEME', store.state.theme);
       store.commit('SET_VIEW', store.state.view);
       const configuration = new Configuration(
-          configuration.id,
+          this.configuration.id,
           localStorage.getItem('user_id'),
           store.state.theme,
           store.state.view,

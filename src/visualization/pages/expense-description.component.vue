@@ -33,11 +33,11 @@ export default {
             response.data.viatics_amount,
             response.data.viatics_description,
         );
-        this.totalExpenses = JSON.parse(this.expense.fuelAmount) + JSON.parse(this.expense.tollsAmount) + JSON.parse(this.expense.viaticsAmount);
+        this.totalExpenses = JSON.parse(this.expense.fuel_amount) + JSON.parse(this.expense.tolls_amount) + JSON.parse(this.expense.viatics_amount);
     });
     this.tripService.getOne(response.data.trip_id).then(response => {
       this.name = response.data.name;
-      this.entrepreneurService.getOne(response.data.entreprenurId).then(response => {
+      this.entrepreneurService.getOne(response.data.entrepreneur_id).then(response => {
         this.logoURL = response.data.logo_image;
       });
     });
@@ -55,30 +55,30 @@ export default {
       <div class="gasto">
         <div class="gasto-header">
           <h2>FUEL</h2>
-          <h2>S/. {{expense.fuelAmount}}</h2>
+          <h2>S/. {{expense.fuel_amount}}</h2>
         </div>
         <div class="gasto-descripcion">
-          <p>{{expense.fuelDescription}}</p>
+          <p>{{expense.fuel_description}}</p>
         </div>
       </div>
 
       <div class="gasto">
         <div class="gasto-header">
           <h2>TOLLS</h2>
-          <h2>S/. {{expense.tollsAmount}}</h2>
+          <h2>S/. {{expense.tolls_amount}}</h2>
         </div>
         <div class="gasto-descripcion">
-          <p>{{expense.tollsDescription}}</p>
+          <p>{{expense.tolls_description}}</p>
         </div>
       </div>
 
       <div class="gasto">
         <div class="gasto-header">
           <h2>VIATICS</h2>
-          <h2>S/. {{expense.viaticsAmount}}</h2>
+          <h2>S/. {{expense.viatics_amount}}</h2>
         </div>
         <div class="gasto-descripcion">
-          <p>{{expense.viaticsDescription}}</p>
+          <p>{{expense.viatics_description}}</p>
         </div>
 
       </div>

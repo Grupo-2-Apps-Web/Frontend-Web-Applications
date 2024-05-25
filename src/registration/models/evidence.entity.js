@@ -1,7 +1,7 @@
 export class Evidence {
-    constructor(id, tripId, link) {
+    constructor(id, trip_id, link) {
         this.id = id;
-        this.tripId = tripId;
+        this.trip_id = tripId;
         this.link = link;
     }
 }

@@ -66,25 +66,25 @@ export default {
       <div class="container-info">
         <p>
           <strong>LOAD DATE:</strong>
-          {{ trip.loadDate }}
+          {{ trip.load_date }}
         </p>
       </div>
       <div class="container-info">
         <p>
           <strong>UNLOAD DATE:</strong>
-          {{ trip.unloadDate }}
+          {{ trip.unload_date }}
         </p>
       </div>
       <div class="container-info">
         <p>
           <strong>LOAD LOCATION:</strong>
-          {{ trip.loadLocation }}
+          {{ trip.load_location }}
         </p>
       </div>
       <div class="container-info">
         <p>
           <strong>UNLOAD LOCATION:</strong>
-          {{ trip.unloadLocation }}
+          {{ trip.unload_location }}
         </p>
       </div>
       <!-- MISSING DRIVER AND TRAILER ENDPOINT CALLING
