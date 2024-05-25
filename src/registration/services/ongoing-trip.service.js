@@ -1,14 +1,7 @@
-import axios from 'axios';
+import { BaseService } from "../../shared/services/base.service.js";
 
-const http = axios.create({
-    baseURL: 'http://localhost:3000'
-});
-
-export class OnGoingTripService {
-    getTrips() {
-        return http.get("ongoingTrips");
-    }
-    getTripByID(id) {
-        return http.get(`ongoingTrips?id=${id}`);
+export class OngoingTripService extends BaseService {
+    constructor() {
+        super("ongoing_trips");
     }
 }

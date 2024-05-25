@@ -1,6 +1,8 @@
 export class Alert {
-    constructor(type, description, date){
-        this.type = type;
+    constructor(id, tripId, title, description, date){
+        this.id = id;
+        this.tripId = tripId;
+        this.title = title;
         this.description = description;
         this.date = date;
     }

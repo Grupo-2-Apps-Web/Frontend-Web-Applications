@@ -1,7 +1,7 @@
 import { BaseService } from "../../shared/services/base.service.js";
 
-export class ExpenseService extends BaseService {
+export class ClientService extends BaseService {
     constructor() {
-        super("expenses");
+        super("clients");
     }
 }

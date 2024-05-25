@@ -1,10 +1,12 @@
 export class Expense {
-    constructor(fuel, fuelDescription, tolls, tollsDescription, viatics, viaticsDescription){
-        this.fuel = fuel;
+    constructor(id, tripId, fuelAmount, fuelDescription, viaticsAmount, viaticsDescription, tollsAmount, tollsDescription){
+        this.id = id;
+        this.tripId = tripId;
+        this.fuelAmount = fuelAmount;
         this.fuelDescription = fuelDescription;
-        this.tolls = tolls;
-        this.tollsDescription = tollsDescription;
-        this.viatics = viatics;
+        this.viaticsAmount = viaticsAmount;
         this.viaticsDescription = viaticsDescription;
+        this.tollsAmount = tollsAmount;
+        this.tollsDescription = tollsDescription;
     }
 }

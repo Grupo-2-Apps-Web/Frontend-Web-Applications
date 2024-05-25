@@ -1,16 +1,16 @@
 export class Trip {
-    constructor(id, name, loadDate, unloadDate, loadLocation, unloadLocation, driver, trailerPlate, tractorPlate, company, ruc, evidence) {
+    constructor(id, name, type, weight, loadLocation, loadDate, unloadLocation, unloadDate, driverId, vehicleId, clientId, entrepreneurId) {
         this.id = id;
         this.name = name;
-        this.loadDate = loadDate;
-        this.unloadDate = unloadDate;
+        this.type = type;
+        this.weight = weight;
         this.loadLocation = loadLocation;
+        this.loadDate = loadDate;
         this.unloadLocation = unloadLocation;
-        this.driver = driver;
-        this.trailerPlate = trailerPlate;
-        this.tractorPlate = tractorPlate;
-        this.company = company;
-        this.ruc = ruc;
-        this.evidence = evidence;
+        this.unloadDate = unloadDate;
+        this.driverId = driverId;
+        this.vehicleId = vehicleId;
+        this.clientId = clientId;
+        this.entreprenurId = entrepreneurId;
     }
 }
