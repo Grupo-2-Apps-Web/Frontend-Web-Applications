@@ -13,6 +13,8 @@ import Registration from "../registration/pages/registration.component.vue";
 
 import RegisterTripComponent from "../registration/pages/register-trip.component.vue";
 import RegisterExpenseComponent from "../registration/pages/register-expense.component.vue";
+import RegisterDriverComponent from "../registration/pages/register-driver.component.vue";
+import RegisterVehicleComponent from "../registration/pages/register-vehicle.component.vue";
 import AlertList from "../visualization/pages/alert-list.component.vue";
 import ModifyTripComponent from "../registration/pages/modify-trip.component.vue";
 import ModifyExpenseComponent from "../registration/pages/modify-expense.component.vue";
@@ -48,6 +50,8 @@ const router = createRouter({
         { path: '/entrepreneur/register', component: Registration },
         { path: '/entrepreneur/register/trip', component: RegisterTripComponent },
         { path: '/entrepreneur/register/expense', component: RegisterExpenseComponent },
+        { path: '/entrepreneur/register/driver', component: RegisterDriverComponent },
+        { path: '/entrepreneur/register/vehicle', component: RegisterVehicleComponent },
         { path: '/entrepreneur/modify/trip', component: ModifyRequestIdComponent },
         { path: '/entrepreneur/modify/expense', component: ModifyRequestIdComponent },
         { path: '/entrepreneur/modify/trip/:id', component: ModifyTripComponent },

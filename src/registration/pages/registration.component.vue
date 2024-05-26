@@ -21,11 +21,31 @@ export default {
       router.push('/entrepreneur/modify/expense');
     };
 
+    const registerDriver = () => {
+      router.push('/entrepreneur/register/driver');
+    };
+
+    const modifyDriver = () => {
+      router.push('/entrepreneur/modify/driver');
+    };
+
+    const registerVehicle = () => {
+      router.push('/entrepreneur/register/vehicle');
+    };
+
+    const modifyVehicle = () => {
+      router.push('/entrepreneur/modify/vehicle');
+    };
+
     return {
       registerTrip,
       modifyTrip,
       registerExpense,
-      modifyExpense
+      modifyExpense,
+      registerDriver,
+      modifyDriver,
+      registerVehicle,
+      modifyVehicle
     };
   }
 }
@@ -39,7 +59,7 @@ export default {
       </template>
       <template v-slot:content>
         <p>Click on "Register" to register a new transportation trip for your company.
-          Click on "Modify" to modify an existing transportation trip of your company</p>
+          Click on "Modify" to modify an existing transportation trip of your company.</p>
       </template>
       <template v-slot:footer>
         <pv-button class="register-button" @click="registerTrip">Register</pv-button>
@@ -52,11 +72,37 @@ export default {
       </template>
       <template v-slot:content>
         <p>Click on "Register" to register a new expense for a transportation trip for your company.
-          Click on "Modify" to modify an existing expense for a transportation trip of your company</p>
+          Click on "Modify" to modify an existing expense for a transportation trip of your company.</p>
       </template>
       <template v-slot:footer>
         <pv-button class="register-button" @click="registerExpense">Register</pv-button>
         <pv-button class="modify-button" @click="modifyExpense">Modify</pv-button>
+      </template>
+    </pv-card>
+    <pv-card class="card">
+      <template v-slot:title>
+        <h3>Register Driver</h3>
+      </template>
+      <template v-slot:content>
+        <p>Click on "Register" to register a new driver of your company.
+          Click on "Modify" to modify an existing driver of your company.</p>
+      </template>
+      <template v-slot:footer>
+        <pv-button class="register-button" @click="registerDriver">Register</pv-button>
+        <pv-button class="modify-button" @click="modifyDriver">Modify</pv-button>
+      </template>
+    </pv-card>
+    <pv-card class="card">
+      <template v-slot:title>
+        <h3>Register Vehicle</h3>
+      </template>
+      <template v-slot:content>
+        <p>Click on "Register" to register a new vehicle for transportation trips.
+          Click on "Modify" to modify an existing vehicle for transportation trips.</p>
+      </template>
+      <template v-slot:footer>
+        <pv-button class="register-button" @click="registerVehicle">Register</pv-button>
+        <pv-button class="modify-button" @click="modifyVehicle">Modify</pv-button>
       </template>
     </pv-card>
   </div>
