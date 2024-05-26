@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref } from "vue";
-import Sidebar from "./public/sidebar.component.vue";
+import Sidebar from "./public/components/sidebar.component.vue";
 
 const visible = ref(false);
 

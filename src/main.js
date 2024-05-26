@@ -17,7 +17,8 @@ import Textarea from 'primevue/textarea'
 
 import ConfirmDialog from 'primevue/confirmdialog';
 import ConfirmationService from 'primevue/confirmationservice';
-
+//PrimeFlex
+import 'primeflex/primeflex.css';
 //Router
 import router from './router/index.js'
 
