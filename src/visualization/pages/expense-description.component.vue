@@ -1,0 +1,139 @@
+<script>
+import {Expense} from "../../registration/models/expense.entity.js";
+import {TripService} from "../../registration/services/trip.service.js";
+import {ExpenseService} from "../../registration/services/expense.service.js";
+import {EntrepreneurService} from "../../user/services/entrepreneur.service.js";
+export default {
+  name: "expense-description",
+  computed: {
+    id(){
+      return this.$route.params.id;
+    }
+  },
+  data() {
+    return {
+      name: "",
+      expense: Expense,
+      expenseService: new ExpenseService(),
+      tripService: new TripService(),
+      entrepreneurService: new EntrepreneurService(),
+      logoURL: "",
+      totalExpenses: 0
+    }
+  },
+  created() {
+    this.expenseService.getByTripId(this.id).then(response => {
+        this.expense = new Expense(
+            response.id,
+            this.id,
+            response.fuel_amount,
+            response.fuel_description,
+            response.tolls_amount,
+            response.tolls_description,
+            response.viatics_amount,
+            response .viatics_description,
+        );
+        this.totalExpenses = JSON.parse(this.expense.fuel_amount) + JSON.parse(this.expense.tolls_amount) + JSON.parse(this.expense.viatics_amount);
+    });
+    this.tripService.getOne(this.id).then(response => {
+      this.name = response.data.name;
+      this.entrepreneurService.getOne(response.data.entrepreneur_id).then(response => {
+        this.logoURL = response.data.logo_image;
+      });
+    });
+  }
+}
+</script>
+
+<template>
+  <pv-button style="margin-top: 20px; margin-left: 10px;" @click="this.$router.go(-1);">Return</pv-button>
+
+  <h1>{{name}} - ID: {{ id }}</h1>
+  <div class="container">
+    <img :src="this.logoURL" alt="company image">
+    <div class="gastos">
+      <div class="gasto">
+        <div class="gasto-header">
+          <h2>FUEL</h2>
+          <h2>S/. {{expense.fuel_amount}}</h2>
+        </div>
+        <div class="gasto-descripcion">
+          <p>{{expense.fuel_description}}</p>
+        </div>
+      </div>
+
+      <div class="gasto">
+        <div class="gasto-header">
+          <h2>TOLLS</h2>
+          <h2>S/. {{expense.tolls_amount}}</h2>
+        </div>
+        <div class="gasto-descripcion">
+          <p>{{expense.tolls_description}}</p>
+        </div>
+      </div>
+
+      <div class="gasto">
+        <div class="gasto-header">
+          <h2>VIATICS</h2>
+          <h2>S/. {{expense.viatics_amount}}</h2>
+        </div>
+        <div class="gasto-descripcion">
+          <p>{{expense.viatics_description}}</p>
+        </div>
+
+      </div>
+      <div class="gasto">
+        <div class="gasto-header">
+          <h2>TOTAL</h2>
+          <h2>S/. {{ totalExpenses }}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</template>
+
+<style scoped>
+
+  h1{
+    font-size: 48px;
+    text-align: center;
+  }
+  .container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  img{
+    width: 30%;
+    margin: 0 auto;
+  }
+
+  .gasto-header{
+    display: grid;
+    grid-template-columns: calc(80% - 5px) calc(20% - 5px);
+    grid-gap: 10px;
+  }
+
+  .gasto-header h2{
+    background-color: #FFA500;
+    padding: 5px 0px;
+    text-align: center;
+    border-radius: 5px;
+  }
+
+  .gasto-descripcion{
+    background-color: #FFCA6A;
+    padding: 5px;
+    min-height: 75px;
+  }
+
+  @media (max-width: 768px){
+    .container{
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
