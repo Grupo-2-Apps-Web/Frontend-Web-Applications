@@ -58,15 +58,17 @@ export default {
         accept: () => {
           vehicleService.getAll().then(response => {
             const vehicles = response.data;
-            const vehicle = vehicles.find(vehicle => vehicle.plate === vehicleData.plate);
+            let plate = `${vehicleData.plate1.toUpperCase()}-${vehicleData.plate2.toUpperCase()}`;
+            let tractor_plate = `${vehicleData.tractor_plate1.toUpperCase()}-${vehicleData.tractor_plate2.toUpperCase()}`;
+            const vehicle = vehicles.find(vehicle => vehicle.plate === plate);
             if (vehicle) {
               alert('The vehicle already exists. Plate is registered.');
             } else {
               const newVehicle = new Vehicle(
                   0,
                   vehicleData.model,
-                  `${vehicleData.plate1}-${vehicleData.plate2}`,
-                  `${vehicleData.tractor_plate1}-${vehicleData.tractor_plate2}`,
+                  plate,
+                  tractor_plate,
                   Number(vehicleData.max_load),
                   Number(vehicleData.volume)
               );
