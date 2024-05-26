@@ -43,8 +43,12 @@ export default defineComponent({
     const goToAlerts = (id) => {
       router.push(`/client/alerts/${id}`);
     }
+    const goBack = () => {
+      router.go(-1);
+    }
     return{
-      goToAlerts
+      goToAlerts,
+      goBack
     };
   },
   mounted() {
@@ -129,7 +133,7 @@ export default defineComponent({
                   stepIndex++;
                 }
               }
-            }, 300000 / segmentsPerStep); // Mueve el marcador y actualiza la ruta cada segundo / segmentsPerStep
+            }, 20000 / segmentsPerStep); // Mueve el marcador y actualiza la ruta cada segundo / segmentsPerStep
           })
           .catch(error => {
             console.log("Ocurrio un:", error);
@@ -142,6 +146,7 @@ export default defineComponent({
 <template>
   <div class="container">
     <div class="info-card">
+      <pv-button label="Return" class="back-btn" @click="goBack"></pv-button>
       <pv-card>
         <template #content>
           <div class="content">
@@ -196,6 +201,11 @@ export default defineComponent({
   border-radius: 15px;
   width: 25%;
   margin-top: -20px;
+}
+.back-btn {
+  margin-bottom: 20px;
+  margin-left: 100px;
+  align-self: flex-start;
 }
 
 #mapContainer {
