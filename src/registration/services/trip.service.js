@@ -11,4 +11,5 @@ export class TripService extends BaseService {
         const trip = trips.find(trip => trip.id === Number(id));
         return trip || null;
     }
+
 }

@@ -12,6 +12,10 @@ export default {
   computed: {
     ...mapGetters(['getView'])
   },
+  watch: {
+    selectedFilter: 'filterTrips',
+    searchText: 'filterTrips'
+  },
   data() {
     return {
       userId: 0,
@@ -21,7 +25,7 @@ export default {
       selectedFilter: null,
       filters: [
         { name: 'Name', value: 'name' },
-        { name: 'Date', value: 'date' },
+        { name: 'Date (YYYY-MM-DD)', value: 'date' },
         { name: 'Place', value: 'place' },
       ],
       searchText: '',
@@ -50,7 +54,7 @@ export default {
   },
   methods: {
     filterTrips() {
-      if (!this.selectedFilter && !this.searchText) {
+      if (!this.selectedFilter || !this.searchText) {
         this.filteredTrips = this.trips;
         return;
       }
@@ -64,12 +68,17 @@ export default {
           switch (filterValue) {
             case 'name':
               tripProperty = trip.name;
+              console.log(trip.load_date);
+              console.log(trip.load_location)
               break;
             case 'date':
-              tripProperty = trip.loadDate;
-              break;
+              // Asegúrate de que la fecha de búsqueda esté en la misma zona horaria que la fecha de carga
+              let searchDate = new Date(`${searchText}T00:00:00`);
+              tripProperty = new Date(trip.load_date);
+              tripProperty = `${tripProperty.getFullYear()}-${tripProperty.getMonth() + 1}-${tripProperty.getDate()}`;
+              return tripProperty === `${searchDate.getFullYear()}-${searchDate.getMonth() + 1}-${searchDate.getDate()}`;
             case 'place':
-              tripProperty = trip.loadLocation;
+              tripProperty = trip.load_location;
               break;
             default:
               return true;
@@ -127,7 +136,6 @@ export default {
     </table>
 
     <trip-card v-for="trip in filteredTrips" :trip="trip"/>
-
   </div>
 
 </template>
@@ -156,7 +164,7 @@ h1{
   display: flex;
   text-align: center;
   justify-content: center;
-  width: 100%;
+  width: 50%;
 }
 
 .search-bar input {
@@ -215,13 +223,31 @@ table thead tr {
   height: 50px;
 }
 
-@media (max-width: 767px) {
-
-  table {
-    width: 80%;
+@media (max-width: 790px) {
+  .main-top {
+    flex-direction: column;
+    align-items: center;
   }
 
+  .container-search-bar, .buttons-group {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+  }
+
+  .search-bar input {
+    width: 90%;
+  }
+
+  .main-body {
+    padding-right: 100px;
+  }
+
+
 }
+
 
 
 </style>
