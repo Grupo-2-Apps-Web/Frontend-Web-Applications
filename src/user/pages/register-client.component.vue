@@ -109,11 +109,11 @@ export default {
       </div>
       <div class="form-group">
         <label>Phone</label>
-        <input v-model="phone" required>
+        <input v-model="phone" maxlength="9" required>
       </div>
       <div class="form-group">
         <label>RUC</label>
-        <input v-model="ruc" required>
+        <input v-model="ruc" maxlength="11" required>
       </div>
       <div class="form-group">
         <label>Address</label>
