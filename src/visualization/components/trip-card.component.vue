@@ -30,7 +30,10 @@
           </div>
         </template>
       </pv-card>
-      <pv-button label="View more" :class="['btn', getView]" @click="goToTrip(trip.id)"></pv-button>
+      <div class="btn-container">
+        <pv-button label="View more" :class="['btn', getView]" @click="goToTrip(trip.id)"></pv-button>
+      </div>
+
     </div>
   </div>
 </template>
@@ -125,7 +128,9 @@ p{
     width: 100%;
   }
   .content-info-preview {
-    margin: -94px 15px 0 210px;
+    width: 240px;
+    margin: -80px 0 0 180px;
+    font-size: 0.9em;
   }
   .btn {
     margin-left: 250px;
@@ -138,7 +143,7 @@ p{
     margin-bottom: 30px;
   }
   .content-info-preview {
-    margin: -120px 15px 0 170px;
+    margin: -80px 0 0 180px;
   }
 }
 
@@ -219,25 +224,24 @@ table th, table td {
 }
 
 
-@media (max-width: 767px) {
+@media (max-width: 500px) {
 
-  .trip.list {
-    width: 80%;
+  .trip-card {
+    width: 230px;
+    font-size: 0.9em;
+    height: 320px;
   }
 
-  table th, table td {
-    padding: 2px;
-    font-size: 10px;
+  .content-info-preview {
+    width: 100px;
+    margin: -10px 0 0 90px;
+    font-size: 0.9em;
+  }
+  .btn-container {
+    margin-left: -210px;
+    margin-top: -5px;
   }
 
-  .btn.list {
-    width: 40px;
-    height: 40px;
-    font-size: 10px;
-    display: flex;
-    text-align: center;
-
-  }
 
 }
 
