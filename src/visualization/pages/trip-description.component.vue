@@ -3,6 +3,15 @@ import { TripService } from '../../registration/services/trip.service.js';
 import { Trip } from '../../registration/models/trip.entity.js';
 import {Evidence} from "../../registration/models/evidence.entity.js";
 import {EvidenceService} from "../../registration/services/evidence.service.js";
+import {DriverService} from "../../registration/services/driver.service.js";
+import {Driver} from "../../registration/models/driver.entity.js";
+import {VehicleService} from "../../registration/services/vehicle.service.js";
+import {Vehicle} from "../../registration/models/vehicle.entity.js";
+import {EntrepreneurService} from "../../user/services/entrepreneur.service.js";
+import {Entrepreneur} from "../../user/models/entrepreneur.entity.js";
+import {UserService} from "../../user/services/user.service.js";
+import {User} from "../../user/models/user.entity.js";
+
 
 export default {
   name: "trip-description",
@@ -15,8 +24,16 @@ export default {
     return {
       trip: Trip,
       evidence: Evidence,
+      driver: Driver,
+      vehicle: Vehicle,
+      entrepreneur: Entrepreneur,
+      user: User,
       tripService: new TripService(),
-      evidenceService: new EvidenceService()
+      evidenceService: new EvidenceService(),
+      driverService: new DriverService(),
+      vehicleService: new VehicleService(),
+      entrepreneurService: new EntrepreneurService(),
+      userService: new UserService()
     }
   },
   created() {
@@ -43,6 +60,52 @@ export default {
           response.data.link
         );
       });
+
+      this.driverService.getOne(this.trip.driver_id).then(response => {
+        this.driver = new Driver(
+          response.data.id,
+          response.data.name,
+          response.data.dni,
+          response.data.license,
+          response.data.contact_number
+        );
+      });
+
+      this.vehicleService.getOne(this.trip.vehicle_id).then(response => {
+        this.vehicle = new Vehicle(
+          response.data.id,
+          response.data.model,
+          response.data.plate,
+          response.data.tractor_plate,
+          response.data.max_load,
+          response.data.volume
+        );
+      });
+
+      this.entrepreneurService.getOne(this.trip.entrepreneur_id).then(response => {
+        this.entrepreneur = new Entrepreneur(
+          response.data.id,
+          response.data.logo_image,
+          response.data.user_id,
+        );
+
+        this.userService.getOne(this.entrepreneur.user_id).then(response => {
+          this.user = new User(
+            response.data.id,
+            response.data.name,
+            response.data.email,
+            response.data.phone,
+            response.data.password,
+            response.data.ruc,
+            response.data.address,
+            response.data.subscription
+          );
+        });
+
+      });
+
+
+
     });
   }
 }
@@ -87,38 +150,41 @@ export default {
           {{ trip.unload_location }}
         </p>
       </div>
-      <!-- MISSING DRIVER AND TRAILER ENDPOINT CALLING
+
       <div class="container-info">
         <p>
           <strong>DRIVER:</strong>
-           {{ trip.driver }}
+          {{ driver.name }}
         </p>
       </div>
+
       <div class="container-info">
         <p>
           <strong>PLATE:</strong>
-          {{ trip.trailerPlate }}
+          {{ vehicle.plate }}
         </p>
       </div>
+
       <div class="container-info">
         <p>
           <strong>TRACTOR PLATE: </strong>
-          {{ trip.tractorPlate }}
+          {{ vehicle.tractor_plate }}
         </p>
       </div>
+
       <div class="container-info">
         <p>
           <strong>COMPANY:</strong>
-           {{ trip.company }}
+           {{ user.name }}
         </p>
       </div>
       <div class="container-info">
         <p>
           <strong>RUC: </strong>
-          {{ trip.ruc }}
+          {{ user.ruc }}
         </p>
       </div>
-      -->
+
     </div>
   </div>
 </template>
