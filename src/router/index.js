@@ -1,25 +1,39 @@
 import {createRouter, createWebHistory} from "vue-router";
-import TripList from "../client/components/trip-list.component.vue";
-import ExpenseList from "../client/components/expense-list.component.vue";
-import ExpenseDescription from "../client/components/expense-description.component.vue"
-import TripDescription from "../client/components/trip-description.component.vue";
-import BarGraph from "../client/components/bargraph.component.vue";
-import TravelList from "../client/components/travel-list.component.vue";
-import Map from "../client/components/map.component.vue";
-import Registration from "../entrepreneur/components/registration.component.vue";
-import UserComponent from "../public/user.component.vue"
-import RegisterTripComponent from "../entrepreneur/components/register-trip.component.vue";
-import RegisterExpenseComponent from "../entrepreneur/components/register-expense.component.vue";
-import AlertList from "../client/components/alert-list.component.vue";
-import ModifyTripComponent from "../entrepreneur/components/modify-trip.component.vue";
-import ModifyExpenseComponent from "../entrepreneur/components/modify-expense.component.vue";
-import ModifyRequestIdComponent from "../entrepreneur/components/modify-request-id.component.vue";
+import ExpenseList from "../visualization/pages/expense-list.component.vue";
+import ExpenseDescription from "../visualization/pages/expense-description.component.vue"
+import TripList from "../visualization/pages/trip-list.component.vue";
+import TripDescription from "../visualization/pages/trip-description.component.vue";
+import BarGraph from "../visualization/pages/bargraph.component.vue";
+
+import TravelList from "../visualization/pages/travel-list.component.vue";
+import Map from "../visualization/pages/map.component.vue";
+
+
+import Registration from "../registration/pages/registration.component.vue";
+
+import RegisterTripComponent from "../registration/pages/register-trip.component.vue";
+import RegisterExpenseComponent from "../registration/pages/register-expense.component.vue";
+import AlertList from "../visualization/pages/alert-list.component.vue";
+import ModifyTripComponent from "../registration/pages/modify-trip.component.vue";
+import ModifyExpenseComponent from "../registration/pages/modify-expense.component.vue";
+import ModifyRequestIdComponent from "../registration/pages/modify-request-id.component.vue";
+import ConfigurationComponent from "../user/pages/configuration.component.vue";
+import SubscriptionComponent from "../user/pages/subscription.component.vue";
+import PaymentComponent from "../user/pages/payment.component.vue";
+
+import FormRegister from '../user/pages/register.component.vue';
+import FormLogin from '../user/pages/login.component.vue';
+import FormRecoverAccount from '../user/pages/recover-account.component.vue';
+import RegisterClientComponent from "../user/pages/register-client.component.vue";
+import RegisterEntrepreneurComponent from "../user/pages/register-entrepreneur.component.vue";
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-        { path: '/', redirect: '/home' },
-        { path: '/home', component: UserComponent },
+        { path: '/', redirect: '/login' },
+        { path: '/configuration', component: ConfigurationComponent },
+        { path: '/subscription', component: SubscriptionComponent },
+        { path: '/payment', component: PaymentComponent },
         { path: '/client', redirect: '/client/history'},
         { path: '/client/history', component: TripList },
         { path: '/client/history/:id', component: TripDescription },
@@ -29,6 +43,7 @@ const router = createRouter({
         { path: '/client/gps', component: TravelList },
         { path: '/client/gps/:id', component: Map },
         { path: '/client/alerts/:id', component: AlertList },
+
         { path: '/entrepreneur', redirect: '/entrepreneur/register'},
         { path: '/entrepreneur/register', component: Registration },
         { path: '/entrepreneur/register/trip', component: RegisterTripComponent },
@@ -37,8 +52,17 @@ const router = createRouter({
         { path: '/entrepreneur/modify/expense', component: ModifyRequestIdComponent },
         { path: '/entrepreneur/modify/trip/:id', component: ModifyTripComponent },
         { path: '/entrepreneur/modify/expense/:id', component: ModifyExpenseComponent },
+
         { path: '/entrepreneur/history', component: TripList },
-        { path: '/entrepreneur/gps', component: TravelList}
+        { path: '/entrepreneur/history/:id', component: TripDescription },
+        { path: '/entrepreneur/gps', component: TravelList},
+        { path: '/entrepreneur/gps/:id', component: Map},
+
+        { path: '/login', component: FormLogin },
+        { path: '/signup', component: FormRegister },
+        { path: '/signup/client', component: RegisterClientComponent },
+        { path: '/signup/entrepreneur', component: RegisterEntrepreneurComponent },
+        { path: '/recover-account', component: FormRecoverAccount }
     ]
 });
 
