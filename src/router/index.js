@@ -18,7 +18,11 @@ import RegisterVehicleComponent from "../registration/pages/register-vehicle.com
 import AlertList from "../visualization/pages/alert-list.component.vue";
 import ModifyTripComponent from "../registration/pages/modify-trip.component.vue";
 import ModifyExpenseComponent from "../registration/pages/modify-expense.component.vue";
+import ModifyDriverComponent from "../registration/pages/modify-driver.component.vue";
+import ModifyVehicleComponent from "../registration/pages/modify-vehicle.component.vue";
 import ModifyRequestIdComponent from "../registration/pages/modify-request-id.component.vue";
+import ModifyRequestDniComponent from "../registration/pages/modify-request-dni.component.vue";
+import ModifyRequestPlateComponent from "../registration/pages/modify-request-plate.component.vue";
 import ConfigurationComponent from "../user/pages/configuration.component.vue";
 import SubscriptionComponent from "../user/pages/subscription.component.vue";
 import PaymentComponent from "../user/pages/payment.component.vue";
@@ -54,8 +58,12 @@ const router = createRouter({
         { path: '/entrepreneur/register/vehicle', component: RegisterVehicleComponent },
         { path: '/entrepreneur/modify/trip', component: ModifyRequestIdComponent },
         { path: '/entrepreneur/modify/expense', component: ModifyRequestIdComponent },
+        { path: '/entrepreneur/modify/driver', component: ModifyRequestDniComponent },
+        { path: '/entrepreneur/modify/vehicle', component: ModifyRequestPlateComponent },
         { path: '/entrepreneur/modify/trip/:id', component: ModifyTripComponent },
         { path: '/entrepreneur/modify/expense/:id', component: ModifyExpenseComponent },
+        { path: '/entrepreneur/modify/driver/:id', component: ModifyDriverComponent },
+        { path: '/entrepreneur/modify/vehicle/:id', component: ModifyVehicleComponent },
 
         { path: '/entrepreneur/history', component: TripList },
         { path: '/entrepreneur/history/:id', component: TripDescription },
