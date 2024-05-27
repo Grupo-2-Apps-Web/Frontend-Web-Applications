@@ -3,6 +3,7 @@ import { TripService } from '../../registration/services/trip.service.js';
 import { Trip } from '../../registration/models/trip.entity.js';
 import TripCard from "../components/trip-card.component.vue";
 import {mapGetters} from "vuex";
+import { js2xml } from 'xml-js';
 
 export default {
   name: "trip-list",
@@ -19,6 +20,7 @@ export default {
   data() {
     return {
       userId: 0,
+      visible: false,
       tripService: new TripService(),
       trips: [],
       trip: Trip,
@@ -53,6 +55,45 @@ export default {
     });
   },
   methods: {
+    downloadJSON(){
+      const client_id = 1; //Hard Coded
+      const entrepreneur_id = 1; //Hard Coded
+      this.tripService.getAll().then(response => {
+        let trips = response.data;
+        const filteredTrips = trips.filter(trip => trip.client_id === client_id || trip.entrepreneur_id === entrepreneur_id);
+        const data = JSON.stringify(filteredTrips);
+        const blob = new Blob([data], { type: 'application/json' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'trips.json';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      });
+    },
+    downloadXML(){
+      const client_id = 1; //Hard Coded
+      const entrepreneur_id = 1; //Hard Coded
+      this.tripService.getAll().then(response => {
+        let trips = response.data;
+        const filteredTrips = trips.filter(trip => trip.client_id === Number(client_id) || trip.entrepreneur_id === Number(entrepreneur_id) );
+
+        // Convert the array of trips to an object with valid XML tags
+        const tripsWithValidTags = filteredTrips.reduce((obj, trip, index) => {
+          obj[`trip${index}`] = trip;
+          return obj;
+        }, {});
+
+        let xmlData = js2xml({trips: tripsWithValidTags}, {compact: true, spaces: 4});
+        const blob = new Blob([xmlData], { type: 'application/xml' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'trips.xml';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      });
+    },
     filterTrips() {
       if (!this.selectedFilter || !this.searchText) {
         this.filteredTrips = this.trips;
@@ -100,9 +141,24 @@ export default {
 <template>
   <div class="main-top">
     <h1>Last Trips</h1>
-    <pv-button label="Export" style="background-color: #006400" ></pv-button>
+    <pv-button label="Export" @click="visible = true" style="background-color: #006400" ></pv-button>
   </div>
+  <pv-dialog :visible="visible" header="Download trips information" :closable="false">
+    <template #header>
+      <div class="flex">
+        <h3>Download trips information</h3>
+        <pv-button class="p-button-text w-2rem h-2rem mr-2 ml-2" icon="pi pi-times" @click="visible = false"/>
+      </div>
+    </template>
+    <span class="p-text-secondary block mb-5">What type of file do you want to download?</span>
+    <template #footer>
+      <div class="flex justify-content-evenly gap-3">
+        <pv-button class="justify-content-center" @click="downloadJSON" severity="info">JSON</pv-button>
+        <pv-button class="justify-content-center" @click="downloadXML" severity="info">XML</pv-button>
+      </div>
 
+    </template>
+  </pv-dialog>
   <div class="container-search-bar">
     <div class="search-bar">
       <input type="text" v-model="searchText" placeholder="Search" />
@@ -244,10 +300,5 @@ table thead tr {
   .main-body {
     padding-right: 100px;
   }
-
-
 }
-
-
-
 </style>
