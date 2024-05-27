@@ -10,6 +10,8 @@ import { useRouter } from 'vue-router';
 import axios from 'axios';
 import {DriverService} from "../../registration/services/driver.service.js";
 import {VehicleService} from "../../registration/services/vehicle.service.js";
+import {AlertService} from "../../registration/services/alert.service.js";
+import {Alert} from "../../registration/models/alert.entity.js";
 
 export default defineComponent({
   name: 'LMap',
@@ -24,6 +26,7 @@ export default defineComponent({
       onGoingTripAPI: new OnGoingTripService(),
       driverAPI: new DriverService(),
       vehicleAPI: new VehicleService(),
+      alertAPI: new AlertService(),
       isClient: window.location.pathname.includes('client'),
       trip: Trip,
       driverId: 0,
@@ -35,7 +38,22 @@ export default defineComponent({
       distance: 0,
       latitude: 0,
       longitude: 0,
+      visible: false,
       googleMapsApiKey: 'AIzaSyCe0niCYse11QSi-ydywisYM0KEOV-cmdk',
+    }
+  },
+  methods:{
+    addAlert(){
+      this.visible = true;
+    },
+    registerAlert(){
+      const title = document.getElementById('title').value;
+      const description = document.getElementById('description').value;
+      this.alertAPI.create( new Alert(0, Number(this.id), title, description, new Date() ) );
+      this.visible = false;
+    },
+    closeDialog() {
+      this.visible = false;
     }
   },
   setup(){
@@ -43,8 +61,13 @@ export default defineComponent({
     const goToAlerts = (id) => {
       router.push(`/client/alerts/${id}`);
     }
+
+    const goBack = () => {
+      router.go(-1);
+    }
     return{
-      goToAlerts
+      goToAlerts,
+      goBack
     };
   },
   mounted() {
@@ -129,7 +152,7 @@ export default defineComponent({
                   stepIndex++;
                 }
               }
-            }, 300000 / segmentsPerStep); // Mueve el marcador y actualiza la ruta cada segundo / segmentsPerStep
+            }, 20000 / segmentsPerStep); // Mueve el marcador y actualiza la ruta cada segundo / segmentsPerStep
           })
           .catch(error => {
             console.log("Ocurrio un:", error);
@@ -142,6 +165,7 @@ export default defineComponent({
 <template>
   <div class="container">
     <div class="info-card">
+      <pv-button label="Return" class="back-btn" @click="goBack"></pv-button>
       <pv-card>
         <template #content>
           <div class="content">
@@ -156,8 +180,26 @@ export default defineComponent({
           </div>
         </template>
       </pv-card>
+      <pv-button v-if="!isClient" label="Add Alert" class="btn" @click="addAlert"></pv-button>
       <pv-button v-if="isClient" label="Alerts" class="btn" @click="goToAlerts(id)"></pv-button>
     </div>
+      <pv-dialog :visible="visible" header="Add Alert" :closable="false">
+        <template #header>
+          <h2>Add Alert</h2>
+        </template>
+        <div class="flex flex-column m-2">
+          <label for="title" class="font-semibold w-6rem mb-2">Title</label>
+          <pv-inputtext id="title" class="flex-auto" autocomplete="off" />
+        </div>
+        <div class="flex flex-column m-2">
+          <label for="description" class="font-semibold w-6rem mb-2">Description</label>
+          <pv-textarea cols="40" rows="6" id="description" class="flex-auto" autocomplete="off" />
+        </div>
+        <template #footer>
+          <pv-button @click="closeDialog" text severity="danger">Cancel</pv-button>
+          <pv-button @click="registerAlert" outlined severity="success">Add</pv-button>
+        </template>
+      </pv-dialog>
     <div id="mapContainer"></div>
   </div>
 
@@ -197,9 +239,17 @@ export default defineComponent({
   width: 25%;
   margin-top: -20px;
 }
+.back-btn {
+  margin-bottom: 20px;
+  margin-left: 100px;
+  align-self: flex-start;
+}
 
 #mapContainer {
   height: calc(100vh - 81px);
 }
 
+#description{
+  resize: none;
+}
 </style>
