@@ -76,19 +76,19 @@ p{
   color: black;
 }
 
-.driver.grid {
+.trip.grid {
   margin: 40px 0 4px auto;
   width: 75%;
   display: flex;
   flex-direction: column;
 }
 
-.driver.grid {
+.trip.grid {
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
-.driver-card {
+.trip-card {
   background-color: #FFA500;
   border-radius: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
@@ -96,24 +96,25 @@ p{
   max-width: 700px;
 }
 
-.driver-card.grid {
-  width: calc(50% - 10px);
+.trip-card.grid {
+  max-width: 500px;
 }
 
 .content-info-preview {
+  width: 250px;
   position: absolute;
-  margin: -94px 15px 0 170px;
+  margin: -94px 15px 0 180px;
 }
 
 @media (max-width: 1050px) {
-  .driver {
+  .trip {
     margin: 40px 2px 4px 110px;
     width: 100%;
   }
 }
 
 @media (max-width: 750px) {
-  .driver {
+  .trip {
     margin: 40px 2px 4px 0;
     width: 100%;
   }
@@ -149,7 +150,7 @@ p{
 
 /*-----------------------------List View--------------------------------------*/
 
-.driver.list {
+.trip.list {
   margin: 2px;
   width: 55%;
   display: flex;
@@ -216,7 +217,7 @@ table th, table td {
 
 @media (max-width: 500px) {
 
-  .driver-card {
+  .trip-card {
     width: 230px;
     font-size: 0.9em;
     height: 320px;
@@ -233,6 +234,14 @@ table th, table td {
   }
 
 
+}
+
+@media (500px <= width <=  695px) {
+  .content-info-preview {
+    width: 200px;
+    margin: -60px 370px 0 90px;
+    font-size: 0.8em;
+  }
 }
 
 </style>

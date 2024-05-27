@@ -251,7 +251,7 @@ table thead tr {
   height: 50px;
 }
 
-@media (max-width: 790px) {
+@media (max-width: 788px) {
   .main-top {
     flex-direction: column;
     align-items: center;
@@ -275,6 +275,8 @@ table thead tr {
 
 
 }
+
+
 
 
 
