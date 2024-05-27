@@ -29,6 +29,8 @@ import RegisterEntrepreneurComponent from "../user/pages/register-entrepreneur.c
 
 import DriverList from "../visualization/pages/driver-list.component.vue";
 import VehicleList from "../visualization/pages/vehicle-list.component.vue";
+import DriverDescription from "../visualization/pages/driver-description.component.vue";
+import VehicleDescription from "../visualization/pages/vehicle-description.component.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -62,6 +64,8 @@ const router = createRouter({
         { path: '/entrepreneur/drivers', component: DriverList},
         { path: '/entrepreneur/vehicles', component: VehicleList},
         { path: '/entrepreneur/gps/:id', component: Map},
+        { path: '/entrepreneur/drivers/:id', component: DriverDescription},
+        { path: '/entrepreneur/vehicles/:id', component: VehicleDescription},
 
         { path: '/login', component: FormLogin },
         { path: '/signup', component: FormRegister },
