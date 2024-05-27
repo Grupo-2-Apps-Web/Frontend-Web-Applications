@@ -108,11 +108,6 @@ export default {
       <input type="text" v-model="searchText" placeholder="Search" />
     </div>
     <div class="buttons-group">
-      <pv-button @click="filterTrips" style="background-color: transparent; border: none; color: black;">
-        <i class="pi pi-search"></i>
-      </pv-button>
-
-
       <div class="dropdown-container">
         <pv-dropdown v-model="selectedFilter" :options="filters" optionLabel="name" placeholder="Select a filter" class="w-full md:w-14rem">
         </pv-dropdown>
@@ -164,7 +159,7 @@ h1{
   display: flex;
   text-align: center;
   justify-content: center;
-  width: 50%;
+  width: 100%;
 }
 
 .search-bar input {
