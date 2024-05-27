@@ -12,4 +12,16 @@ export class TripService extends BaseService {
         return trip || null;
     }
 
+    async getTripsByClientId(client_id) {
+        const response = await this.getAll();
+        const trips = response.data;
+        return trips.filter(trip => trip.client_id === client_id);
+    }
+
+    async getTripsByEntrepreneurId(entrepreneur_id) {
+        const response = await this.getAll();
+        const trips = response.data;
+        return trips.filter(trip => trip.entrepreneur_id === entrepreneur_id);
+    }
+
 }
