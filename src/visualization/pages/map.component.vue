@@ -183,7 +183,7 @@ export default defineComponent({
       <pv-button v-if="!isClient" label="Add Alert" class="btn" @click="addAlert"></pv-button>
       <pv-button v-if="isClient" label="Alerts" class="btn" @click="goToAlerts(id)"></pv-button>
     </div>
-      <pv-dialog :visible="visible" header="Add Alert">
+      <pv-dialog :visible="visible" header="Add Alert" :closable="false">
         <template #header>
           <h2>Add Alert</h2>
         </template>
