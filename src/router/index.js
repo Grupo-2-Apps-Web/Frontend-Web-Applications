@@ -27,6 +27,9 @@ import FormRecoverAccount from '../user/pages/recover-account.component.vue';
 import RegisterClientComponent from "../user/pages/register-client.component.vue";
 import RegisterEntrepreneurComponent from "../user/pages/register-entrepreneur.component.vue";
 
+import DriverList from "../visualization/pages/driver-list.component.vue";
+import VehicleList from "../visualization/pages/vehicle-list.component.vue";
+
 const router = createRouter({
     history: createWebHistory(),
     routes: [
@@ -56,6 +59,8 @@ const router = createRouter({
         { path: '/entrepreneur/history', component: TripList },
         { path: '/entrepreneur/history/:id', component: TripDescription },
         { path: '/entrepreneur/gps', component: TravelList},
+        { path: '/entrepreneur/drivers', component: DriverList},
+        { path: '/entrepreneur/vehicles', component: VehicleList},
         { path: '/entrepreneur/gps/:id', component: Map},
 
         { path: '/login', component: FormLogin },
