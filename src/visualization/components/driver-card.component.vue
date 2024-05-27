@@ -76,19 +76,19 @@ p{
   color: black;
 }
 
-.trip.grid {
+.driver.grid {
   margin: 40px 0 4px auto;
   width: 75%;
   display: flex;
   flex-direction: column;
 }
 
-.trip.grid {
+.driver.grid {
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
-.trip-card {
+.driver-card {
   background-color: #FFA500;
   border-radius: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
@@ -96,7 +96,7 @@ p{
   max-width: 700px;
 }
 
-.trip-card.grid {
+.driver-card.grid {
   max-width: 500px;
 }
 
@@ -107,14 +107,14 @@ p{
 }
 
 @media (max-width: 1050px) {
-  .trip {
+  .driver {
     margin: 40px 2px 4px 110px;
     width: 100%;
   }
 }
 
 @media (max-width: 750px) {
-  .trip {
+  .driver {
     margin: 40px 2px 4px 0;
     width: 100%;
   }
@@ -150,7 +150,7 @@ p{
 
 /*-----------------------------List View--------------------------------------*/
 
-.trip.list {
+.driver.list {
   margin: 2px;
   width: 55%;
   display: flex;
@@ -217,7 +217,7 @@ table th, table td {
 
 @media (max-width: 500px) {
 
-  .trip-card {
+  .driver-card {
     width: 230px;
     font-size: 0.9em;
     height: 320px;
