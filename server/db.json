@@ -105,7 +105,7 @@
   "configurations": [
     {
       "id": 1,
-      "user_id": "1",
+      "user_id": 1,
       "theme": "light",
       "view": "grid",
       "allow_data_collection": "true",
