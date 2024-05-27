@@ -62,6 +62,8 @@ const logOut = () => {
         <li v-if="userType === 'client'"><router-link to="/client/gps">GPS</router-link></li>
         <li v-if="userType === 'client'"><router-link to="/client/statistics">Statistics</router-link></li>
         <li v-if="userType === 'entrepreneur'"><router-link to="/entrepreneur/register">Registry</router-link></li>
+        <li v-if="userType === 'entrepreneur'"><router-link to="/entrepreneur/drivers">Drivers</router-link></li>
+        <li v-if="userType === 'entrepreneur'"><router-link to="/entrepreneur/vehicles">Vehicles</router-link></li>
         <li v-if="userType === 'entrepreneur'"><router-link to="/entrepreneur/history">Record</router-link></li>
         <li v-if="userType === 'entrepreneur'"><router-link to="/entrepreneur/gps">GPS</router-link></li>
       </ul>
