@@ -92,7 +92,6 @@ export default {
     </div>
     <div class="buttons-group">
       <pv-button @click="filterDrivers" style="background-color: transparent; border: none; color: black;">
-        <i class="pi pi-search"></i>
       </pv-button>
 
       <div class="dropdown-container">

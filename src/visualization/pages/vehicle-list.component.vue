@@ -93,7 +93,6 @@ export default {
     </div>
     <div class="buttons-group">
       <pv-button @click="filterVehicles" style="background-color: transparent; border: none; color: black;">
-        <i class="pi pi-search"></i>
       </pv-button>
 
       <div class="dropdown-container">
@@ -124,6 +123,7 @@ export default {
 
 <style scoped>
 
+
 .main-top{
   display: flex;
   justify-content: space-evenly;
@@ -146,7 +146,7 @@ h1{
   display: flex;
   text-align: center;
   justify-content: center;
-  width: 50%;
+  width: 100%;
 }
 
 .search-bar input {
@@ -229,7 +229,5 @@ table thead tr {
 
 
 }
-
-
 
 </style>
