@@ -54,7 +54,7 @@ const logOut = () => {
         <h1 class="sidebar-title">CargoApp</h1>
     </template>
       <template #closeicon>
-        <i class="pi pi-times" style="font-size: 2rem; color: #686f75" @click="togglesidebar"/>
+        <i class="pi pi-times" style="color: #686f75;" @click="togglesidebar"/>
       </template>
       <ul>
         <li v-if="userType === 'client'"><router-link to="/client/history">Record</router-link></li>
@@ -79,17 +79,17 @@ const logOut = () => {
   <pv-toolbar id="toolbar-header">
     <template #start>
       <pv-button class="sidebar-button" @click="togglesidebar" v-if="isActive === true">
-        <i class="pi pi-bars" style="font-size: 2rem; color: white" />
+        <i class="pi pi-bars" style="color: white;" />
       </pv-button>
     </template>
     <template #center>
       <img src="../../assets/images/logo.png" alt="CargoApp logo">
-      <h1>CargoApp</h1>
+      <h1 id="toolbar-title">CargoApp</h1>
     </template>
     <template #end v-if="isActive === true">
       <router-link to="/configuration">
         <pv-button class="config-button">
-          <i class="pi pi-cog" style="font-size: 2rem; color: white" />
+          <i class="pi pi-cog" id="config" style="color: white;" />
         </pv-button>
       </router-link>
     </template>
@@ -164,5 +164,27 @@ h1 {
   color: black;
 }
 
+.pi {
+  font-size: 2rem;
+}
+
+@media (max-width: 450px) {
+  #toolbar-title {
+    font-size: 20px;
+  }
+  img {
+    height: 30px;
+    margin-right: 10px;
+  }
+
+  .pi {
+    font-size: 1.5rem;
+  }
+
+  .config-button {
+    margin-right: 10px;
+  }
+
+}
 
 </style>
