@@ -92,7 +92,6 @@ export default {
     </div>
     <div class="buttons-group">
       <pv-button @click="filterDrivers" style="background-color: transparent; border: none; color: black;">
-        <i class="pi pi-search"></i>
       </pv-button>
 
       <div class="dropdown-container">
@@ -145,7 +144,7 @@ h1{
   display: flex;
   text-align: center;
   justify-content: center;
-  width: 50%;
+  width: 100%;
 }
 
 .search-bar input {

@@ -26,7 +26,7 @@ export default {
       store.commit('SET_VIEW', store.state.view);
       const configuration = new Configuration(
           this.configuration.id,
-          localStorage.getItem('user_id'),
+          Number(localStorage.getItem('user_id')),
           store.state.theme,
           store.state.view,
           localStorage.getItem('dataCollection'),

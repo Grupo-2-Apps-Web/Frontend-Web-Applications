@@ -1,78 +1,113 @@
 <script>
-import { VehicleService } from '../../registration/services/vehicle.service.js';
-import { Vehicle } from '../../registration/models/vehicle.entity.js';
-import VehicleCard from "../components/vehicle-card.component.vue";
+import { EntrepreneurService } from "../../user/services/entrepreneur.service.js";
+import { ClientService } from '../../user/services/client.service.js';
+import { UserService } from "../../user/services/user.service.js";
+import { User } from '../../user/models/user.entity.js';
+import ClientCard from "../components/client-card.component.vue";
 import {mapGetters} from "vuex";
+import store from "../../store/store.js";
+import {TripService} from "../../registration/services/trip.service.js";
 
 export default {
-  name: "vehicle-list",
+  name: "client-list",
   components: {
-    VehicleCard
+    ClientCard
   },
   computed: {
     ...mapGetters(['getView'])
   },
   watch: {
-    selectedFilter: 'filterVehicles',
-    searchText: 'filterVehicles'
+    selectedFilter: 'filterClients',
+    searchText: 'filterClients'
   },
   data() {
     return {
-      userId: 0,
-      vehicleService: new VehicleService(),
-      vehicles: [],
-      vehicle: Vehicle,
+      entrepreneurId: 0,
+      entrepreneurService: new EntrepreneurService(),
+      clientService: new ClientService(),
+      userService: new UserService(),
+      tripService: new TripService(),
+      clients: [],
+      client: User,
       selectedFilter: null,
       filters: [
-        { name: 'Plate', value: 'plate' },
-        { name: 'Model', value: 'model' },
+        { name: 'Name', value: 'name' },
+        { name: 'RUC', value: 'ruc' },
       ],
       searchText: '',
-      filteredVehicles: [],
+      filteredClients: [],
     }
   },
   created() {
-    this.vehicleService.getAll().then(response => {
-      this.vehicles = response.data.map(vehicle => new Vehicle(
-          vehicle.id,
-          vehicle.model,
-          vehicle.plate,
-          vehicle.tractor_plate,
-          vehicle.max_load,
-          vehicle.volume
-      ));
-      this.filteredVehicles = this.vehicles;
+    // user_id del usuario que inició sesión
+    const user_id = Number(store.state.user_id);
+    // arreglo para guardar los client_id de los trips
+    let clients_ids = [];
+    this.entrepreneurService.getByUserId(user_id).then(r => {
+      // entrepreneur_id del usuario
+      this.entrepreneurId = r.id;
+      console.log(this.entrepreneurId);
+      this.tripService.getTripsByEntrepreneurId(this.entrepreneurId).then(res => {
+        // guardar los ids de los clientes y evitar que se repitan
+        res.forEach(trip => {
+          if (!clients_ids.includes(trip.client_id)) {
+            clients_ids.push(trip.client_id);
+          }
+        });
+        console.log(clients_ids);
+        for (let i = 0; i < clients_ids.length; i++) {
+          this.clientService.getOne(clients_ids[i]).then(resp => {
+            // obtener el user_id de cada cliente para obtener su información
+            let user_id = resp.data.user_id;
+            this.userService.getOne(user_id).then(response => {
+              this.clients.push(new User(
+                response.data.id,
+                response.data.name,
+                response.data.email,
+                response.data.password,
+                response.data.phone,
+                response.data.ruc,
+                response.data.address,
+                response.data.subscription
+              ));
+            });
+          })
+        }
+        this.filteredClients = this.clients;
+      });
+    })
 
-    });
+
+
   },
   methods: {
-    filterVehicles() {
+    filterClients() {
       if (!this.selectedFilter || !this.searchText) {
-        this.filteredVehicles = this.vehicles;
+        this.filteredClients = this.clients;
         return;
       }
 
       let filterValue = this.selectedFilter ? this.selectedFilter.value : null;
       let searchText = this.searchText ? this.searchText.toLowerCase() : null;
 
-      this.filteredVehicles = this.vehicles.filter(vehicle => {
+      this.filteredClients = this.clients.filter(client => {
         if (filterValue && searchText) {
-          let vehicleProperty;
+          let clientProperty;
           switch (filterValue) {
-            case 'plate':
-              vehicleProperty = vehicle.plate;
+            case 'name':
+              clientProperty = client.name;
               break;
-            case 'model':
-              vehicleProperty = vehicle.model;
+            case 'ruc':
+              clientProperty = client.ruc;
               break;
             default:
               return true;
           }
-          return vehicleProperty ? vehicleProperty.toLowerCase().includes(searchText) : false;
+          return clientProperty ? clientProperty.toLowerCase().includes(searchText) : false;
         } else if (filterValue) {
-          return vehicle.hasOwnProperty(filterValue);
+          return client.hasOwnProperty(filterValue);
         } else if (searchText) {
-          return Object.values(vehicle).some(val => String(val).toLowerCase().includes(searchText));
+          return Object.values(client).some(val => String(val).toLowerCase().includes(searchText));
         }
         return true;
       });
@@ -84,7 +119,7 @@ export default {
 
 <template>
   <div class="main-top">
-    <h1>Vehicles</h1>
+    <h1>Clients</h1>
   </div>
 
   <div class="container-search-bar">
@@ -92,7 +127,7 @@ export default {
       <input type="text" v-model="searchText" placeholder="Search" />
     </div>
     <div class="buttons-group">
-      <pv-button @click="filterVehicles" style="background-color: transparent; border: none; color: black;">
+      <pv-button @click="filterClients" style="background-color: transparent; border: none; color: black;">
       </pv-button>
 
       <div class="dropdown-container">
@@ -108,21 +143,20 @@ export default {
       <thead>
       <tr>
         <th>Id</th>
-        <th>Plate</th>
-        <th>Model</th>
+        <th>Name</th>
+        <th>RUC</th>
         <th>View</th>
       </tr>
       </thead>
 
     </table>
 
-    <vehicle-card v-for="vehicle in filteredVehicles" :vehicle="vehicle"/>
+    <client-card v-for="client in filteredClients" :client="client"/>
   </div>
 
 </template>
 
 <style scoped>
-
 
 .main-top{
   display: flex;
@@ -229,5 +263,7 @@ table thead tr {
 
 
 }
+
+
 
 </style>

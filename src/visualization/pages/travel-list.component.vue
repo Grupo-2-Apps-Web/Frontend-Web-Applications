@@ -4,6 +4,9 @@ import TravelCard from "../components/travel-card.component.vue";
 import {OnGoingTripService} from "../../registration/services/ongoing-trip.service.js";
 import {TripService} from "../../registration/services/trip.service.js";
 import {mapGetters} from "vuex";
+import store from "../../store/store.js";
+import {ClientService} from "../../user/services/client.service.js";
+import {EntrepreneurService} from "../../user/services/entrepreneur.service.js";
 
 export default {
   name: "travel-list",
@@ -28,26 +31,57 @@ export default {
       response.data.forEach(trip => {
         this.tripsID.push(trip.trip_id);
       });
-
     });
 
-    this.tripService.getAll().then(response => {
-      this.trips = response.data.map(trip => new Trip(
-        trip.id,
-        trip.name,
-        trip.type,
-        trip.weight,
-        trip.load_location,
-        trip.load_date,
-        trip.unload_location,
-        trip.unload_date,
-        trip.driver_id,
-        trip.vehicle_id,
-        trip.client_id,
-        trip.entrepreneur_id
-      ));
-      this.filteredTrips = this.trips.filter(trip => this.tripsID.includes(trip.id));
-    });
+    const state = store.state.user_type;
+    const id = Number(store.state.user_id);
+    console.log(state, id);
+    if (state === 'client') {
+      const clientService = new ClientService();
+      clientService.getByUserId(id).then(response => {
+        this.userId = response.id;
+        this.tripService.getTripsByClientId(this.userId).then(res => {
+          this.trips = res.map(trip => new Trip(
+            trip.id,
+            trip.name,
+            trip.type,
+            trip.weight,
+            trip.load_location,
+            trip.load_date,
+            trip.unload_location,
+            trip.unload_date,
+            trip.driver_id,
+            trip.vehicle_id,
+            trip.client_id,
+            trip.entrepreneur_id
+          ));
+          this.filteredTrips = this.trips.filter(trip => this.tripsID.includes(trip.id));
+        });
+      });
+    } else if (state === 'entrepreneur') {
+      const entrepreneurService = new EntrepreneurService();
+      entrepreneurService.getByUserId(id).then(response => {
+        this.userId = response.id;
+        this.tripService.getTripsByEntrepreneurId(this.userId).then(res => {
+          this.trips = res.map(trip => new Trip(
+            trip.id,
+            trip.name,
+            trip.type,
+            trip.weight,
+            trip.load_location,
+            trip.load_date,
+            trip.unload_location,
+            trip.unload_date,
+            trip.driver_id,
+            trip.vehicle_id,
+            trip.client_id,
+            trip.entrepreneur_id
+          ));
+          this.filteredTrips = this.trips.filter(trip => this.tripsID.includes(trip.id));
+        });
+      });
+    }
+
   },
 }
 

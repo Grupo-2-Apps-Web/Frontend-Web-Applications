@@ -1,76 +1,65 @@
 <template>
-  <div class="trip" :class="getView">
+  <div class="client" :class="getView">
     <div v-if="getView === 'list'">
       <div class="table-button-container">
         <table>
           <tbody>
           <tr>
-            <td>{{trip.name}}</td>
-            <td>{{trip.id}}</td>
-            <td>{{ formatDate(trip.load_date) }}</td>
-            <td>{{ trip.load_location }}</td>
+            <td>{{client.id}}</td>
+            <td>{{client.name}}</td>
+            <td>{{client.ruc}}</td>
           </tr>
           </tbody>
         </table>
         <div class="button-view-list">
-          <pv-button label="View more" :class="['btn', getView]" @click="goToTrip(trip.id)"></pv-button>
+          <pv-button label="View more" :class="['btn', getView]" @click="goToClient(client.id)"></pv-button>
         </div>
       </div>
     </div>
     <div v-else>
-      <pv-card class="trip-card">
+      <pv-card class="client-card">
         <template #content>
           <div class="title">
-            <h2>{{trip.name}}</h2>
-            <h3>ID: {{trip.id}}</h3>
+            <h2>ID: {{client.id}}</h2>
           </div>
           <div class="content-info-preview">
-            <p>LOAD DATE: {{ formatDate(trip.load_date) }}</p>
-            <p>LOAD LOCATION: {{ trip.load_location }}</p>
+            <p>NAME: {{client.name}}</p>
+            <p>RUC: {{client.ruc}}</p>
           </div>
         </template>
       </pv-card>
       <div class="btn-container">
-        <pv-button label="View more" :class="['btn', getView]" @click="goToTrip(trip.id)"></pv-button>
+        <pv-button label="View more" :class="['btn', getView]" @click="goToClient(client.id)"></pv-button>
       </div>
-
     </div>
   </div>
 </template>
 
 <script>
-import {Trip} from "../../registration/models/trip.entity.js";
+import {User} from "../../user/models/user.entity.js";
 import {useRouter} from "vue-router";
 import { mapGetters } from 'vuex';
 
 export default {
-  name: "trip-card",
+  name: "client-card",
   props: {
-    trip: {
-      type: Trip,
+    client: {
+      type: User,
       required: true
     }
   },
-  setup(){
+  setup() {
     const router = useRouter();
-    const goToTrip = (id) => {
-      const currentPath = window.location.pathname;
-      const isClient = currentPath.includes('client');
-      const newPath = isClient ? `/client/history/${id}` : `/entrepreneur/history/${id}`;
+    const goToClient = (id) => {
+      const newPath = `/entrepreneur/clients/${id}`;
       router.push(newPath);
     }
     return{
-      goToTrip
+      goToClient
     };
   },
   computed: {
     ...mapGetters(['getView'])
-  },
-  methods: {
-    formatDate(dateString) {
-      const options = { day: '2-digit', month: '2-digit', year: 'numeric'  };
-      return new Date(dateString).toLocaleDateString(undefined, options);
-    }
   }
 }
 </script>
@@ -86,19 +75,19 @@ p{
   color: black;
 }
 
-.trip.grid {
+.client.grid {
   margin: 40px 0 4px auto;
   width: 75%;
   display: flex;
   flex-direction: column;
 }
 
-.trip.grid {
+.client.grid {
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
-.trip-card {
+.client-card {
   background-color: #FFA500;
   border-radius: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
@@ -106,7 +95,7 @@ p{
   max-width: 700px;
 }
 
-.trip-card.grid {
+.client-card.grid {
   max-width: 500px;
 }
 
@@ -117,14 +106,14 @@ p{
 }
 
 @media (max-width: 1050px) {
-  .trip {
+  .client {
     margin: 40px 2px 4px 110px;
     width: 100%;
   }
 }
 
 @media (max-width: 750px) {
-  .trip {
+  .client {
     margin: 40px 2px 4px 0;
     width: 100%;
   }
@@ -160,7 +149,7 @@ p{
 
 /*-----------------------------List View--------------------------------------*/
 
-.trip.list {
+.client.list {
   margin: 2px;
   width: 55%;
   display: flex;
@@ -227,7 +216,7 @@ table th, table td {
 
 @media (max-width: 500px) {
 
-  .trip-card {
+  .client-card {
     width: 230px;
     font-size: 0.9em;
     height: 320px;

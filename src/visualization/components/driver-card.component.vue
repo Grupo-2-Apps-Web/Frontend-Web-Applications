@@ -97,12 +97,13 @@ p{
 }
 
 .driver-card.grid {
-  width: calc(50% - 10px);
+  max-width: 500px;
 }
 
 .content-info-preview {
+  width: 250px;
   position: absolute;
-  margin: -94px 15px 0 170px;
+  margin: -94px 15px 0 180px;
 }
 
 @media (max-width: 1050px) {
@@ -233,6 +234,14 @@ table th, table td {
   }
 
 
+}
+
+@media (500px <= width <=  695px) {
+  .content-info-preview {
+    width: 200px;
+    margin: -60px 370px 0 90px;
+    font-size: 0.8em;
+  }
 }
 
 </style>

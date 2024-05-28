@@ -3,6 +3,8 @@ import ExpenseCard from "../components/expense-card.component.vue";
 import { Trip } from "../../registration/models/trip.entity.js"
 import { TripService } from "../../registration/services/trip.service.js"
 import {mapGetters} from "vuex";
+import store from "../../store/store.js";
+import {ClientService} from "../../user/services/client.service.js";
 
 export default {
   name: "expense-list.component",
@@ -14,29 +16,34 @@ export default {
     return {
       rawTrips: [],
       trips: [],
-      tripService: new TripService()
+      tripService: new TripService(),
+      clientService: new ClientService()
     };
   },
   created(){
-    this.tripService.getAll().then(response => {
-      this.rawTrips = response.data;
-      this.rawTrips.forEach(trip => {
-        this.trips.push(new Trip(
-            trip.id,
-            trip.name,
-            trip.type,
-            trip.weight,
-            trip.load_location,
-            trip.load_date,
-            trip.unload_location,
-            trip.unload_date,
-            trip.driver_id,
-            trip.vehicle_id,
-            trip.client_id,
-            trip.entrepreneur_id
-        ));
+    const id = Number(store.state.user_id);
+    this.clientService.getByUserId(id).then(r => {
+      this.tripService.getTripsByClientId(r.id).then(response => {
+        this.rawTrips = response;
+        this.rawTrips.forEach(trip => {
+          this.trips.push(new Trip(
+              trip.id,
+              trip.name,
+              trip.type,
+              trip.weight,
+              trip.load_location,
+              trip.load_date,
+              trip.unload_location,
+              trip.unload_date,
+              trip.driver_id,
+              trip.vehicle_id,
+              trip.client_id,
+              trip.entrepreneur_id
+          ));
+        });
       });
-    });
+    })
+
   }
 }
 </script>
