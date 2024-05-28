@@ -45,22 +45,27 @@ export default {
     };
   },
   async mounted() {
-    const user_id = Number(store.state.user_id);
-    const clientService = new ClientService();
-    const statisticService = new TripService();
-    const client = await clientService.getByUserId(user_id);
-    const response = await statisticService.getTripsByClientId(client.id);
-    if (response) {
-      const trips = response.map(trip => trip);
+    try {
+      const user_id = Number(store.state.user_id);
+      const clientService = new ClientService();
+      const statisticService = new TripService();
+      const client = await clientService.getByUserId(user_id);
+      const response = await statisticService.getTripsByClientId(client.id);
 
-      // Contar la cantidad de envíos por mes
-      trips.forEach(trip => {
-        const tripDate = new Date(trip.load_date);
-        const monthIndex = tripDate.getMonth();
-        this.chartData.datasets[0].data[monthIndex]++;
-      });
-    } else {
-      console.error('Not trip data found.');
+      if (response.length > 0) {
+        const trips = response.map(trip => trip);
+
+        // Contar la cantidad de envíos por mes
+        trips.forEach(trip => {
+          const tripDate = new Date(trip.load_date);
+          const monthIndex = tripDate.getMonth();
+          this.chartData.datasets[0].data[monthIndex]++;
+        });
+      } else {
+        console.error('No trip data found.');
+      }
+    } catch (error) {
+      console.error('Service error', error);
     }
   }
 };

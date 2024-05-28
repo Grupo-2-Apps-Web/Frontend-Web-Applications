@@ -53,8 +53,8 @@ export default {
       const statisticService = new TripService();
       const client = await clientService.getByUserId(user_id);
       const response = await statisticService.getTripsByClientId(client.id);
-      console.log(response);
-      if (response) {
+
+      if (response.length > 0) {
         const trips = response.map(trip => trip);
         // Create an object to store the counts for each location
         const locationCounts = trips.reduce((counts, trip) => {
@@ -68,7 +68,7 @@ export default {
           this.chartData.datasets[0].data[index] = locationCounts[label];
         });
       } else {
-        console.error('No trip data found in the response.');
+        console.error('No trip data found.');
       }
     } catch (error) {
       console.error('Service Error', error);
