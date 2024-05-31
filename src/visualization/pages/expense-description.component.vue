@@ -28,10 +28,10 @@ export default {
             this.id,
             response.fuel_amount,
             response.fuel_description,
-            response.tolls_amount,
-            response.tolls_description,
             response.viatics_amount,
             response .viatics_description,
+            response.tolls_amount,
+            response.tolls_description
         );
         this.totalExpenses = JSON.parse(this.expense.fuel_amount) + JSON.parse(this.expense.tolls_amount) + JSON.parse(this.expense.viatics_amount);
     });
