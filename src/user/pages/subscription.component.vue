@@ -143,4 +143,11 @@ export default {
 .selected {
   background-color: #006400;
 }
+
+@media (max-width: 600px) {
+  .subscription-cards {
+    grid-template-columns: none;
+    grid-template-rows: 1fr 1fr;
+  }
+}
 </style>

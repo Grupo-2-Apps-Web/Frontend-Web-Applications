@@ -252,4 +252,15 @@ export default defineComponent({
 #description{
   resize: none;
 }
+
+@media (max-width: 500px) {
+  .container {
+    grid-template-columns: none;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .p-card{
+    width: 100%;
+  }
+}
 </style>

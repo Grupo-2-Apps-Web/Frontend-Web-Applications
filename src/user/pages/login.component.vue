@@ -49,6 +49,15 @@ export default {
       username,
       password
     };
+  },
+  created() {
+    if (localStorage.getItem('isActive') === 'true'){
+      if(localStorage.getItem('user_type') === 'client') {
+        this.router.push('/client');
+      } else if(localStorage.getItem('user_type') === 'entrepreneur') {
+        this.router.push('/entrepreneur');
+      }
+    }
   }
 }
 </script>

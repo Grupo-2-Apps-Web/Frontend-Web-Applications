@@ -61,7 +61,6 @@ export default {
   methods: {
     async goToExpenses(tripId){
       const response = await this.expenseService.getByTripId(tripId);
-      console.log(response);
       if(response){
         this.router.push(`/client/expenses/${response.id}`);
       } else {
@@ -220,6 +219,13 @@ table th, table td {
 
 .btn:hover.list {
   background-color: #45a049;
+}
+
+@media screen and (max-width: 500px) {
+  .btn.grid {
+    width: 60%;
+    margin-left: calc(50% - 100px);
+  }
 }
 
 </style>

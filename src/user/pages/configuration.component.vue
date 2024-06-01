@@ -147,4 +147,15 @@ export default {
 .action-button:hover{
   background-color: #1E3A8A;
 }
+
+@media (max-width: 500px) {
+  .subscription-buttons {
+    gap: 10px;
+  }
+
+  .button{
+    height: 60px;
+    width: 150px;
+  }
+}
 </style>
