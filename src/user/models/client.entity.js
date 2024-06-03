@@ -1,6 +1,6 @@
 export class Client {
-    constructor(id, user_id) {
+    constructor(id, userId) {
         this.id = id;
-        this.user_id = user_id;
+        this.userId = userId;
     }
 }

@@ -2,7 +2,7 @@ import axios from "axios"
 
 export class BaseService {
     constructor(endpoint) {
-        this.baseURL = "http://localhost:3000";
+        this.baseURL = "https://cargoappwebservice.azurewebsites.net/api/v1";
         this.endpoint = endpoint;
     }
 
