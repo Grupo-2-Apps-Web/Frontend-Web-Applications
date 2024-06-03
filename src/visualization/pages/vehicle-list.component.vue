@@ -104,7 +104,7 @@ export default {
 
 
   <div class="main-body">
-    <table v-if="getView === 'list'">
+    <table v-if="getView === 'List'">
       <thead>
       <tr>
         <th>Id</th>

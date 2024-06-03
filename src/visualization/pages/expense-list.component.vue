@@ -51,7 +51,7 @@ export default {
 <template>
   <h2>Expenses</h2>
   <div class="list">
-    <table v-if="getView === 'list'">
+    <table v-if="getView === 'List'">
       <thead>
       <tr>
         <th>Viaje</th>

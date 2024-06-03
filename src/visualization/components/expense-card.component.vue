@@ -1,6 +1,6 @@
 <template>
-  <div class="expense" :class="getView || 'grid'">
-    <div v-if="getView === 'list'">
+  <div class="expense" :class="getView || 'Grid'">
+    <div v-if="getView === 'List'">
       <div class="table-button-container">
         <table>
           <tbody>
@@ -85,14 +85,14 @@ p{
   color: black;
 }
 
-.expense.grid {
+.expense.Grid {
   margin: 40px 0 4px auto;
   width: 70%;
   display: flex;
   flex-direction: column;
 }
 
-.expense.grid {
+.expense.Grid {
   flex-wrap: wrap;
   justify-content: space-between;
 }
@@ -105,7 +105,7 @@ p{
   max-width: 700px;
 }
 
-.expense-card.grid {
+.expense-card.Grid {
   width: calc(50% - 160px);
 }
 
@@ -114,7 +114,7 @@ p{
   margin: -94px 15px 0 170px;
 }
 
-.btn.grid {
+.btn.Grid {
   font-family: Rubik, sans-serif;
   background-color: #006400;
   border-radius: 15px;
@@ -125,21 +125,21 @@ p{
 }
 
 @media (max-width: 1050px) {
-  .expense.grid {
+  .expense.Grid {
     margin: 40px 2px 4px 110px;
     width: 100%;
   }
 }
 
 @media (max-width: 750px) {
-  .expense.grid {
+  .expense.Grid {
     margin: 40px 2px 4px 0;
     width: 100%;
   }
   .content-info-preview {
     margin: -94px 15px 0 160px;
   }
-  .btn.grid {
+  .btn.Grid {
     margin-top: -10px;
     margin-left: calc(50% - 160px);
   }
@@ -157,7 +157,7 @@ p{
 
 /*-----------------------------List View--------------------------------------*/
 
-.expense.list {
+.expense.List {
   margin: 2px;
   width: 55%;
   display: flex;
@@ -166,7 +166,7 @@ p{
   justify-content: center;
 }
 
-.content-info-preview.list {
+.content-info-preview.List {
   position: static;
   margin: 0;
 }
@@ -200,7 +200,7 @@ table th, table td {
   justify-content: center;
 }
 
-.btn.list {
+.btn.List {
   font-family: Rubik, sans-serif;
   background-color: #006400;
   color: white;
@@ -217,12 +217,12 @@ table th, table td {
   margin: 0;
 }
 
-.btn:hover.list {
+.btn:hover.List {
   background-color: #45a049;
 }
 
 @media screen and (max-width: 500px) {
-  .btn.grid {
+  .btn.Grid {
     width: 60%;
     margin-left: calc(50% - 100px);
   }

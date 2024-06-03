@@ -24,13 +24,16 @@ export default {
     saveConfig(){
       store.commit('SET_THEME', store.state.theme);
       store.commit('SET_VIEW', store.state.view);
+
+      const dataCollection = localStorage.getItem('dataCollection') === 'true';
+      const dataSharing = localStorage.getItem('dataSharing') === 'true';
       const configuration = new Configuration(
           this.configuration.id,
           Number(localStorage.getItem('user_id')),
           store.state.theme,
           store.state.view,
-          localStorage.getItem('dataCollection'),
-          localStorage.getItem('dataSharing')
+          dataCollection,
+          dataSharing
       );
 
       this.configurationService.update(configuration.id, configuration);

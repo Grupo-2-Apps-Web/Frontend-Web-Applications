@@ -34,7 +34,7 @@ export default {
 
       this.userService.getOne(this.userId).then(response => {
         const user = response.data;
-        user.subscription = plan;
+        user.subscriptionPlan.subscription = plan;
         this.userService.update(this.userId, user).then();
       });
     }

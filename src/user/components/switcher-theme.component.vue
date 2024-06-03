@@ -1,7 +1,7 @@
 <template>
   <div class="theme-switcher">
-    <button @click="SET_THEME('light')" v-bind:class="{ selected: getTheme === 'light' }">Light</button>
-    <button @click="SET_THEME('dark')" v-bind:class="{ selected: getTheme === 'dark' }">Dark</button>
+    <button @click="SET_THEME('Light')" v-bind:class="{ selected: getTheme === 'Light' }">Light</button>
+    <button @click="SET_THEME('Dark')" v-bind:class="{ selected: getTheme === 'Dark' }">Dark</button>
   </div>
 </template>
 

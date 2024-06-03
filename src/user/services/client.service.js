@@ -8,7 +8,7 @@ export class ClientService extends BaseService {
     async getByUserId(userId) {
         const response = await this.getAll();
         const clients = response.data;
-        const client = clients.find(entrepreneur => entrepreneur.user_id === userId);
+        const client = clients.find(entrepreneur => entrepreneur.userId === userId);
         return client || null;
     }
 }

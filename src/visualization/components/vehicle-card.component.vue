@@ -1,6 +1,6 @@
 <template>
   <div class="vehicle" :class="getView">
-    <div v-if="getView === 'list'">
+    <div v-if="getView === 'List'">
       <div class="table-button-container">
         <table>
           <tbody>
@@ -76,14 +76,14 @@ p{
   color: black;
 }
 
-.vehicle.grid {
+.vehicle.Grid {
   margin: 40px 0 4px auto;
   width: 75%;
   display: flex;
   flex-direction: column;
 }
 
-.vehicle.grid {
+.vehicle.Grid {
   flex-wrap: wrap;
   justify-content: space-between;
 }
@@ -96,7 +96,7 @@ p{
   max-width: 700px;
 }
 
-.vehicle-card.grid {
+.vehicle-card.Grid {
   max-width: 500px;
 }
 
@@ -138,7 +138,7 @@ p{
   }
 }
 
-.btn.grid {
+.btn.Grid {
   font-family: Rubik, sans-serif;
   background-color: #006400;
   border-radius: 15px;
@@ -150,7 +150,7 @@ p{
 
 /*-----------------------------List View--------------------------------------*/
 
-.vehicle.list {
+.vehicle.List {
   margin: 2px;
   width: 55%;
   display: flex;
@@ -159,7 +159,7 @@ p{
   justify-content: center;
 }
 
-.content-info-preview.list {
+.content-info-preview.List {
   position: static;
   margin: 0;
 }
@@ -193,7 +193,7 @@ table th, table td {
   justify-content: center;
 }
 
-.btn.list {
+.btn.List {
   font-family: Rubik, sans-serif;
   background-color: #006400;
   color: white;
@@ -210,7 +210,7 @@ table th, table td {
   margin: 0;
 }
 
-.btn:hover.list {
+.btn:hover.List {
   background-color: #45a049;
 }
 

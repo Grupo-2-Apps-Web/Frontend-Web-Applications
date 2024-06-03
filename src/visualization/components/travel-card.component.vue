@@ -1,6 +1,6 @@
 <template>
-  <div class="travel" :class="getView || 'grid'">
-    <div v-if="getView === 'list'">
+  <div class="travel" :class="getView || 'Grid'">
+    <div v-if="getView === 'List'">
       <div class="table-button-container">
         <table>
           <tbody>
@@ -82,14 +82,14 @@ p{
   font-family: Roboto, sans-serif;
 }
 
-.travel.grid {
+.travel.Grid {
   margin: 40px 0 4px auto;
   width: 70%;
   display: flex;
   flex-direction: column;
 }
 
-.travel.grid {
+.travel.Grid {
   flex-wrap: wrap;
   justify-content: space-between;
 }
@@ -103,7 +103,7 @@ p{
   max-width: 700px;
 }
 
-.travel-card.grid {
+.travel-card.Grid {
   width: calc(50% - 160px);
 }
 
@@ -112,7 +112,7 @@ p{
   margin: -94px 15px 0 170px;
 }
 
-.btn.grid {
+.btn.Grid {
   font-family: Rubik, sans-serif;
   background-color: #006400;
   border-radius: 15px;
@@ -123,21 +123,21 @@ p{
 }
 
 @media (max-width: 1050px) {
-  .travel.grid {
+  .travel.Grid {
     margin: 40px 2px 4px 110px;
     width: 100%;
   }
 }
 
 @media (max-width: 750px) {
-  .travel.grid {
+  .travel.Grid {
     margin: 40px 2px 4px 0;
     width: 100%;
   }
   .content-info-preview {
     margin: -94px 15px 0 160px;
   }
-  .btn.grid {
+  .btn.Grid {
     margin-top: -5px;
     margin-left: calc(50% - 160px);
   }
@@ -154,7 +154,7 @@ p{
 
 /*-----------------------------List View--------------------------------------*/
 
-.travel.list {
+.travel.List {
   margin: 2px;
   width: 55%;
   display: flex;
@@ -163,7 +163,7 @@ p{
   justify-content: center;
 }
 
-.content-info-preview.list {
+.content-info-preview.List {
   position: static;
   margin: 0;
 }
@@ -197,7 +197,7 @@ table th, table td {
   justify-content: center;
 }
 
-.btn.list {
+.btn.List {
   font-family: Rubik, sans-serif;
   background-color: #006400;
   color: white;
@@ -214,13 +214,13 @@ table th, table td {
   margin: 0;
 }
 
-.btn:hover.list {
+.btn:hover.List {
   background-color: #45a049;
 }
 
 @media (max-width: 767px) {
 
-  .travel.list {
+  .travel.List {
     width: 80%;
   }
 
@@ -229,7 +229,7 @@ table th, table td {
     font-size: 10px;
   }
 
-  .btn.list {
+  .btn.List {
     width: 40px;
     height: 40px;
     font-size: 10px;

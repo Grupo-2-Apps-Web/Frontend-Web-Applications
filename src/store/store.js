@@ -6,8 +6,8 @@ export default createStore({
         user_type: localStorage.getItem('user_type') || null,
         isActive: localStorage.getItem('isActive') || false,
         isClient: localStorage.getItem('isClient') ? parseInt(localStorage.getItem('isClient')) : 0,
-        theme: localStorage.getItem('theme') || 'light',
-        view: localStorage.getItem('view') || 'grid',
+        theme: localStorage.getItem('theme') || 'Light',
+        view: localStorage.getItem('view') || 'Grid',
         initialConfig: null,
     },
     mutations: {

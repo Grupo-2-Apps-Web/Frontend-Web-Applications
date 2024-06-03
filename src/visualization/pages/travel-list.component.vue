@@ -92,7 +92,7 @@ export default {
     <h1>View trips in progress</h1>
   </div>
   <div class="list">
-    <table v-if="getView === 'list'">
+    <table v-if="getView === 'List'">
       <thead>
       <tr>
         <th>Viaje</th>
