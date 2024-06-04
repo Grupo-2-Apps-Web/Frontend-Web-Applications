@@ -29,7 +29,7 @@ export default {
   created() {
     this.onGoingTripService.getAll().then(response => {
       response.data.forEach(trip => {
-        this.tripsID.push(trip.trip_id);
+        this.tripsID.push(trip.tripId);
       });
     });
 
@@ -42,18 +42,18 @@ export default {
         this.userId = response.id;
         this.tripService.getTripsByClientId(this.userId).then(res => {
           this.trips = res.map(trip => new Trip(
-            trip.id,
-            trip.name,
-            trip.type,
-            trip.weight,
-            trip.load_location,
-            trip.load_date,
-            trip.unload_location,
-            trip.unload_date,
-            trip.driver_id,
-            trip.vehicle_id,
-            trip.client_id,
-            trip.entrepreneur_id
+              trip.id,
+              trip.name.tripName,
+              trip.cargoData.type,
+              trip.cargoData.weight,
+              trip.tripData.loadLocation,
+              trip.tripData.loadDate,
+              trip.tripData.unloadLocation,
+              trip.tripData.unloadDate,
+              trip.driverId,
+              trip.vehicleId,
+              trip.clientId,
+              trip.entrepreneurId
           ));
           this.filteredTrips = this.trips.filter(trip => this.tripsID.includes(trip.id));
         });
@@ -64,18 +64,18 @@ export default {
         this.userId = response.id;
         this.tripService.getTripsByEntrepreneurId(this.userId).then(res => {
           this.trips = res.map(trip => new Trip(
-            trip.id,
-            trip.name,
-            trip.type,
-            trip.weight,
-            trip.load_location,
-            trip.load_date,
-            trip.unload_location,
-            trip.unload_date,
-            trip.driver_id,
-            trip.vehicle_id,
-            trip.client_id,
-            trip.entrepreneur_id
+              trip.id,
+              trip.name.tripName,
+              trip.cargoData.type,
+              trip.cargoData.weight,
+              trip.tripData.loadLocation,
+              trip.tripData.loadDate,
+              trip.tripData.unloadLocation,
+              trip.tripData.unloadDate,
+              trip.driverId,
+              trip.vehicleId,
+              trip.clientId,
+              trip.entrepreneurId
           ));
           this.filteredTrips = this.trips.filter(trip => this.tripsID.includes(trip.id));
         });

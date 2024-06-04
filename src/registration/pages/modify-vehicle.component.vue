@@ -29,8 +29,8 @@ export default {
           this.id = response.data.id;
           this.model = response.data.model;
           this.plate = response.data.plate;
-          this.tractor_plate = response.data.tractor_plate;
-          this.max_load = response.data.max_load;
+          this.tractor_plate = response.data.tractorPlate;
+          this.max_load = response.data.maxLoad;
           this.volume = response.data.volume;
 
           // Split plate and tractor_plate

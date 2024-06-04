@@ -40,35 +40,34 @@ export default {
   },
   created() {
     // user_id del usuario que inició sesión
-    const user_id = Number(store.state.user_id);
+    const userId = Number(store.state.user_id);
     // arreglo para guardar los client_id de los trips
-    let clients_ids = [];
-    this.entrepreneurService.getByUserId(user_id).then(r => {
+    let clientsIds = [];
+    this.entrepreneurService.getByUserId(userId).then(r => {
       // entrepreneur_id del usuario
       this.entrepreneurId = r.id;
       console.log(this.entrepreneurId);
       this.tripService.getTripsByEntrepreneurId(this.entrepreneurId).then(res => {
         // guardar los ids de los clientes y evitar que se repitan
         res.forEach(trip => {
-          if (!clients_ids.includes(trip.client_id)) {
-            clients_ids.push(trip.client_id);
+          if (!clientsIds.includes(trip.clientId)) {
+            clientsIds.push(trip.clientId);
           }
         });
-        console.log(clients_ids);
-        for (let i = 0; i < clients_ids.length; i++) {
-          this.clientService.getOne(clients_ids[i]).then(resp => {
+        for (let i = 0; i < clientsIds.length; i++) {
+          this.clientService.getOne(clientsIds[i]).then(resp => {
             // obtener el user_id de cada cliente para obtener su información
-            let user_id = resp.data.user_id;
+            let user_id = resp.data.userId;
             this.userService.getOne(user_id).then(response => {
               this.clients.push(new User(
                 response.data.id,
-                response.data.name,
-                response.data.email,
-                response.data.password,
-                response.data.phone,
-                response.data.ruc,
-                response.data.address,
-                response.data.subscription
+                response.data.userData.name,
+                response.data.userAuthentication.email,
+                response.data.userAuthentication.password,
+                response.data.userData.phone,
+                response.data.userData.ruc,
+                response.data.userData.address,
+                response.data.subscriptionPlan.subscription
               ));
             });
           })

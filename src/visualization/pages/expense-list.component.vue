@@ -28,17 +28,17 @@ export default {
         this.rawTrips.forEach(trip => {
           this.trips.push(new Trip(
               trip.id,
-              trip.name,
-              trip.type,
-              trip.weight,
-              trip.load_location,
-              trip.load_date,
-              trip.unload_location,
-              trip.unload_date,
-              trip.driver_id,
-              trip.vehicle_id,
-              trip.client_id,
-              trip.entrepreneur_id
+              trip.name.tripName,
+              trip.cargoData.type,
+              trip.cargoData.weight,
+              trip.tripData.loadLocation,
+              trip.tripData.loadDate,
+              trip.tripData.unloadLocation,
+              trip.tripData.unloadDate,
+              trip.driverId,
+              trip.vehicleId,
+              trip.clientId,
+              trip.entrepreneurId
           ));
         });
       });

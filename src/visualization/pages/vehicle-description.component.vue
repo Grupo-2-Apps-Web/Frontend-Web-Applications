@@ -21,8 +21,8 @@ export default {
           response.data.id,
           response.data.model,
           response.data.plate,
-          response.data.tractor_plate,
-          response.data.max_load,
+          response.data.tractorPlate,
+          response.data.maxLoad,
           response.data.volume
       );
     });
@@ -56,13 +56,13 @@ export default {
     <div class="container-info">
       <p>
         <strong>TRACTOR PLATE:</strong>
-        {{ vehicle.tractor_plate }}
+        {{ vehicle.tractorPlate }}
       </p>
     </div>
     <div class="container-info">
       <p>
         <strong>MAX LOAD:</strong>
-        {{ vehicle.max_load }}
+        {{ vehicle.maxLoad }}
       </p>
     </div>
     <div class="container-info">

@@ -7,8 +7,8 @@
           <tr>
             <td>{{trip.name}}</td>
             <td>{{trip.id}}</td>
-            <td>{{ formatDate(trip.load_date) }}</td>
-            <td>{{ trip.load_location }}</td>
+            <td>{{ formatDate(trip.loadDate) }}</td>
+            <td>{{ trip.loadLocation }}</td>
           </tr>
           </tbody>
         </table>
@@ -25,8 +25,8 @@
             <h3>ID: {{trip.id}}</h3>
           </div>
           <div class="content-info-preview">
-            <p>LOAD DATE: {{ formatDate(trip.load_date) }}</p>
-            <p>LOAD LOCATION: {{ trip.load_location }}</p>
+            <p>LOAD DATE: {{ formatDate(trip.loadDate) }}</p>
+            <p>LOAD LOCATION: {{ trip.loadLocation }}</p>
           </div>
         </template>
       </pv-card>

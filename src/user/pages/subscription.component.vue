@@ -2,6 +2,7 @@
 import {useRouter} from "vue-router";
 import {ref} from "vue";
 import {UserService} from "../services/user.service.js";
+import {User} from "../models/user.entity.js";
 
 export default {
   name: "subscription.component",
@@ -9,13 +10,13 @@ export default {
     return {
       userId: localStorage.getItem('user_id'),
       userService: new UserService(),
-      selectedPlan: 'Basic'
+      selectedPlan: ''
     }
   },
   created(){
     this.userService.getOne(this.userId).then(response => {
       const user = response.data;
-      this.selectedPlan = user.subscription;
+      this.selectedPlan = user.subscriptionPlan.subscription;
     });
   },
   setup() {
@@ -30,12 +31,22 @@ export default {
   methods:{
     selectPlan(plan){
       this.selectedPlan = plan;
-      alert(`You have selected the ${plan} plan.`)
 
       this.userService.getOne(this.userId).then(response => {
-        const user = response.data;
-        user.subscriptionPlan.subscription = plan;
-        this.userService.update(this.userId, user).then();
+        const updatedUser = new User(
+            response.data.id,
+            response.data.userData.name,
+            response.data.userAuthentication.email,
+            response.data.userData.phone,
+            response.data.userAuthentication.password,
+            response.data.userData.ruc,
+            response.data.userData.address,
+            plan
+        );
+        console.log(updatedUser);
+        this.userService.update(this.userId, updatedUser).then(res => {
+          alert(`You have selected the ${plan} plan.`)
+        })
       });
     }
   }
@@ -57,7 +68,7 @@ export default {
           <div class="card-content">
             <ul>
               <li>GPS and real-time alerts</li>
-              <li>History limited to 10 records</li>
+              <li>History limited to 50 records</li>
             </ul>
           </div>
         </template>

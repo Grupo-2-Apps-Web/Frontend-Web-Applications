@@ -38,7 +38,7 @@ export default {
           driver.name,
           driver.dni,
           driver.license,
-          driver.contact_number
+          driver.contactNumber
       ));
       this.filteredDrivers = this.drivers;
 

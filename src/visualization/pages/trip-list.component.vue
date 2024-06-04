@@ -21,7 +21,7 @@ export default {
   },
   data() {
     return {
-      userId: 0,
+      userTypeId: 0,
       visible: false,
       tripService: new TripService(),
       trips: [],
@@ -43,21 +43,21 @@ export default {
     if (state === 'client') {
       const clientService = new ClientService();
       clientService.getByUserId(id).then(response => {
-        this.userId = response.id;
-        this.tripService.getTripsByClientId(this.userId).then(res => {
+        this.userTypeId = response.id;
+        this.tripService.getTripsByClientId(this.userTypeId).then(res => {
           this.trips = res.map(trip => new Trip(
               trip.id,
-              trip.name,
-              trip.type,
-              trip.weight,
-              trip.load_location,
-              trip.load_date,
-              trip.unload_location,
-              trip.unload_date,
-              trip.driver_id,
-              trip.vehicle_id,
-              trip.client_id,
-              trip.entrepreneur_id
+              trip.name.tripName,
+              trip.cargoData.type,
+              trip.cargoData.weight,
+              trip.tripData.loadLocation,
+              trip.tripData.loadDate,
+              trip.tripData.unloadLocation,
+              trip.tripData.unloadDate,
+              trip.driverId,
+              trip.vehicleId,
+              trip.clientId,
+              trip.entrepreneurId
           ));
           this.filteredTrips = this.trips;
         });
@@ -65,21 +65,21 @@ export default {
     } else if (state === 'entrepreneur') {
       const entrepreneurService = new EntrepreneurService();
       entrepreneurService.getByUserId(id).then(response => {
-        this.userId = response.id;
-        this.tripService.getTripsByEntrepreneurId(this.userId).then(res => {
+        this.userTypeId = response.id;
+        this.tripService.getTripsByEntrepreneurId(this.userTypeId).then(res => {
           this.trips = res.map(trip => new Trip(
               trip.id,
-              trip.name,
-              trip.type,
-              trip.weight,
-              trip.load_location,
-              trip.load_date,
-              trip.unload_location,
-              trip.unload_date,
-              trip.driver_id,
-              trip.vehicle_id,
-              trip.client_id,
-              trip.entrepreneur_id
+              trip.name.tripName,
+              trip.cargoData.type,
+              trip.cargoData.weight,
+              trip.tripData.loadLocation,
+              trip.tripData.loadDate,
+              trip.tripData.unloadLocation,
+              trip.tripData.unloadDate,
+              trip.driverId,
+              trip.vehicleId,
+              trip.clientId,
+              trip.entrepreneurId
           ));
           this.filteredTrips = this.trips;
         });
@@ -130,17 +130,15 @@ export default {
           switch (filterValue) {
             case 'name':
               tripProperty = trip.name;
-              console.log(trip.load_date);
-              console.log(trip.load_location)
               break;
             case 'date':
               // Asegúrate de que la fecha de búsqueda esté en la misma zona horaria que la fecha de carga
               let searchDate = new Date(`${searchText}T00:00:00`);
-              tripProperty = new Date(trip.load_date);
+              tripProperty = new Date(trip.loadDate);
               tripProperty = `${tripProperty.getFullYear()}-${tripProperty.getMonth() + 1}-${tripProperty.getDate()}`;
               return tripProperty === `${searchDate.getFullYear()}-${searchDate.getMonth() + 1}-${searchDate.getDate()}`;
             case 'place':
-              tripProperty = trip.load_location;
+              tripProperty = trip.loadLocation;
               break;
             default:
               return true;

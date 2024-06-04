@@ -22,7 +22,7 @@ export default {
           response.data.name,
           response.data.dni,
           response.data.license,
-          response.data.contact_number
+          response.data.contactNumber
       );
     });
 
@@ -61,7 +61,7 @@ export default {
     <div class="container-info">
       <p>
         <strong>CONTACT NUMBER:</strong>
-        {{ driver.contact_number }}
+        {{ driver.contactNumber }}
       </p>
     </div>
   </div>

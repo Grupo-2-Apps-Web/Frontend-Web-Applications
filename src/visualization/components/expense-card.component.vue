@@ -7,8 +7,8 @@
           <tr>
             <td>{{trip.name}}</td>
             <td>{{trip.id}}</td>
-            <td>{{ formatDate(trip.load_date) }}</td>
-            <td>{{ trip.load_location }}</td>
+            <td>{{ formatDate(trip.loadDate) }}</td>
+            <td>{{ trip.loadLocation }}</td>
           </tr>
           </tbody>
         </table>
@@ -25,8 +25,8 @@
             <h3>ID: {{trip.id}}</h3>
           </div>
           <div class="content-info-preview">
-            <p>FECHA DE CARGA: {{ formatDate(trip.load_date) }}</p>
-            <p>LUGAR DE CARGA: {{ trip.load_location }}</p>
+            <p>FECHA DE CARGA: {{ formatDate(trip.loadDate) }}</p>
+            <p>LUGAR DE CARGA: {{ trip.loadLocation }}</p>
           </div>
         </template>
       </pv-card>
@@ -64,7 +64,7 @@ export default {
       if(response){
         this.router.push(`/client/expenses/${response.id}`);
       } else {
-        alert('There are no expenses for this trip');
+        alert('There are no expenses registered for this trip');
       }
     },
     formatDate(dateString) {
