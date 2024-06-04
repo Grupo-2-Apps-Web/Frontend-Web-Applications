@@ -14,7 +14,7 @@ export default {
     const expenseService = new ExpenseService();
     const expenseData = reactive({
       id: 0,
-      tripId: '',
+      tripId: 0,
       fuelAmount: 0,
       fuelDescription: '',
       viaticsAmount: 0,
@@ -24,7 +24,7 @@ export default {
     });
 
     const openDialog = () => {
-      if (!expenseData.tripId || expenseData.fuelAmount !== 0 || expenseData.tollsAmount !== 0 || expenseData.viaticsAmount !== 0) {
+      if (expenseData.tripId === 0 || expenseData.fuelAmount === 0 || expenseData.tollsAmount === 0 || expenseData.viaticsAmount === 0) {
         alert('All fields are required');
         return;
       }
@@ -47,13 +47,13 @@ export default {
               } else {
                 const newExpense = new Expense(
                     0,
-                    Number(expenseData.tripId),
                     Number(expenseData.fuelAmount),
                     expenseData.fuelDescription,
                     Number(expenseData.viaticsAmount),
                     expenseData.viaticsDescription,
                     Number(expenseData.tollsAmount),
-                    expenseData.tollsDescription
+                    expenseData.tollsDescription,
+                    Number(expenseData.tripId)
                 );
                 expenseService.create(newExpense);
                 alert('Expense registered successfully');
@@ -89,27 +89,27 @@ export default {
     <h2>Trip ID</h2>
     <div class="grid-container-1-column">
       <div>
-        <pv-inputtext v-model="expenseData.tripId" style="width: 8%;" required></pv-inputtext>
+        <pv-inputtext type="number" v-model="expenseData.tripId" style="width: 8%;" required></pv-inputtext>
       </div>
     </div>
     <h2>Expenses</h2>
     <div class="grid-container-2-columns">
       <div>
-        <p>Diesel Gasoline - Amount</p>
+        <p>Fuel - Amount</p>
         <pv-inputtext type="number" v-model="expenseData.fuelAmount" style="width: 50%;" required></pv-inputtext>
       </div>
       <div>
-        <p>Diesel Gasoline - Details</p>
+        <p>Fuel - Details</p>
         <pv-textarea v-model="expenseData.fuelDescription" style="width: 100%;" required></pv-textarea>
       </div>
     </div>
     <div class="grid-container-2-columns">
       <div>
-        <p>Toll - Amount</p>
+        <p>Tolls - Amount</p>
         <pv-inputtext type="number" v-model="expenseData.tollsAmount" style="width: 50%;" required></pv-inputtext>
       </div>
       <div>
-        <p>Toll - Details</p>
+        <p>Tolls - Details</p>
         <pv-textarea v-model="expenseData.tollsDescription" style="width: 100%;" required></pv-textarea>
       </div>
     </div>

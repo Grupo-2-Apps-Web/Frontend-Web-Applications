@@ -35,13 +35,13 @@ export default {
       const expenseService = new ExpenseService();
       const expense = new Expense(
           this.id,
-          this.tripId,
           Number(this.fuelAmount),
           this.fuelDescription,
           Number(this.viaticsAmount),
           this.viaticsDescription,
           Number(this.tollsAmount),
-          this.tollsDescription
+          this.tollsDescription,
+          this.tripId
       )
       expenseService.update(expense.id, expense)
           .then(() => {

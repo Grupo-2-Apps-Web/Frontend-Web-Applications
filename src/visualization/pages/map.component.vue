@@ -253,7 +253,7 @@ export default defineComponent({
   resize: none;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 850px) {
   .container {
     grid-template-columns: none;
     grid-template-rows: 1fr 1fr;
