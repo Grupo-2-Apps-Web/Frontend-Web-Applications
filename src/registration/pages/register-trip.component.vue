@@ -32,14 +32,14 @@ export default {
       name: "",
       type: "",
       weight: 0,
-      loadLocation: "",
-      loadDate: "",
-      unloadLocation: "",
-      unloadDate: "",
-      driverId: 0,
-      vehicleId: 0,
-      clientId: 0,
-      entrepreneurId: 0
+      load_location: "",
+      load_date: "",
+      unload_location: "",
+      unload_date: "",
+      driver_id: 0,
+      vehicle_id: 0,
+      client_id: 0,
+      entrepreneur_id: 0
     });
     const evidence = new Evidence(
         0,
@@ -48,9 +48,9 @@ export default {
     )
     const openDialog = () => {
       console.log(trip);
-      if (!trip.name || !trip.type || !trip.weight || !trip.loadLocation || !trip.loadDate ||
-          !trip.unloadLocation || !trip.unloadDate || !trip.driverId || !trip.vehicleId ||
-          !trip.clientId) {
+      if (trip.name === "" || trip.type === "" || trip.weight === null || trip.load_location === "" || trip.load_date === "" ||
+          trip.unload_location === "" || trip.unload_date === "" || trip.driver_id === null || trip.vehicle_id === null ||
+          trip.client_id === null) {
         alert('All fields are required');
         return;
       }
@@ -65,11 +65,11 @@ export default {
         },
         accept: async () => {
           const response = await entrepreneurService.getByUserId(localStorage.getItem('user_id'));
-          trip.entrepreneurId = Number(response.id);
+          trip.entrepreneur_id = Number(response.id);
           trip.id = Number(trip.id);
-          trip.driverId = Number(trip.driverId);
-          trip.vehicleId = Number(trip.vehicleId);
-          trip.clientId = Number(trip.clientId);
+          trip.driver_id = Number(trip.driver_id);
+          trip.vehicle_id = Number(trip.vehicle_id);
+          trip.client_id = Number(trip.client_id);
           trip.weight = Number(trip.weight);
 
           tripService.create(trip).then(response => {
@@ -117,42 +117,42 @@ export default {
         </div>
         <div>
           <p>Load Location</p>
-          <pv-inputtext v-model="trip.loadLocation" style="width: 100%;"></pv-inputtext>
+          <pv-inputtext v-model="trip.load_location" style="width: 100%;"></pv-inputtext>
         </div>
       </div>
       <div class="grid-container-2-columns">
         <div>
           <p>Load Date</p>
-          <pv-inputtext type="date" v-model="trip.loadDate" style="width: 100%;"></pv-inputtext>
+          <pv-inputtext type="date" v-model="trip.load_date" style="width: 100%;"></pv-inputtext>
         </div>
         <div>
           <p>Unload Location</p>
-          <pv-inputtext v-model="trip.unloadLocation" style="width: 100%;"></pv-inputtext>
+          <pv-inputtext v-model="trip.unload_location" style="width: 100%;"></pv-inputtext>
         </div>
       </div>
       <div class="grid-container-2-columns">
         <div>
           <p>Unload Date</p>
-          <pv-inputtext type="date" v-model="trip.unloadDate" style="width: 100%;"></pv-inputtext>
+          <pv-inputtext type="date" v-model="trip.unload_date" style="width: 100%;"></pv-inputtext>
         </div>
         <div>
           <p>Driver ID</p>
-          <pv-inputtext type="number" v-model="trip.driverId" style="width: 100%;"></pv-inputtext>
+          <pv-inputtext type="number" v-model="trip.driver_id" style="width: 100%;"></pv-inputtext>
         </div>
       </div>
       <div class="grid-container-2-columns">
         <div>
           <p>Vehicle ID</p>
-          <pv-inputtext type="number" v-model="trip.vehicleId" style="width: 100%;"></pv-inputtext>
+          <pv-inputtext type="number" v-model="trip.vehicle_id" style="width: 100%;"></pv-inputtext>
         </div>
         <div>
           <p>Client ID</p>
-          <pv-inputtext type="number" v-model="trip.clientId" style="width: 100%;"></pv-inputtext>
+          <pv-inputtext type="number" v-model="trip.client_id" style="width: 100%;"></pv-inputtext>
         </div>
       </div>
       <div class="grid-container-1-columns">
         <p>Load Evidence</p>
-        <img src="../../assets/images/upload-image.jpg" alt="upload image template" height="250px">
+        <img src="../../assets/images/upload-image.jpg" alt="upload image template" height="150px">
         <div style="text-align: center; width: 20%; margin-left: 25px;">
           <input type="file" ref="fileInputLoad" @change="handleFileUpload" style="display: none" />
           <pv-button @click="triggerFileUploadLoad" style="background-color:#006400;">Upload</pv-button>
