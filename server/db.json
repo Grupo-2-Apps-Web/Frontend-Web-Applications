@@ -1,0 +1,316 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Juan Perez",
+      "email": "client@example.com",
+      "password": "12345678",
+      "phone": "999999999",
+      "ruc": "20000000000",
+      "address": "Av. Perú 123 - Lima",
+      "subscription": "Premium"
+    },
+    {
+      "id": 2,
+      "name": "Empresa de Transportes S.A.C.",
+      "email": "entrepreneur@example.com",
+      "password": "12345678",
+      "phone": "999999999",
+      "ruc": "20000000001",
+      "address": "Av. Lima 123 - Lima",
+      "subscription": "Premium"
+    },
+    {
+      "id": 3,
+      "name": "Piero Díaz S.A.C.",
+      "email": "pierod081@gmail.com",
+      "password": "123456",
+      "phone": "987654321",
+      "ruc": "20123486690",
+      "address": "Av. La Marina 123 - Callao",
+      "subscription": "Basic"
+    },
+    {
+      "id": 4,
+      "name": "Moran Alimentos S.A.",
+      "email": "juan92@gmail.com",
+      "password": "014821",
+      "phone": "999235001",
+      "ruc": "21390081200",
+      "address": "Calle Independencia 116 - Villa María del Triunfo",
+      "subscription": "Premium"
+    },
+    {
+      "id": 5,
+      "name": "Transportes Semarfe S.A.C.",
+      "email": "carlitos0@gmail.com",
+      "password": "abc888",
+      "phone": "982630015",
+      "ruc": "20123456789",
+      "address": "Av. Huancaray 560 - Santa Anita",
+      "subscription": "Basic"
+    },
+    {
+      "id": 6,
+      "name": "Transportes El Chino S.A.C.",
+      "email": "pedro431@gmail.com",
+      "password": "maria123",
+      "phone": "945010682",
+      "ruc": "20455690152",
+      "address": "Av. Los Incas 123 - San Juan de Lurigancho",
+      "subscription": "Premium"
+    },
+    {
+      "id": 7,
+      "name": "client@example.com",
+      "email": "entrepreneur@xd.com",
+      "phone": "912118264",
+      "password": "1111234124141",
+      "ruc": "12345678912",
+      "address": "a",
+      "subscription": "Basic"
+    }
+  ],
+  "clients": [
+    {
+      "id": 1,
+      "user_id": 1
+    },
+    {
+      "id": 2,
+      "user_id": 3
+    },
+    {
+      "id": 3,
+      "user_id": 4
+    }
+  ],
+  "entrepreneurs": [
+    {
+      "id": 1,
+      "logo_image": "https://img.freepik.com/vector-premium/plantilla-silueta-empresa-camiones_183875-933.jpg",
+      "user_id": 2
+    },
+    {
+      "id": 2,
+      "logo_image": "https://img.freepik.com/vector-premium/plantilla-silueta-empresa-camiones_183875-933.jpg",
+      "user_id": 5
+    },
+    {
+      "id": 3,
+      "logo_image": "https://img.freepik.com/vector-premium/plantilla-silueta-empresa-camiones_183875-933.jpg",
+      "user_id": 6
+    }
+  ],
+  "configurations": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "theme": "light",
+      "view": "grid",
+      "allow_data_collection": "true",
+      "update_data_sharing": "false"
+    },
+    {
+      "id": 2,
+      "user_id": 2,
+      "theme": "light",
+      "view": "grid",
+      "allow_data_collection": "true",
+      "update_data_sharing": "true"
+    },
+    {
+      "id": 3,
+      "user_id": 3,
+      "theme": "light",
+      "view": "grid",
+      "allow_data_collection": "true",
+      "update_data_sharing": "true"
+    },
+    {
+      "id": 4,
+      "user_id": 4,
+      "theme": "dark",
+      "view": "list",
+      "allow_data_collection": "false",
+      "update_data_sharing": "true"
+    }
+  ],
+  "trips": [
+    {
+      "id": 1,
+      "name": "Viaje #MA251",
+      "type": "Electronica",
+      "weight": 3000,
+      "load_location": "Av. La Playa km 2 - Ventanilla",
+      "load_date": "2024-05-15",
+      "unload_location": "Carretera Central km 141 - Morococha",
+      "unload_date": "2024-07-23",
+      "driver_id": 1,
+      "vehicle_id": 1,
+      "client_id": 1,
+      "entrepreneur_id": 1
+    },
+    {
+      "id": 2,
+      "name": "Viaje #MA252",
+      "type": "Alimentos",
+      "weight": 4000,
+      "load_location": "Av. El Sol km 3 - Callao",
+      "load_date": "2024-04-25",
+      "unload_location": "Carretera Central km 200 - La Oroya",
+      "unload_date": "2024-04-26",
+      "driver_id": 1,
+      "vehicle_id": 1,
+      "client_id": 1,
+      "entrepreneur_id": 1
+    },
+    {
+      "id": 3,
+      "name": "Viaje #MA253",
+      "type": "Textiles",
+      "weight": 5000,
+      "load_location": "Av. La Marina km 5 - Callao",
+      "load_date": "2024-05-24",
+      "unload_location": "Carretera Central km 300 - La Oroya",
+      "unload_date": "2024-05-26",
+      "driver_id": 1,
+      "vehicle_id": 1,
+      "client_id": 1,
+      "entrepreneur_id": 1
+    },
+    {
+      "id": 4,
+      "name": "asf",
+      "type": "asf",
+      "weight": 45000,
+      "load_location": "sadsad",
+      "load_date": "2024-05-12",
+      "unload_location": "sdafa",
+      "unload_date": "2024-05-14",
+      "driver_id": 1,
+      "vehicle_id": 1,
+      "client_id": 1,
+      "entrepreneur_id": 1
+    }
+  ],
+  "evidences": [
+    {
+      "id": 1,
+      "trip_id": 1,
+      "link": "https://img.freepik.com/vector-premium/plantilla-silueta-empresa-camiones_183875-933.jpg"
+    },
+    {
+      "id": 2,
+      "trip_id": 2,
+      "link": "https://img.freepik.com/vector-premium/plantilla-silueta-empresa-camiones_183875-933.jpg"
+    },
+    {
+      "id": 3,
+      "trip_id": 3,
+      "link": "https://img.freepik.com/vector-premium/plantilla-silueta-empresa-camiones_183875-933.jpg"
+    },
+    {
+      "id": 4,
+      "trip_id": 4,
+      "link": "blob:http://localhost:5173/2f73f933-402f-4552-8445-ed781395017e"
+    }
+  ],
+  "expenses": [
+    {
+      "id": 1,
+      "trip_id": 1,
+      "fuel_amount": 299,
+      "fuel_description": "Se utilizaron 66 litros de Gasolina Diesel para el recorrido de 175 km. El litro está S/. 4.50. Así que el total es: 66 x 4.50 = 297",
+      "viatics_amount": 400,
+      "viatics_description": "El viaje tuvo una duración de 2 días. Se brindó S/. 200 cada día al conductor para cubrir hospedaje y alimentación",
+      "tolls_amount": 275,
+      "tolls_description": "Se pasaron por seis peajes en total, los costos respectivos son: 50, 47, 40, 40, 45, 53"
+    },
+    {
+      "id": 2,
+      "trip_id": 2,
+      "fuel_amount": 540,
+      "fuel_description": "Se utilizaron 120 litros de gasolina diésel para el recorrido de 300 km. El precio por litro es S/. 4.50. Por lo tanto, el total es: 120 x 4.50 = 540",
+      "viatics_amount": 400,
+      "viatics_description": "El viaje tuvo una duración de 2 días. Se brindó S/. 200 cada día al conductor para cubrir hospedaje y alimentación.",
+      "tolls_amount": 275,
+      "tolls_description": "Se pasaron por seis peajes en total, los costos respectivos son: 50, 47, 40, 40, 45, 53"
+    }
+  ],
+  "ongoing_trips": [
+    {
+      "id": 1,
+      "trip_id": 2,
+      "latitude": -12.096808507450856,
+      "longitude": -76.99985340288825,
+      "speed": 60,
+      "distance": 100
+    },
+    {
+      "id": 2,
+      "trip_id": 3,
+      "latitude": -11.979,
+      "longitude": -77.0587,
+      "speed": 70,
+      "distance": 200
+    }
+  ],
+  "alerts": [
+    {
+      "id": 1,
+      "trip_id": 2,
+      "title": "Parada no programada",
+      "description": "Debido a una emergencia médica del conductor, se ha decidido hacer una parada no programada, se estima reanudar el trayecto aproximadamente en una hora",
+      "date": "2024-03-25T05:05:46Z"
+    },
+    {
+      "id": 2,
+      "trip_id": 2,
+      "title": "Cambio de ruta",
+      "description": "Debido a un cierre de carretera, hemos ajustado la ruta de entrega hacia la “Ruta del Pacífico”",
+      "date": "2024-03-25T06:58:10Z"
+    },
+    {
+      "id": 3,
+      "trip_id": 3,
+      "title": "Retraso de entrega",
+      "description": "Debido a un accidente en la carretera, se ha retrasado la entrega en una hora",
+      "date": "2024-05-25T05:05:46Z"
+    }
+  ],
+  "vehicles": [
+    {
+      "id": 1,
+      "model": "Volkswagen Transporter",
+      "plate": "A1B-234",
+      "tractor_plate": "EF3-TD3",
+      "max_load": 5000,
+      "volume": 20
+    },
+    {
+      "id": 2,
+      "model": "Mercedes-Benz Sprinter",
+      "plate": "B2C-345",
+      "tractor_plate": "GF4-UE4",
+      "max_load": 6000,
+      "volume": 25
+    }
+  ],
+  "drivers": [
+    {
+      "id": 1,
+      "name": "Carlos Sanchez",
+      "dni": "23456789",
+      "license": "C23456789",
+      "contact_number": "987654322"
+    },
+    {
+      "id": 2,
+      "name": "Armando Paredes",
+      "dni": "22356789",
+      "license": "C14356678",
+      "contact_number": "999654321"
+    }
+  ]
+}
