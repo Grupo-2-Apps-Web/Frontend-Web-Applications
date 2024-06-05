@@ -144,7 +144,6 @@ h1{
   display: flex;
   text-align: center;
   justify-content: center;
-  width: 100%;
 }
 
 .search-bar input {
@@ -169,13 +168,6 @@ h1{
   flex-wrap: wrap;
   justify-content: center;
   margin: 20px;
-}
-
-@media (min-width: 1550px) {
-  .container-search-bar {
-    justify-content: normal;
-    margin-left: 500px;
-  }
 }
 
 /*-------------------List View------------------*/

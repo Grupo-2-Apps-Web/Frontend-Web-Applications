@@ -160,6 +160,7 @@ export default {
 </script>
 
 <template>
+
   <div class="main-top">
     <h1>Last Trips</h1>
     <pv-button label="Export" @click="visible = true" style="background-color: #006400" ></pv-button>
@@ -236,7 +237,6 @@ h1{
   display: flex;
   text-align: center;
   justify-content: center;
-  width: 100%;
 }
 
 .search-bar input {
@@ -263,12 +263,6 @@ h1{
   margin: 20px;
 }
 
-@media (min-width: 1550px) {
-  .container-search-bar {
-    justify-content: normal;
-    margin-left: 500px;
-  }
-}
 
 /*-------------------List View------------------*/
 

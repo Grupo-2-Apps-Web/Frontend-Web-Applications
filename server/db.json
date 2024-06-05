@@ -178,6 +178,20 @@
       "vehicle_id": 1,
       "client_id": 1,
       "entrepreneur_id": 1
+    },
+    {
+      "id": 4,
+      "name": "asf",
+      "type": "asf",
+      "weight": 45000,
+      "load_location": "sadsad",
+      "load_date": "2024-05-12",
+      "unload_location": "sdafa",
+      "unload_date": "2024-05-14",
+      "driver_id": 1,
+      "vehicle_id": 1,
+      "client_id": 1,
+      "entrepreneur_id": 1
     }
   ],
   "evidences": [
@@ -195,6 +209,11 @@
       "id": 3,
       "trip_id": 3,
       "link": "https://img.freepik.com/vector-premium/plantilla-silueta-empresa-camiones_183875-933.jpg"
+    },
+    {
+      "id": 4,
+      "trip_id": 4,
+      "link": "blob:http://localhost:5173/2f73f933-402f-4552-8445-ed781395017e"
     }
   ],
   "expenses": [
