@@ -23,13 +23,12 @@ export default {
   },
   created() {
     this.alertService.getByTripId(this.id).then(response => {
-      console.log(response);
       this.alerts = response.map(alert => new Alert(
         alert.id,
-        alert.trip_id,
         alert.title,
         alert.description,
-        alert.date
+        alert.date,
+        alert.tripId,
       ));
     });
   },

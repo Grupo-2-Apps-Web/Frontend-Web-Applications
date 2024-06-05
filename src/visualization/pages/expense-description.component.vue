@@ -25,20 +25,20 @@ export default {
     this.expenseService.getByTripId(this.id).then(response => {
         this.expense = new Expense(
             response.id,
-            this.id,
-            response.fuel_amount,
-            response.fuel_description,
-            response.viatics_amount,
-            response .viatics_description,
-            response.tolls_amount,
-            response.tolls_description
+            response.fuelAmount,
+            response.fuelDescription,
+            response.viaticsAmount,
+            response .viaticsDescription,
+            response.tollsAmount,
+            response.tollsDescription,
+            this.id
         );
-        this.totalExpenses = JSON.parse(this.expense.fuel_amount) + JSON.parse(this.expense.tolls_amount) + JSON.parse(this.expense.viatics_amount);
+        this.totalExpenses = JSON.parse(this.expense.fuelAmount) + JSON.parse(this.expense.tollsAmount) + JSON.parse(this.expense.viaticsAmount);
     });
     this.tripService.getOne(this.id).then(response => {
-      this.name = response.data.name;
-      this.entrepreneurService.getOne(response.data.entrepreneur_id).then(response => {
-        this.logoURL = response.data.logo_image;
+      this.name = response.data.name.tripName;
+      this.entrepreneurService.getOne(response.data.entrepreneurId).then(response => {
+        this.logoURL = response.data.logoImage;
       });
     });
   }
@@ -55,30 +55,30 @@ export default {
       <div class="gasto">
         <div class="gasto-header">
           <h2>FUEL</h2>
-          <h2>S/. {{expense.fuel_amount}}</h2>
+          <h2>S/. {{expense.fuelAmount}}</h2>
         </div>
         <div class="gasto-descripcion">
-          <p>{{expense.fuel_description}}</p>
+          <p>{{expense.fuelDescription}}</p>
         </div>
       </div>
 
       <div class="gasto">
         <div class="gasto-header">
           <h2>TOLLS</h2>
-          <h2>S/. {{expense.tolls_amount}}</h2>
+          <h2>S/. {{expense.tollsAmount}}</h2>
         </div>
         <div class="gasto-descripcion">
-          <p>{{expense.tolls_description}}</p>
+          <p>{{expense.tollsDescription}}</p>
         </div>
       </div>
 
       <div class="gasto">
         <div class="gasto-header">
           <h2>VIATICS</h2>
-          <h2>S/. {{expense.viatics_amount}}</h2>
+          <h2>S/. {{expense.viaticsAmount}}</h2>
         </div>
         <div class="gasto-descripcion">
-          <p>{{expense.viatics_description}}</p>
+          <p>{{expense.viaticsDescription}}</p>
         </div>
 
       </div>

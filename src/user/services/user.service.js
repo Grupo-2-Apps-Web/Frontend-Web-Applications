@@ -8,7 +8,7 @@ export class UserService extends BaseService {
     async getUserByEmail(email) {
         const response = await this.getAll();
         const users = response.data;
-        const user = users.find(user => user.email === email);
+        const user = users.find(user => user.userAuthentication.email === email);
         return user || null;
     }
 }

@@ -1,5 +1,5 @@
 <script>
-import SwitcherthemeComponent from "../components/switcher-theme.component.vue";
+import SwitcherThemeComponent from "../components/switcher-theme.component.vue";
 import DataCollectionComponent from "../components/data-collection.component.vue";
 import SwitcherViewDataComponent from "../components/switcher-view-data.component.vue";
 import {ConfigurationService} from "../services/configuration.service.js";
@@ -10,7 +10,7 @@ import {Configuration} from "../models/configuration.entity.js";
 export default {
   name: "configuration.component",
   components: {
-    SwitcherthemeComponent,
+    SwitcherThemeComponent,
     DataCollectionComponent,
     SwitcherViewDataComponent
   },
@@ -24,13 +24,16 @@ export default {
     saveConfig(){
       store.commit('SET_THEME', store.state.theme);
       store.commit('SET_VIEW', store.state.view);
+
+      const dataCollection = localStorage.getItem('dataCollection') === 'true';
+      const dataSharing = localStorage.getItem('dataSharing') === 'true';
       const configuration = new Configuration(
           this.configuration.id,
           Number(localStorage.getItem('user_id')),
           store.state.theme,
           store.state.view,
-          localStorage.getItem('dataCollection'),
-          localStorage.getItem('dataSharing')
+          dataCollection,
+          dataSharing
       );
 
       this.configurationService.update(configuration.id, configuration);
@@ -69,7 +72,7 @@ export default {
     <div class="personalization">
       <div class="theme">
         <h2>Theme Selection</h2>
-        <switchertheme-component/>
+        <switcher-theme-component />
       </div>
       <div class="view">
         <h2>View Data</h2>

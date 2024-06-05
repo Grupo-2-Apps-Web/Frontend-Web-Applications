@@ -19,13 +19,13 @@ export default {
     this.userService.getOne(this.id).then(response => {
       this.client = new User(
           response.data.id,
-          response.data.name,
-          response.data.email,
-          response.data.password,
-          response.data.phone,
-          response.data.ruc,
-          response.data.address,
-          response.data.subscription
+          response.data.userData.name,
+          response.data.userAuthentication.email,
+          response.data.userAuthentication.password,
+          response.data.userData.phone,
+          response.data.userData.ruc,
+          response.data.userData.address,
+          response.data.subscriptionPlan.subscription
       );
     });
 

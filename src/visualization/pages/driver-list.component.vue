@@ -38,7 +38,7 @@ export default {
           driver.name,
           driver.dni,
           driver.license,
-          driver.contact_number
+          driver.contactNumber
       ));
       this.filteredDrivers = this.drivers;
 
@@ -103,7 +103,7 @@ export default {
 
 
   <div class="main-body">
-    <table v-if="getView === 'list'">
+    <table v-if="getView === 'List'">
       <thead>
       <tr>
         <th>Id</th>

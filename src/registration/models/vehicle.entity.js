@@ -1,10 +1,10 @@
 export class Vehicle {
-    constructor(id, model, plate, tractor_plate, max_load, volume){
+    constructor(id, model, plate, tractorPlate, maxLoad, volume){
         this.id = id;
         this.model = model;
         this.plate = plate;
-        this.tractor_plate = tractor_plate;
-        this.max_load = max_load;
+        this.tractorPlate = tractorPlate;
+        this.maxLoad = maxLoad;
         this.volume = volume;
     }
 }

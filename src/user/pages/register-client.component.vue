@@ -4,6 +4,8 @@ import {UserService} from "../services/user.service.js";
 import {User} from "../models/user.entity.js";
 import {Client} from "../models/client.entity.js";
 import {ClientService} from "../services/client.service.js";
+import {ConfigurationService} from "../services/configuration.service.js";
+import {Configuration} from "../models/configuration.entity.js";
 
 export default {
   name: "RegisterClientComponent",
@@ -24,6 +26,7 @@ export default {
     return {
       userService: new UserService(),
       clientService: new ClientService(),
+      configurationService: new ConfigurationService(),
       name: '',
       email: '',
       password: '',
@@ -82,6 +85,7 @@ export default {
         this.clientService.create(client).then(() => {
           this.router.push('/login');
         });
+        this.configurationService.create(new Configuration(0, user.data.id, 'Light', 'Grid', false, false));
       }).catch((error) => {
         alert('Error registering client');
         console.error(error);

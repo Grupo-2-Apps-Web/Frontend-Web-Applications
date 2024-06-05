@@ -22,11 +22,11 @@ export default defineComponent({
   },
   data() {
     return {
-      tripAPI: new TripService(),
-      onGoingTripAPI: new OnGoingTripService(),
-      driverAPI: new DriverService(),
-      vehicleAPI: new VehicleService(),
-      alertAPI: new AlertService(),
+      tripService: new TripService(),
+      onGoingTripService: new OnGoingTripService(),
+      driverService: new DriverService(),
+      vehicleService: new VehicleService(),
+      alertService: new AlertService(),
       isClient: window.location.pathname.includes('client'),
       trip: Trip,
       driverId: 0,
@@ -49,7 +49,7 @@ export default defineComponent({
     registerAlert(){
       const title = document.getElementById('title').value;
       const description = document.getElementById('description').value;
-      this.alertAPI.create( new Alert(0, Number(this.id), title, description, new Date() ) );
+      this.alertService.create( new Alert(0, title, description, new Date(), Number(this.id) ) );
       this.visible = false;
     },
     closeDialog() {
@@ -77,21 +77,21 @@ export default defineComponent({
       iconAnchor: [25, 50],
       popupAnchor: [0, -50]
     });
-    this.tripAPI.getOne(this.id).then(response =>{
-      this.driverId = response.data.driver_id;
-      this.vehicleId = response.data.vehicle_id;
-      this.load = response.data.weight;
+    this.tripService.getOne(this.id).then(response =>{
+      this.driverId = response.data.driverId;
+      this.vehicleId = response.data.vehicleId;
+      this.load = response.data.cargoData.weight;
 
-      this.driverAPI.getOne(this.driverId).then(response => {
+      this.driverService.getOne(this.driverId).then(response => {
         this.driver = response.data.name
       });
 
-      this.vehicleAPI.getOne(this.vehicleId).then(response => {
+      this.vehicleService.getOne(this.vehicleId).then(response => {
         this.plate = response.data.plate
       });
     });
 
-    this.onGoingTripAPI.getByTripId(this.id).then(response => {
+    this.onGoingTripService.getByTripId(this.id).then(response => {
       console.log(response);
       this.speed = response.speed;
       this.distance = response.distance;
@@ -253,7 +253,7 @@ export default defineComponent({
   resize: none;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 850px) {
   .container {
     grid-template-columns: none;
     grid-template-rows: 1fr 1fr;

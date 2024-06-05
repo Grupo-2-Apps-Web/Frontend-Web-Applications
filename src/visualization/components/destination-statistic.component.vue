@@ -58,7 +58,7 @@ export default {
         const trips = response.map(trip => trip);
         // Create an object to store the counts for each location
         const locationCounts = trips.reduce((counts, trip) => {
-          const location = trip.load_location;
+          const location = trip.tripData.loadLocation;
           counts[location] = (counts[location] || 0) + 1;
           return counts;
         }, {});

@@ -57,7 +57,7 @@ export default {
 
         // Contar la cantidad de envíos por mes
         trips.forEach(trip => {
-          const tripDate = new Date(trip.load_date);
+          const tripDate = new Date(trip.tripData.loadDate);
           const monthIndex = tripDate.getMonth();
           this.chartData.datasets[0].data[monthIndex]++;
         });

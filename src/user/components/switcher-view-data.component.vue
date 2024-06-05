@@ -1,7 +1,7 @@
 <template>
   <div class="view-switcher">
-    <button @click="SET_VIEW('grid')" v-bind:class="{ selected: getView === 'grid' }">Grid</button>
-    <button @click="SET_VIEW('list')" v-bind:class="{ selected: getView === 'list' }">List</button>
+    <button @click="SET_VIEW('Grid')" v-bind:class="{ selected: getView === 'Grid' }">Grid</button>
+    <button @click="SET_VIEW('List')" v-bind:class="{ selected: getView === 'List' }">List</button>
   </div>
 </template>
 

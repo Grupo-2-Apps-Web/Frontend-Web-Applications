@@ -18,7 +18,7 @@ export default {
 
     const login = async () => { // Modificado para no tomar parámetros
       const user = await userService.getUserByEmail(username.value);
-      if (user && user.password === password.value) {
+      if (user && user.userAuthentication.password === password.value) {
         const client = await clientService.getByUserId(user.id);
         const entrepreneur = await entrepreneurService.getByUserId(user.id);
 

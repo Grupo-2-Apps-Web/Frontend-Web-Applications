@@ -21,7 +21,7 @@ export default {
           this.name = response.data.name;
           this.dni = response.data.dni;
           this.license = response.data.license;
-          this.contact_number = response.data.contact_number;
+          this.contact_number = response.data.contactNumber;
         });
   },
   methods: {

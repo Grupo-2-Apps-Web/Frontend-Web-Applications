@@ -40,65 +40,65 @@ export default {
     this.tripService.getOne(this.id).then(response => {
       this.trip = new Trip(
           response.data.id,
-          response.data.name,
-          response.data.type,
-          response.data.weight,
-          response.data.load_location,
-          response.data.load_date,
-          response.data.unload_location,
-          response.data.unload_date,
-          response.data.driver_id,
-          response.data.vehicle_id,
-          response.data.client_id,
-          response.data.entrepreneur_id
+          response.data.name.tripName,
+          response.data.cargoData.type,
+          response.data.cargoData.weight,
+          response.data.tripData.loadLocation,
+          response.data.tripData.loadDate,
+          response.data.tripData.unloadLocation,
+          response.data.tripData.unloadDate,
+          response.data.driverId,
+          response.data.vehicleId,
+          response.data.clientId,
+          response.data.entrepreneurId
       );
 
       this.evidenceService.getOne(this.trip.id).then(response => {
         this.evidence = new Evidence(
           response.data.id,
-          response.data.trip_id,
-          response.data.link
+          response.data.link,
+          response.data.tripId
         );
       });
 
-      this.driverService.getOne(this.trip.driver_id).then(response => {
+      this.driverService.getOne(this.trip.driverId).then(response => {
         this.driver = new Driver(
           response.data.id,
           response.data.name,
           response.data.dni,
           response.data.license,
-          response.data.contact_number
+          response.data.contactNumber
         );
       });
 
-      this.vehicleService.getOne(this.trip.vehicle_id).then(response => {
+      this.vehicleService.getOne(this.trip.vehicleId).then(response => {
         this.vehicle = new Vehicle(
           response.data.id,
           response.data.model,
           response.data.plate,
-          response.data.tractor_plate,
-          response.data.max_load,
+          response.data.tractorPlate,
+          response.data.maxLoad,
           response.data.volume
         );
       });
 
-      this.entrepreneurService.getOne(this.trip.entrepreneur_id).then(response => {
+      this.entrepreneurService.getOne(this.trip.entrepreneurId).then(response => {
         this.entrepreneur = new Entrepreneur(
           response.data.id,
-          response.data.logo_image,
-          response.data.user_id,
+          response.data.logoImage,
+          response.data.userId,
         );
 
-        this.userService.getOne(this.entrepreneur.user_id).then(response => {
+        this.userService.getOne(this.entrepreneur.userId).then(response => {
           this.user = new User(
             response.data.id,
-            response.data.name,
-            response.data.email,
-            response.data.phone,
-            response.data.password,
-            response.data.ruc,
-            response.data.address,
-            response.data.subscription
+            response.data.userData.name,
+            response.data.userAuthentication.email,
+            response.data.userData.phone,
+            response.data.userAuthentication.password,
+            response.data.userData.ruc,
+            response.data.userData.address,
+            response.data.subscriptionPlan.subscription
           );
         });
 
@@ -129,25 +129,25 @@ export default {
       <div class="container-info">
         <p>
           <strong>LOAD DATE:</strong>
-          {{ trip.load_date }}
+          {{ trip.loadDate }}
         </p>
       </div>
       <div class="container-info">
         <p>
           <strong>UNLOAD DATE:</strong>
-          {{ trip.unload_date }}
+          {{ trip.unloadDate }}
         </p>
       </div>
       <div class="container-info">
         <p>
           <strong>LOAD LOCATION:</strong>
-          {{ trip.load_location }}
+          {{ trip.loadLocation }}
         </p>
       </div>
       <div class="container-info">
         <p>
           <strong>UNLOAD LOCATION:</strong>
-          {{ trip.unload_location }}
+          {{ trip.unloadLocation }}
         </p>
       </div>
 
@@ -168,7 +168,7 @@ export default {
       <div class="container-info">
         <p>
           <strong>TRACTOR PLATE: </strong>
-          {{ vehicle.tractor_plate }}
+          {{ vehicle.tractorPlate }}
         </p>
       </div>
 

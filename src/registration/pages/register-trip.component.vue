@@ -73,7 +73,7 @@ export default {
           trip.weight = Number(trip.weight);
 
           tripService.create(trip).then(response => {
-            evidence.trip_id = response.data.id;
+            evidence.tripId = response.data.id;
             evidenceService.create(evidence);
             alert('Trip registered successfully');
             goBack();

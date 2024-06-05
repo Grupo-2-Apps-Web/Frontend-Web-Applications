@@ -29,17 +29,17 @@ export default {
           console.log(response.data);
           const trip = response.data;
           if (trip) {
-            this.name = trip.name;
-            this.type = trip.type;
-            this.weight = trip.weight;
-            this.loadLocation = trip.load_location;
-            this.loadDate = trip.load_date;
-            this.unloadLocation = trip.unload_location;
-            this.unloadDate = trip.unload_date;
-            this.driverId = trip.driver_id;
-            this.vehicleId = trip.vehicle_id;
-            this.clientId = trip.client_id;
-            this.entrepreneurId = trip.entrepreneur_id;
+            this.name = trip.name.tripName;
+            this.type = trip.cargoData.type;
+            this.weight = trip.cargoData.weight;
+            this.loadLocation = trip.tripData.loadLocation;
+            this.loadDate = trip.tripData.loadDate;
+            this.unloadLocation = trip.tripData.unloadLocation;
+            this.unloadDate = trip.tripData.unloadDate;
+            this.driverId = trip.driverId;
+            this.vehicleId = trip.vehicleId;
+            this.clientId = trip.clientId;
+            this.entrepreneurId = trip.entrepreneurId;
           }
         });
   },

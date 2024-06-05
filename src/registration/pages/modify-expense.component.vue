@@ -21,13 +21,13 @@ export default {
     expenseService.getOne(this.id)
         .then(response => {
             this.id = response.data.id;
-            this.tripId = response.data.trip_id;
-            this.fuelAmount = response.data.fuel_amount;
-            this.fuelDescription = response.data.fuel_description;
-            this.tollsAmount = response.data.tolls_amount;
-            this.tollsDescription = response.data.tolls_description;
-            this.viaticsAmount = response.data.viatics_amount;
-            this.viaticsDescription = response.data.viatics_description;
+            this.tripId = response.data.tripId;
+            this.fuelAmount = response.data.fuelAmount;
+            this.fuelDescription = response.data.fuelDescription;
+            this.tollsAmount = response.data.tollsAmount;
+            this.tollsDescription = response.data.tollsDescription;
+            this.viaticsAmount = response.data.viaticsAmount;
+            this.viaticsDescription = response.data.viaticsDescription;
         });
   },
   methods: {
@@ -35,13 +35,13 @@ export default {
       const expenseService = new ExpenseService();
       const expense = new Expense(
           this.id,
-          this.tripId,
           Number(this.fuelAmount),
           this.fuelDescription,
           Number(this.viaticsAmount),
           this.viaticsDescription,
           Number(this.tollsAmount),
-          this.tollsDescription
+          this.tollsDescription,
+          this.tripId
       )
       expenseService.update(expense.id, expense)
           .then(() => {

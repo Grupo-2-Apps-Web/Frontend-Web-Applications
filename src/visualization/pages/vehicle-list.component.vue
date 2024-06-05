@@ -37,8 +37,8 @@ export default {
           vehicle.id,
           vehicle.model,
           vehicle.plate,
-          vehicle.tractor_plate,
-          vehicle.max_load,
+          vehicle.tractorPlate,
+          vehicle.maxLoad,
           vehicle.volume
       ));
       this.filteredVehicles = this.vehicles;
@@ -104,7 +104,7 @@ export default {
 
 
   <div class="main-body">
-    <table v-if="getView === 'list'">
+    <table v-if="getView === 'List'">
       <thead>
       <tr>
         <th>Id</th>
