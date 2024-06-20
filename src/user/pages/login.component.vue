@@ -24,27 +24,32 @@ export default {
             let userId = response.data.id;
             let token = response.data.token;
             localStorage.setItem('token', token);
-            const client = clientService.getByUserId(userId);
-            const entrepreneur = entrepreneurService.getByUserId(userId);
-            console.log(client);
-            console.log(entrepreneur);
-            if (client) {
-              store.commit('setUserId', userId);
-              store.commit('setUserType', 'client');
-              store.commit('setIsActive', true);
-              console.log('El cliente con user-id ' + userId + ' logeado con éxito');
-              router.push('/client');
-            }
-            else if(entrepreneur) {
-              store.commit('setUserId', userId);
-              store.commit('setUserType', 'entrepreneur');
-              store.commit('setIsActive', true);
-              console.log('El empresario con user-id ' + userId + ' logeado con éxito');
-              router.push('/entrepreneur');
-            }
-            else {
-              console.log('El usuario no es ni cliente ni emprendedor.');
-            }
+            clientService.getByUserId(userId).then((response) => {
+              console.log(response);
+              if (response.data) {
+                store.commit('setUserId', userId);
+                store.commit('setUserType', 'client');
+                store.commit('setIsActive', true);
+                console.log('El cliente con user-id ' + userId + ' logeado con éxito');
+                router.push('/client');
+              }
+            }).catch((error) => {
+              console.log(error);
+              entrepreneurService.getByUserId(userId).then((response) => {
+                console.log(response);
+                if (response.data) {
+                  store.commit('setUserId', userId);
+                  store.commit('setUserType', 'entrepreneur');
+                  store.commit('setIsActive', true);
+                  console.log('El empresario con user-id ' + userId + ' logeado con éxito');
+                  router.push('/entrepreneur');
+                }
+              }).catch((error) => {
+                console.log(error);
+                alert("Incorrect username or password");
+              });
+            });
+
           }
       );
 

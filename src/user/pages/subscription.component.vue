@@ -1,23 +1,35 @@
 <script>
 import {useRouter} from "vue-router";
 import {ref} from "vue";
-import {UserService} from "../services/user.service.js";
-import {User} from "../models/user.entity.js";
+import {ClientService} from "../services/client.service.js";
+import {Client} from "../models/client.entity.js";
+import {EntrepreneurService} from "../services/entrepreneur.service.js";
+import {Entrepreneur} from "../models/entrepreneur.entity.js";
 
 export default {
   name: "subscription.component",
   data(){
     return {
       userId: localStorage.getItem('user_id'),
-      userService: new UserService(),
-      selectedPlan: ''
+      userType: localStorage.getItem('user_type'),
+      clientService: new ClientService(),
+      entrepreneurService: new EntrepreneurService(),
+      selectedPlan: '',
     }
   },
   created(){
-    this.userService.getOne(this.userId).then(response => {
-      const user = response.data;
-      this.selectedPlan = user.subscriptionPlan.subscription;
-    });
+    if (this.userType === 'client') {
+      this.clientService.getByUserId(this.userId).then((response) => {
+        const client = response.data;
+        this.selectedPlan = client.subscription;
+      });
+    }
+    else {
+      this.entrepreneurService.getByUserId(this.userId).then((response) => {
+        const entrepreneur = response.data;
+        this.selectedPlan = entrepreneur.subscription;
+      });
+    }
   },
   setup() {
     const router = useRouter();
@@ -32,22 +44,42 @@ export default {
     selectPlan(plan){
       this.selectedPlan = plan;
 
-      this.userService.getOne(this.userId).then(response => {
-        const updatedUser = new User(
-            response.data.id,
-            response.data.userData.name,
-            response.data.userAuthentication.email,
-            response.data.userData.phone,
-            response.data.userAuthentication.password,
-            response.data.userData.ruc,
-            response.data.userData.address,
-            plan
-        );
-        console.log(updatedUser);
-        this.userService.update(this.userId, updatedUser).then(res => {
-          alert(`You have selected the ${plan} plan.`)
-        })
-      });
+      if (this.userType === 'client') {
+        this.clientService.getByUserId(this.userId).then(response => {
+          const updatedClient = new Client(
+              response.data.id,
+              response.data.name,
+              response.data.phone,
+              response.data.ruc,
+              response.data.address,
+              plan,
+              response.data.userId
+          );
+          console.log(updatedClient);
+          this.clientService.update(this.userId, updatedClient).then(res => {
+            alert(`You have selected the ${plan} plan.`)
+          })
+        });
+      }
+      else {
+        this.entrepreneurService.getByUserId(this.userId).then(response => {
+          const updatedEntrepreneur = new Entrepreneur(
+              response.data.id,
+              response.data.name,
+              response.data.phone,
+              response.data.ruc,
+              response.data.address,
+              response.data.logoImage,
+              plan,
+              response.data.userId
+          );
+          console.log(updatedEntrepreneur);
+          this.entrepreneurService.update(this.userId, updatedEntrepreneur).then(res => {
+            alert(`You have selected the ${plan} plan.`)
+          })
+        });
+      }
+
     }
   }
 }
@@ -89,7 +121,7 @@ export default {
           <h2>Premium Plan</h2>
         </template>
         <template #subtitle>
-          <p>Price: S/.35 / month</p>
+          <p>Price: S/.50 / month</p>
         </template>
         <template #content>
           <div class="card-content">
