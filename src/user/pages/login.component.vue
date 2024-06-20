@@ -22,13 +22,16 @@ export default {
       authenticationService.signIn(username.value, password.value).then(
           (response) => {
             let userId = response.data.id;
+            let token = response.data.token;
+            localStorage.setItem('token', token);
             const client = clientService.getByUserId(userId);
             const entrepreneur = entrepreneurService.getByUserId(userId);
+            console.log(client);
+            console.log(entrepreneur);
             if (client) {
               store.commit('setUserId', userId);
               store.commit('setUserType', 'client');
               store.commit('setIsActive', true);
-              store.commit('setToken', response.data.token);
               console.log('El cliente con user-id ' + userId + ' logeado con éxito');
               router.push('/client');
             }
@@ -36,7 +39,6 @@ export default {
               store.commit('setUserId', userId);
               store.commit('setUserType', 'entrepreneur');
               store.commit('setIsActive', true);
-              store.commit('setToken', response.data.token);
               console.log('El empresario con user-id ' + userId + ' logeado con éxito');
               router.push('/entrepreneur');
             }

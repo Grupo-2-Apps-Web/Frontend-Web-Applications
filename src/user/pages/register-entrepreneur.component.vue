@@ -79,10 +79,11 @@ export default {
       this.authenticationService.signUp(this.email, this.password).then( (r) => {
         this.authenticationService.signIn(this.email, this.password).then((response) => {
           let userId = response.data.id;
+          let token = response.data.token;
+          localStorage.setItem('token', token);
           this.store.commit('setUserId', userId);
           this.store.commit('setUserType', 'entrepreneur');
           this.store.commit('setIsActive', true);
-          this.store.commit('setToken', response.data.token);
           let newEntrepreneur = new Entrepreneur(0, this.name, this.phone, this.ruc, this.address, "Basic", userId, this.logoImage);
           this.entrepreneurService.create(newEntrepreneur).then(() => {
             this.router.push('/entrepreneur');

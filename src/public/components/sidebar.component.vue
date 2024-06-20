@@ -43,6 +43,11 @@ onMounted(() => {
 
 const logOut = () => {
   store.commit('setIsActive', false);
+  store.commit('setUserId', 0);
+  store.commit('setUserType', null);
+  store.commit('SET_THEME', 'Light');
+  store.commit('SET_VIEW', 'Grid');
+  localStorage.setItem('token', '');
   togglesidebar();
 };
 
