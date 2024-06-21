@@ -8,7 +8,7 @@ export class ConfigurationService extends BaseService {
 
     async getByUserId(userId) {
         this.setToken();
-        let url = this.baseURL + '/users/' + userId + '/configurations';
+        let url = this.baseURL + '/users/' + userId + '/' + this.endpoint;
         return axios.get(url, this.httpOptions);
     }
 

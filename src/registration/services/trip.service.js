@@ -1,4 +1,5 @@
 import { BaseService } from "../../shared/services/base.service.js";
+import axios from "axios";
 
 export class TripService extends BaseService {
     constructor() {
@@ -13,15 +14,15 @@ export class TripService extends BaseService {
     }
 
     async getTripsByClientId(clientId) {
-        const response = await this.getAll();
-        const trips = response.data;
-        return trips.filter(trip => trip.clientId === clientId);
+        this.setToken();
+        let url = this.baseURL + '/clients/' + clientId + '/' + this.endpoint;
+        return axios.get(url, this.httpOptions);
     }
 
     async getTripsByEntrepreneurId(entrepreneurId) {
-        const response = await this.getAll();
-        const trips = response.data;
-        return trips.filter(trip => trip.entrepreneurId === entrepreneurId);
+        this.setToken();
+        let url = this.baseURL + '/entrepreneurs/' + entrepreneurId + '/' + this.endpoint;
+        return axios.get(url, this.httpOptions);
     }
 
 }

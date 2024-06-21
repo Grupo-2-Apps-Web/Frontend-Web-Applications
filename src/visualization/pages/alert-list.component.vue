@@ -23,7 +23,7 @@ export default {
   },
   created() {
     this.alertService.getByTripId(this.id).then(response => {
-      this.alerts = response.map(alert => new Alert(
+      this.alerts = response.data.map(alert => new Alert(
         alert.id,
         alert.title,
         alert.description,

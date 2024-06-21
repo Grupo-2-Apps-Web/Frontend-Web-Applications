@@ -22,17 +22,17 @@ export default {
 
       if (this.$route.path.includes('expense')) {
         response = await expenseService.getByTripId(this.tripId);
-        if(response){
-          this.expenseId = response.id;
+        if(response.data){
+          this.expenseId = response.data.id;
         }
       } else if (this.$route.path.includes('trip')) {
-        response = await tripService.getOneByTripId(this.tripId);
-        if(response){
-          this.tripId = response.id;
+        response = await tripService.getOne(this.tripId);
+        if(response.data){
+          this.tripId = response.data.id;
         }
       }
 
-      if (response){
+      if (response.data){
         if (this.$route.path.includes('expense')) {
           this.$router.push(`/entrepreneur/modify/expense/${this.expenseId}`);
         } else if (this.$route.path.includes('trip')) {
