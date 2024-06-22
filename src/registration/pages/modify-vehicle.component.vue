@@ -96,21 +96,21 @@ export default {
     <div class="grid-container-1-column">
       <div>
         <p>Model</p>
-        <pv-inputtext v-model="model" style="width: 30%;" required></pv-inputtext>
+        <pv-inputtext v-model="model" style="width: 50%;" required></pv-inputtext>
       </div>
     </div>
     <div class="grid-container-2-columns">
       <div>
         <p>Plate</p>
-        <pv-inputtext v-model="plate1" maxlength="3" style="width: 10%;" required></pv-inputtext>
+        <pv-inputtext v-model="plate1" maxlength="3" style="width: 40%;" required></pv-inputtext>
         -
-        <pv-inputtext v-model="plate2" maxlength="3" style="width: 10%;" required></pv-inputtext>
+        <pv-inputtext v-model="plate2" maxlength="3" style="width: 40%;" required></pv-inputtext>
       </div>
       <div>
         <p>Tractor Plate</p>
-        <pv-inputtext v-model="tractor_plate1" maxlength="3" style="width: 10%;" required></pv-inputtext>
+        <pv-inputtext v-model="tractor_plate1" maxlength="3" style="width: 40%;" required></pv-inputtext>
         -
-        <pv-inputtext v-model="tractor_plate2" maxlength="3" style="width: 10%;" required></pv-inputtext>
+        <pv-inputtext v-model="tractor_plate2" maxlength="3" style="width: 40%;" required></pv-inputtext>
       </div>
     </div>
     <div class="grid-container-2-columns">

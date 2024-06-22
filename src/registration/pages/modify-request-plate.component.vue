@@ -52,9 +52,9 @@ export default {
       <template v-slot:content>
         <p class="instruction">Enter the Plate of the Vehicle to modify the information</p>
         <div class="input-group">
-          <pv-inputtext v-model="plate1" placeholder="ABC" maxlength="3" style="width: 20%;"></pv-inputtext>
+          <pv-inputtext v-model="plate1" placeholder="ABC" maxlength="3" style="width: 50%;"></pv-inputtext>
           -
-          <pv-inputtext v-model="plate2" placeholder="123" maxlength="3" style="width: 20%;"></pv-inputtext>
+          <pv-inputtext v-model="plate2" placeholder="123" maxlength="3" style="width: 50%;"></pv-inputtext>
         </div>
       </template>
       <template v-slot:footer>
