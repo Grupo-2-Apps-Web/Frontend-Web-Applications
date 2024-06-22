@@ -7,6 +7,7 @@ import ClientCard from "../components/client-card.component.vue";
 import {mapGetters} from "vuex";
 import store from "../../store/store.js";
 import {TripService} from "../../registration/services/trip.service.js";
+import {Client} from "../../user/models/client.entity.js";
 
 export default {
   name: "client-list",
@@ -28,7 +29,7 @@ export default {
       userService: new UserService(),
       tripService: new TripService(),
       clients: [],
-      client: User,
+      client: Client,
       selectedFilter: null,
       filters: [
         { name: 'Name', value: 'name' },
@@ -41,43 +42,21 @@ export default {
   created() {
     // user_id del usuario que inició sesión
     const userId = Number(store.state.user_id);
-    // arreglo para guardar los client_id de los trips
-    let clientsIds = [];
-    this.entrepreneurService.getByUserId(userId).then(r => {
-      // entrepreneur_id del usuario
-      this.entrepreneurId = r.data.id;
-      console.log(this.entrepreneurId);
-      this.tripService.getTripsByEntrepreneurId(this.entrepreneurId).then(res => {
-        // guardar los ids de los clientes y evitar que se repitan
-        res.data.forEach(trip => {
-          if (!clientsIds.includes(trip.clientId)) {
-            clientsIds.push(trip.clientId);
-          }
-        });
-        for (let i = 0; i < clientsIds.length; i++) {
-          this.clientService.getOne(clientsIds[i]).then(resp => {
-            // obtener el user_id de cada cliente para obtener su información
-            let user_id = resp.data.userId;
-            this.userService.getOne(user_id).then(response => {
-              this.clients.push(new User(
-                response.data.id,
-                response.data.userData.name,
-                response.data.userAuthentication.email,
-                response.data.userAuthentication.password,
-                response.data.userData.phone,
-                response.data.userData.ruc,
-                response.data.userData.address,
-                response.data.subscriptionPlan.subscription
-              ));
-            });
-          })
-        }
+    this.entrepreneurService.getByUserId(userId).then(response => {
+      this.entrepreneurId = response.data.id;
+      this.entrepreneurService.getClientsByEntrepreneurId(this.entrepreneurId).then(response => {
+        this.clients = response.data.map(client => new Client(
+            client.id,
+            client.name,
+            client.phone,
+            client.ruc,
+            client.address,
+            client.subscription,
+            client.userId
+        ));
         this.filteredClients = this.clients;
       });
-    })
-
-
-
+    });
   },
   methods: {
     filterClients() {

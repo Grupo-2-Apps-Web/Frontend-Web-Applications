@@ -1,6 +1,6 @@
 <script>
-import {User} from "../../user/models/user.entity.js";
-import {UserService} from "../../user/services/user.service.js";
+import {Client} from "../../user/models/client.entity.js";
+import {ClientService} from "../../user/services/client.service.js";
 
 export default {
   name: "client-description",
@@ -11,21 +11,20 @@ export default {
   },
   data() {
     return {
-      client: User,
-      userService: new UserService()
+      client: Client,
+      clientService: new ClientService()
     }
   },
   created() {
-    this.userService.getOne(this.id).then(response => {
-      this.client = new User(
+    this.clientService.getOne(this.id).then(response => {
+      this.client = new Client(
           response.data.id,
-          response.data.userData.name,
-          response.data.userAuthentication.email,
-          response.data.userAuthentication.password,
-          response.data.userData.phone,
-          response.data.userData.ruc,
-          response.data.userData.address,
-          response.data.subscriptionPlan.subscription
+          response.data.name,
+          response.data.phone,
+          response.data.ruc,
+          response.data.address,
+          response.data.subscription,
+          response.data.userId
       );
     });
 
