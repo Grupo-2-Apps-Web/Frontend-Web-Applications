@@ -4,6 +4,7 @@ import { ref, reactive } from "vue";
 import { useConfirm } from 'primevue/useconfirm';
 import { ExpenseService } from "../services/expense.service.js";
 import {Expense} from "../models/expense.entity.js";
+import {TripService} from "../services/trip.service.js";
 
 export default {
   name: "register-expense.component",
@@ -12,6 +13,7 @@ export default {
     const confirm = useConfirm();
     const isVisible = ref(false);
     const expenseService = new ExpenseService();
+    const tripService = new TripService();
     const expenseData = reactive({
       id: 0,
       tripId: 0,
@@ -38,7 +40,7 @@ export default {
           isVisible.value = false;
         },
         accept: () => {
-          if (expenseData.tripId) {
+          tripService.getOne(expenseData.tripId).then((r) => {
             expenseService.getAll().then(response => {
               const expenses = response.data;
               const expense = expenses.find(expense => expense.tripId === Number(expenseData.tripId));
@@ -60,10 +62,10 @@ export default {
                 goBack();
               }
             });
-
-          } else {
+          }).catch((error) => {
             alert('Expense not registered. Please enter a valid trip ID.');
-          }
+          });
+
         }
       });
     };

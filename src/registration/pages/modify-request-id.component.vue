@@ -1,6 +1,7 @@
 <script>
 import {TripService} from "../services/trip.service.js";
 import {ExpenseService} from "../services/expense.service.js";
+import {EntrepreneurService} from "../../user/services/entrepreneur.service.js";
 
 export default {
   data(){
@@ -16,31 +17,42 @@ export default {
   },
   methods: {
     async handleNextButton(){
+      let userId = localStorage.getItem('user_id');
+      const entrepreneurService = new EntrepreneurService();
       const tripService = new TripService();
       const expenseService = new ExpenseService();
       let response;
 
-      if (this.$route.path.includes('expense')) {
-        response = await expenseService.getByTripId(this.tripId);
-        if(response.data){
-          this.expenseId = response.data.id;
-        }
-      } else if (this.$route.path.includes('trip')) {
-        response = await tripService.getOne(this.tripId);
-        if(response.data){
-          this.tripId = response.data.id;
-        }
-      }
-
-      if (response.data){
+      entrepreneurService.getByUserId(userId).then((r) => {
+        let entrepreneurId = Number(r.data.id);
         if (this.$route.path.includes('expense')) {
-          this.$router.push(`/entrepreneur/modify/expense/${this.expenseId}`);
+          expenseService.getByTripId(this.tripId).then((response) => {
+              let trip = response.data;
+              if (Number(trip.entrepreneurId) !== entrepreneurId) {
+                alert('You are not authorized to modify this expense');
+                return;
+              }
+              this.expenseId = trip.id;
+              this.$router.push(`/entrepreneur/modify/expense/${this.expenseId}`);
+          }).catch((error) => {
+            alert('There are no expenses registered for this trip');
+          });
         } else if (this.$route.path.includes('trip')) {
-          this.$router.push(`/entrepreneur/modify/trip/${this.tripId}`);
+          tripService.getOne(this.tripId).then((response) => {
+            let trip = response.data;
+            if (Number(trip.entrepreneurId) !== entrepreneurId) {
+              alert('You are not authorized to modify this expense');
+              return;
+            }
+            this.tripId = trip.id;
+            this.$router.push(`/entrepreneur/modify/trip/${this.tripId}`);
+          }).catch((error) => {
+            alert('The Trip ID does not exist. Please enter a valid ID.');
+          });
         }
-      } else {
-        alert('The ID does not exist. Please enter a valid ID.');
-      }
+      })
+
+
     },
     goBack(){
       this.$router.go(-1);

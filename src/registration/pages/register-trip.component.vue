@@ -6,6 +6,7 @@ import { TripService } from "../services/trip.service";
 import {EntrepreneurService} from "../../user/services/entrepreneur.service.js";
 import {Evidence} from "../models/evidence.entity.js";
 import {EvidenceService} from "../services/evidence.service.js";
+import {Trip} from "../models/trip.entity.js";
 
 export default {
   name: "register-trip",
@@ -64,20 +65,33 @@ export default {
           isVisible.value = false;
         },
         accept: async () => {
-          const response = await entrepreneurService.getByUserId(localStorage.getItem('user_id'));
-          trip.entrepreneur_id = Number(response.id);
-          trip.id = Number(trip.id);
-          trip.driverId = Number(trip.driverId);
-          trip.vehicleId = Number(trip.vehicleId);
-          trip.clientId = Number(trip.clientId);
-          trip.weight = Number(trip.weight);
+          entrepreneurService.getByUserId(localStorage.getItem('user_id')).then(
+              (response) => {
+                let entrepreneurId = response.data.id;
+                let newTrip = new Trip(
+                    0,
+                    trip.name,
+                    trip.type,
+                    Number(trip.weight),
+                    trip.loadLocation,
+                    trip.loadDate,
+                    trip.unloadLocation,
+                    trip.unloadDate,
+                    Number(trip.driverId),
+                    Number(trip.vehicleId),
+                    Number(trip.clientId),
+                    Number(entrepreneurId)
+                );
 
-          tripService.create(trip).then(response => {
-            evidence.tripId = response.data.id;
-            evidenceService.create(evidence);
-            alert('Trip registered successfully');
-            goBack();
-          });
+                tripService.create(newTrip).then(response => {
+                  evidence.tripId = response.data.id;
+                  evidenceService.create(evidence);
+                  alert('Trip registered successfully');
+                  goBack();
+                });
+              }
+          );
+
         }
       });
     };

@@ -8,7 +8,7 @@ export class OnGoingTripService extends BaseService {
 
     async getByTripId(tripId) {
         this.setToken();
-        let url = this.baseURL + '/trips/' + tripId + '/' + this.endpoint;
+        let url = this.baseURL + '/trips/' + tripId + '/ongoingtrips';
         return axios.get(url, this.httpOptions);
     }
 }

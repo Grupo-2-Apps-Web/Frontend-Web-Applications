@@ -60,12 +60,11 @@ export default {
   },
   methods: {
     async goToExpenses(tripId){
-      const response = await this.expenseService.getByTripId(tripId);
-      if(response.data){
+      this.expenseService.getByTripId(tripId).then((response) => {
         this.router.push(`/client/expenses/${response.data.id}`);
-      } else {
+      }).catch((error) => {
         alert('There are no expenses registered for this trip');
-      }
+      })
     },
     formatDate(dateString) {
       const options = { day: '2-digit', month: '2-digit', year: 'numeric'  };

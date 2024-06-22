@@ -9,7 +9,7 @@ export class BaseService {
     }
 
     constructor(endpoint) {
-        this.baseURL = "http://localhost:5293/api/v1";
+        this.baseURL = "https://cargoappwebservice.azurewebsites.net/api/v1";
         this.endpoint = endpoint;
         this.token = localStorage.getItem('token');
     }

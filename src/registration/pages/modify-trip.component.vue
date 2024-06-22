@@ -28,14 +28,17 @@ export default {
         .then(response => {
           console.log(response.data);
           const trip = response.data;
+          // format date from YYYY-MM-DDTHH:MM:SS to YYYY-MM-DD
+          const loadDate = trip.tripData.loadDate.split('T')[0];
+          const unloadDate = trip.tripData.unloadDate.split('T')[0];
           if (trip) {
             this.name = trip.name.tripName;
             this.type = trip.cargoData.type;
             this.weight = trip.cargoData.weight;
             this.loadLocation = trip.tripData.loadLocation;
-            this.loadDate = trip.tripData.loadDate;
+            this.loadDate = loadDate;
             this.unloadLocation = trip.tripData.unloadLocation;
-            this.unloadDate = trip.tripData.unloadDate;
+            this.unloadDate = unloadDate;
             this.driverId = trip.driverId;
             this.vehicleId = trip.vehicleId;
             this.clientId = trip.clientId;

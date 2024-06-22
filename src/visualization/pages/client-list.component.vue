@@ -45,11 +45,11 @@ export default {
     let clientsIds = [];
     this.entrepreneurService.getByUserId(userId).then(r => {
       // entrepreneur_id del usuario
-      this.entrepreneurId = r.id;
+      this.entrepreneurId = r.data.id;
       console.log(this.entrepreneurId);
       this.tripService.getTripsByEntrepreneurId(this.entrepreneurId).then(res => {
         // guardar los ids de los clientes y evitar que se repitan
-        res.forEach(trip => {
+        res.data.forEach(trip => {
           if (!clientsIds.includes(trip.clientId)) {
             clientsIds.push(trip.clientId);
           }

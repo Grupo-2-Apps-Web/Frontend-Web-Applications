@@ -46,10 +46,18 @@ export default defineComponent({
     addAlert(){
       this.visible = true;
     },
-    registerAlert(){
+    async registerAlert(){
       const title = document.getElementById('title').value;
       const description = document.getElementById('description').value;
-      this.alertService.create( new Alert(0, title, description, new Date(), Number(this.id) ) );
+      let newAlert = new Alert(0, title, description, new Date(), Number(this.id));
+      console.log(newAlert);
+      await this.alertService.create(newAlert)
+          .then(
+          (response) => {
+            alert('Alert added successfully. Client will be notified.');
+          }).catch((error) => {
+            alert('An error occurred while adding the alert. Please try again.');
+          });
       this.visible = false;
     },
     closeDialog() {
@@ -93,10 +101,10 @@ export default defineComponent({
 
     this.onGoingTripService.getByTripId(this.id).then(response => {
       console.log(response);
-      this.speed = response.data.speed;
-      this.distance = response.data.distance;
-      this.latitude = response.data.latitude;
-      this.longitude = response.data.longitude;
+      this.speed = response.data[0].speed;
+      this.distance = response.data[0].distance;
+      this.latitude = response.data[0].latitude;
+      this.longitude = response.data[0].longitude;
 
       // Leaflet Map y marcadores:
       const map = L.map('mapContainer').setView([this.latitude, this.longitude], 13);
