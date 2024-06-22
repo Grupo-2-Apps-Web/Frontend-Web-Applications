@@ -101,10 +101,10 @@ export default defineComponent({
 
     this.onGoingTripService.getByTripId(this.id).then(response => {
       console.log(response);
-      this.speed = response.data[0].speed;
-      this.distance = response.data[0].distance;
-      this.latitude = response.data[0].latitude;
-      this.longitude = response.data[0].longitude;
+      this.speed = response.data.speed;
+      this.distance = response.data.distance;
+      this.latitude = response.data.latitude;
+      this.longitude = response.data.longitude;
 
       // Leaflet Map y marcadores:
       const map = L.map('mapContainer').setView([this.latitude, this.longitude], 13);
