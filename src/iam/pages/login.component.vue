@@ -1,10 +1,12 @@
 <script>
-import {UserService} from "../services/user.service.js";
+import {UserService} from "../../user/services/user.service.js";
 import {useRouter} from "vue-router";
 import {ref, inject} from "vue";
-import {ClientService} from "../services/client.service.js";
-import {EntrepreneurService} from "../services/entrepreneur.service.js";
-import {AuthenticationService} from "../../iam/services/authentication.service.js";
+import {ClientService} from "../../user/services/client.service.js";
+import {EntrepreneurService} from "../../user/services/entrepreneur.service.js";
+import {AuthenticationService} from "../services/authentication.service.js";
+import {ConfigurationService} from "../../user/services/configuration.service.js";
+import store from "../../store/store.js";
 
 export default {
   name: "login.component",
@@ -13,10 +15,10 @@ export default {
     const clientService = new ClientService();
     const entrepreneurService = new EntrepreneurService();
     const authenticationService = new AuthenticationService();
+    const configurationService = new ConfigurationService();
     const router = useRouter();
     const username = ref(''); // Variable para almacenar el nombre de usuario
     const password = ref(''); // Variable para almacenar la contraseña
-    const store = inject('store'); // Inyecta el store de Vuex
 
     const login = async () => {
       authenticationService.signIn(username.value, password.value).then(
@@ -24,6 +26,14 @@ export default {
             let userId = response.data.id;
             let token = response.data.token;
             localStorage.setItem('token', token);
+            configurationService.getByUserId(userId).then((response) => {
+              let view = response.data.view;
+              let theme = response.data.theme;
+              store.commit('SET_VIEW', view);
+              store.commit('SET_THEME', theme);
+            }).catch((error) => {
+              alert("Incorrect username or password");
+            });
             clientService.getByUserId(userId).then((response) => {
               console.log(response);
               if (response.data) {
@@ -34,7 +44,6 @@ export default {
                 router.push('/client');
               }
             }).catch((error) => {
-              console.log(error);
               entrepreneurService.getByUserId(userId).then((response) => {
                 console.log(response);
                 if (response.data) {
@@ -45,11 +54,9 @@ export default {
                   router.push('/entrepreneur');
                 }
               }).catch((error) => {
-                console.log(error);
                 alert("Incorrect username or password");
               });
             });
-
           }
       );
 

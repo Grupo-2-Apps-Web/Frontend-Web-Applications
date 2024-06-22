@@ -26,7 +26,6 @@ export default {
       store.commit('SET_THEME', store.state.theme);
       store.commit('SET_VIEW', store.state.view);
 
-
       const dataCollection = localStorage.getItem('dataCollection') === 'true';
       const dataSharing = localStorage.getItem('dataSharing') === 'true';
       const configuration = new Configuration(
