@@ -52,10 +52,10 @@ export default {
       const clientService = new ClientService();
       const statisticService = new TripService();
       const client = await clientService.getByUserId(user_id);
-      const response = await statisticService.getTripsByClientId(client.id);
+      const response = await statisticService.getTripsByClientId(client.data.id);
 
-      if (response.length > 0) {
-        const trips = response.map(trip => trip);
+      if (response.data.length > 0) {
+        const trips = response.data.map(trip => trip);
         // Create an object to store the counts for each location
         const locationCounts = trips.reduce((counts, trip) => {
           const location = trip.tripData.loadLocation;

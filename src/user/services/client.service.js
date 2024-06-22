@@ -1,4 +1,5 @@
 import { BaseService } from "../../shared/services/base.service.js";
+import axios from "axios";
 
 export class ClientService extends BaseService {
     constructor() {
@@ -6,9 +7,8 @@ export class ClientService extends BaseService {
     }
 
     async getByUserId(userId) {
-        const response = await this.getAll();
-        const clients = response.data;
-        const client = clients.find(entrepreneur => entrepreneur.userId === userId);
-        return client || null;
+        this.setToken();
+        let url = this.baseURL + '/users/' + userId + '/' + this.endpoint;
+        return axios.get(url, this.httpOptions);
     }
 }

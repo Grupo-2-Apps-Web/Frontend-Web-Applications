@@ -24,13 +24,13 @@ export default {
   created() {
     this.expenseService.getByTripId(this.id).then(response => {
         this.expense = new Expense(
-            response.id,
-            response.fuelAmount,
-            response.fuelDescription,
-            response.viaticsAmount,
-            response .viaticsDescription,
-            response.tollsAmount,
-            response.tollsDescription,
+            response.data.id,
+            response.data.fuelAmount,
+            response.data.fuelDescription,
+            response.data.viaticsAmount,
+            response.data.viaticsDescription,
+            response.data.tollsAmount,
+            response.data.tollsDescription,
             this.id
         );
         this.totalExpenses = JSON.parse(this.expense.fuelAmount) + JSON.parse(this.expense.tollsAmount) + JSON.parse(this.expense.viaticsAmount);

@@ -23,8 +23,8 @@ export default {
   created(){
     const id = Number(store.state.user_id);
     this.clientService.getByUserId(id).then(r => {
-      this.tripService.getTripsByClientId(r.id).then(response => {
-        this.rawTrips = response;
+      this.tripService.getTripsByClientId(r.data.id).then(response => {
+        this.rawTrips = response.data;
         this.rawTrips.forEach(trip => {
           this.trips.push(new Trip(
               trip.id,

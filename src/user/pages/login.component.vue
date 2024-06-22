@@ -4,6 +4,7 @@ import {useRouter} from "vue-router";
 import {ref, inject} from "vue";
 import {ClientService} from "../services/client.service.js";
 import {EntrepreneurService} from "../services/entrepreneur.service.js";
+import {AuthenticationService} from "../../iam/services/authentication.service.js";
 
 export default {
   name: "login.component",
@@ -11,36 +12,47 @@ export default {
     const userService = new UserService();
     const clientService = new ClientService();
     const entrepreneurService = new EntrepreneurService();
+    const authenticationService = new AuthenticationService();
     const router = useRouter();
     const username = ref(''); // Variable para almacenar el nombre de usuario
     const password = ref(''); // Variable para almacenar la contraseña
     const store = inject('store'); // Inyecta el store de Vuex
 
-    const login = async () => { // Modificado para no tomar parámetros
-      const user = await userService.getUserByEmail(username.value);
-      if (user && user.userAuthentication.password === password.value) {
-        const client = await clientService.getByUserId(user.id);
-        const entrepreneur = await entrepreneurService.getByUserId(user.id);
+    const login = async () => {
+      authenticationService.signIn(username.value, password.value).then(
+          (response) => {
+            let userId = response.data.id;
+            let token = response.data.token;
+            localStorage.setItem('token', token);
+            clientService.getByUserId(userId).then((response) => {
+              console.log(response);
+              if (response.data) {
+                store.commit('setUserId', userId);
+                store.commit('setUserType', 'client');
+                store.commit('setIsActive', true);
+                console.log('El cliente con user-id ' + userId + ' logeado con éxito');
+                router.push('/client');
+              }
+            }).catch((error) => {
+              console.log(error);
+              entrepreneurService.getByUserId(userId).then((response) => {
+                console.log(response);
+                if (response.data) {
+                  store.commit('setUserId', userId);
+                  store.commit('setUserType', 'entrepreneur');
+                  store.commit('setIsActive', true);
+                  console.log('El empresario con user-id ' + userId + ' logeado con éxito');
+                  router.push('/entrepreneur');
+                }
+              }).catch((error) => {
+                console.log(error);
+                alert("Incorrect username or password");
+              });
+            });
 
-        if (client) {
-          store.commit('setUserId', user.id); // Almacena el user_id en Vuex y en el almacenamiento local
-          store.commit('setUserType', 'client'); // Almacena el tipo de usuario en Vuex y en el almacenamiento local
-          store.commit('setIsActive', true);
-          console.log('El cliente con user-id ' + user.id + ' logeado con éxito');
-          await router.push('/client');
-        } else if (entrepreneur) {
-          store.commit('setUserId', user.id); // Almacena el user_id en Vuex y en el almacenamiento local
-          store.commit('setUserType', 'entrepreneur'); // Almacena el tipo de usuario en Vuex y en el almacenamiento local
-          store.commit('setIsActive', true);
-          console.log('El empresario con user-id ' + user.id + ' logeado con éxito');
-          await router.push('/entrepreneur');
-        } else {
-          console.log('El usuario no es ni cliente ni emprendedor.');
-        }
-      } else {
-        console.log('El nombre de usuario o la contraseña ingresados no son válidos.');
-        alert('Email or password not valid');
-      }
+          }
+      );
+
     };
 
     return {

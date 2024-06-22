@@ -53,7 +53,7 @@ export default {
           response.data.entrepreneurId
       );
 
-      this.evidenceService.getOne(this.trip.id).then(response => {
+      this.evidenceService.getByTripId(this.trip.id).then(response => {
         this.evidence = new Evidence(
           response.data.id,
           response.data.link,
@@ -85,27 +85,15 @@ export default {
       this.entrepreneurService.getOne(this.trip.entrepreneurId).then(response => {
         this.entrepreneur = new Entrepreneur(
           response.data.id,
-          response.data.logoImage,
+          response.data.name,
+          response.data.phone,
+          response.data.ruc,
+          response.data.address,
+          response.data.subscription,
           response.data.userId,
+          response.data.logoImage,
         );
-
-        this.userService.getOne(this.entrepreneur.userId).then(response => {
-          this.user = new User(
-            response.data.id,
-            response.data.userData.name,
-            response.data.userAuthentication.email,
-            response.data.userData.phone,
-            response.data.userAuthentication.password,
-            response.data.userData.ruc,
-            response.data.userData.address,
-            response.data.subscriptionPlan.subscription
-          );
-        });
-
       });
-
-
-
     });
   }
 }
@@ -175,13 +163,13 @@ export default {
       <div class="container-info">
         <p>
           <strong>COMPANY:</strong>
-           {{ user.name }}
+           {{ entrepreneur.name }}
         </p>
       </div>
       <div class="container-info">
         <p>
           <strong>RUC: </strong>
-          {{ user.ruc }}
+          {{ entrepreneur.ruc }}
         </p>
       </div>
 

@@ -6,6 +6,8 @@ import {Client} from "../models/client.entity.js";
 import {ClientService} from "../services/client.service.js";
 import {ConfigurationService} from "../services/configuration.service.js";
 import {Configuration} from "../models/configuration.entity.js";
+import {AuthenticationService} from "../../iam/services/authentication.service.js";
+import {inject} from "vue";
 
 export default {
   name: "RegisterClientComponent",
@@ -27,6 +29,8 @@ export default {
       userService: new UserService(),
       clientService: new ClientService(),
       configurationService: new ConfigurationService(),
+      authenticationService: new AuthenticationService(),
+      store: inject('store'),
       name: '',
       email: '',
       password: '',
@@ -44,10 +48,6 @@ export default {
       const re = /^\d+$/;
       return re.test(String(value));
     },
-    async alreadyExists(email) {
-      const user = await this.userService.getUserByEmail(email);
-      return user !== null;
-    },
     async registerClient() {
       // Validations
       if (!this.name || !this.email || !this.password || !this.phone || !this.ruc || !this.address) {
@@ -56,10 +56,6 @@ export default {
       }
       if (!this.isValidEmail(this.email)) {
         alert('Please enter a valid email');
-        return;
-      }
-      if (await this.alreadyExists(this.email)) {
-        alert('Email already signed up');
         return;
       }
       if (this.password.length < 8){
@@ -78,17 +74,25 @@ export default {
         alert('RUC must be at 11 characters long');
         return;
       }
-      // Register user
-      let newUser = new User(0, this.name, this.email, this.phone, this.password, this.ruc, this.address, "Basic");
-      this.userService.create(newUser).then((user) => {
-        let client = new Client(0, user.data.id);
-        this.clientService.create(client).then(() => {
-          this.router.push('/login');
+      // Register client
+      this.authenticationService.signUp(this.email, this.password).then( (r) => {
+        this.authenticationService.signIn(this.email, this.password).then((response) => {
+          let userId = response.data.id;
+          let token = response.data.token;
+          localStorage.setItem('token', token);
+          this.store.commit('setUserId', userId);
+          this.store.commit('setUserType', 'client');
+          this.store.commit('setIsActive', true);
+          let newClient = new Client(0, this.name, this.phone, this.ruc, this.address, "Basic", userId);
+          this.clientService.create(newClient).then(() => {
+            this.router.push('/client');
+            console.log('El cliente con user-id ' + userId + ' logeado con éxito');
+          });
+          this.configurationService.create(new Configuration(0, userId, 'Light', 'Grid', false, false));
+        }).catch((error) => {
+          alert('Error logging in');
+          console.error(error);
         });
-        this.configurationService.create(new Configuration(0, user.data.id, 'Light', 'Grid', false, false));
-      }).catch((error) => {
-        alert('Error registering client');
-        console.error(error);
       });
     }
   }

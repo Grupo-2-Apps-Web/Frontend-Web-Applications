@@ -5,10 +5,10 @@ export default createStore({
         user_id: localStorage.getItem('user_id') || null,
         user_type: localStorage.getItem('user_type') || null,
         isActive: localStorage.getItem('isActive') || false,
-        isClient: localStorage.getItem('isClient') ? parseInt(localStorage.getItem('isClient')) : 0,
         theme: localStorage.getItem('theme') || 'Light',
         view: localStorage.getItem('view') || 'Grid',
         initialConfig: null,
+        token: localStorage.getItem('token') || null,
     },
     mutations: {
         setUserId(state, value) { // Nueva mutación para user_id
@@ -22,10 +22,6 @@ export default createStore({
         setIsActive(state, value) { // Nueva mutación para isActive
             state.isActive = value;
             localStorage.setItem('isActive', value);
-        },
-        setIsClient(state, value) {
-            state.isClient = value;
-            localStorage.setItem('isClient', value);
         },
         SET_THEME(state, theme) {
             state.theme = theme;
@@ -54,6 +50,10 @@ export default createStore({
                 this.commit('APPLY_THEME'); // Llama a la nueva mutación
             }
         },
+        setToken(token) { // nueva mutación para token
+            localStorage.setItem('token', token);
+            this.state.token = token;
+        }
     },
     getters: {
         getTheme: state => state.theme,

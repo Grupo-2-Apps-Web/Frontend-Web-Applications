@@ -43,9 +43,9 @@ export default {
     if (state === 'client') {
       const clientService = new ClientService();
       clientService.getByUserId(id).then(response => {
-        this.userTypeId = response.id;
+        this.userTypeId = response.data.id;
         this.tripService.getTripsByClientId(this.userTypeId).then(res => {
-          this.trips = res.map(trip => new Trip(
+          this.trips = res.data.map(trip => new Trip(
               trip.id,
               trip.name.tripName,
               trip.cargoData.type,
@@ -65,9 +65,9 @@ export default {
     } else if (state === 'entrepreneur') {
       const entrepreneurService = new EntrepreneurService();
       entrepreneurService.getByUserId(id).then(response => {
-        this.userTypeId = response.id;
+        this.userTypeId = response.data.id;
         this.tripService.getTripsByEntrepreneurId(this.userTypeId).then(res => {
-          this.trips = res.map(trip => new Trip(
+          this.trips = res.data.map(trip => new Trip(
               trip.id,
               trip.name.tripName,
               trip.cargoData.type,
