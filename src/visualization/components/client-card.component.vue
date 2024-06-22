@@ -36,15 +36,15 @@
 </template>
 
 <script>
-import {User} from "../../user/models/user.entity.js";
 import {useRouter} from "vue-router";
 import { mapGetters } from 'vuex';
+import {Client} from "../../user/models/client.entity.js";
 
 export default {
   name: "client-card",
   props: {
     client: {
-      type: User,
+      type: Client,
       required: true
     }
   },

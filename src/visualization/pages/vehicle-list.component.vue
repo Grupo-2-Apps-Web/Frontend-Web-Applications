@@ -3,6 +3,8 @@ import { VehicleService } from '../../registration/services/vehicle.service.js';
 import { Vehicle } from '../../registration/models/vehicle.entity.js';
 import VehicleCard from "../components/vehicle-card.component.vue";
 import {mapGetters} from "vuex";
+import {EntrepreneurService} from "../../user/services/entrepreneur.service.js";
+import store from "../../store/store.js";
 
 export default {
   name: "vehicle-list",
@@ -18,7 +20,9 @@ export default {
   },
   data() {
     return {
-      userId: 0,
+      userId: Number(store.state.user_id),
+      entrepreneurId: 0,
+      entrepreneurService: new EntrepreneurService(),
       vehicleService: new VehicleService(),
       vehicles: [],
       vehicle: Vehicle,
@@ -32,17 +36,19 @@ export default {
     }
   },
   created() {
-    this.vehicleService.getAll().then(response => {
-      this.vehicles = response.data.map(vehicle => new Vehicle(
-          vehicle.id,
-          vehicle.model,
-          vehicle.plate,
-          vehicle.tractorPlate,
-          vehicle.maxLoad,
-          vehicle.volume
-      ));
-      this.filteredVehicles = this.vehicles;
-
+    this.entrepreneurService.getByUserId(this.userId).then(response => {
+      this.entrepreneurId = response.data.id;
+      this.vehicleService.getVehiclesByEntrepreneurId(this.entrepreneurId).then(response => {
+        this.vehicles = response.data.map(vehicle => new Vehicle(
+            vehicle.id,
+            vehicle.model,
+            vehicle.plate,
+            vehicle.tractorPlate,
+            vehicle.maxLoad,
+            vehicle.volume
+        ));
+        this.filteredVehicles = this.vehicles;
+      });
     });
   },
   methods: {

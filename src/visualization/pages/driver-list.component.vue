@@ -3,6 +3,8 @@ import { DriverService } from '../../registration/services/driver.service.js';
 import { Driver } from '../../registration/models/driver.entity.js';
 import DriverCard from "../components/driver-card.component.vue";
 import {mapGetters} from "vuex";
+import store from "../../store/store.js";
+import {EntrepreneurService} from "../../user/services/entrepreneur.service.js";
 
 export default {
   name: "driver-list",
@@ -18,8 +20,10 @@ export default {
   },
   data() {
     return {
-      userId: 0,
+      userId: Number(store.state.user_id),
+      entrepreneurId: 0,
       driverService: new DriverService(),
+      entrepreneurService: new EntrepreneurService(),
       drivers: [],
       driver: Driver,
       selectedFilter: null,
@@ -32,16 +36,19 @@ export default {
     }
   },
   created() {
-    this.driverService.getAll().then(response => {
-      this.drivers = response.data.map(driver => new Driver(
-          driver.id,
-          driver.name,
-          driver.dni,
-          driver.license,
-          driver.contactNumber
-      ));
-      this.filteredDrivers = this.drivers;
+    this.entrepreneurService.getByUserId(this.userId).then(response => {
+      this.entrepreneurId = response.data.id;
+      this.driverService.getDriversByEntrepreneurId(this.entrepreneurId).then(response => {
+        this.drivers = response.data.map(driver => new Driver(
+            driver.id,
+            driver.name,
+            driver.dni,
+            driver.license,
+            driver.contactNumber
+        ));
+        this.filteredDrivers = this.drivers;
 
+      });
     });
   },
   methods: {

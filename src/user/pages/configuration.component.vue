@@ -17,7 +17,8 @@ export default {
   data(){
     return {
       configurationService: new ConfigurationService(),
-      configuration: Configuration
+      configuration: Configuration,
+      userType: localStorage.getItem('user_type'),
     }
   },
   methods: {
@@ -38,7 +39,12 @@ export default {
 
       this.configurationService.update(configuration.id, configuration);
       alert("Configuration saved successfully!");
-      router.back();
+      if (this.userType === 'client') {
+        router.push('/client');
+      }
+      else{
+        router.push('/entrepreneur');
+      }
     },
     goBack() {
       if (store.state.theme !== store.state.initialConfig.theme || store.state.view !== store.state.initialConfig.view) {
@@ -52,7 +58,8 @@ export default {
     }
   },
   created() {
-    this.configurationService.getOne(localStorage.getItem('user_id'))
+    let userId = localStorage.getItem('user_id');
+    this.configurationService.getByUserId(userId)
         .then(response => {
           this.configuration = response.data;
           store.commit('SET_THEME', this.configuration.theme);

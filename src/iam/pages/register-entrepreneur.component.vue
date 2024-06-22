@@ -1,12 +1,13 @@
 <script>
 import { useRouter } from 'vue-router';
-import {UserService} from "../services/user.service.js";
-import {User} from "../models/user.entity.js";
-import {Client} from "../models/client.entity.js";
-import {Entrepreneur} from "../models/entrepreneur.entity.js";
-import {EntrepreneurService} from "../services/entrepreneur.service.js";
-import {Configuration} from "../models/configuration.entity.js";
-import {ConfigurationService} from "../services/configuration.service.js";
+import {UserService} from "../../user/services/user.service.js";
+import {User} from "../../user/models/user.entity.js";
+import {Entrepreneur} from "../../user/models/entrepreneur.entity.js";
+import {EntrepreneurService} from "../../user/services/entrepreneur.service.js";
+import {Configuration} from "../../user/models/configuration.entity.js";
+import {ConfigurationService} from "../../user/services/configuration.service.js";
+import {inject} from "vue";
+import {AuthenticationService} from "../services/authentication.service.js";
 
 export default {
   name: "RegisterEntrepreneurComponent",
@@ -28,6 +29,8 @@ export default {
       userService: new UserService(),
       entrepreneurService: new EntrepreneurService(),
       configurationService: new ConfigurationService(),
+      authenticationService: new AuthenticationService(),
+      store: inject('store'),
       name: '',
       email: '',
       password: '',
@@ -46,11 +49,6 @@ export default {
       const re = /^\d+$/;
       return re.test(String(value));
     },
-    async alreadyExists(email) {
-      const user = await this.userService.getUserByEmail(email);
-      return user !== null;
-
-    },
     async registerEntrepreneur() {
       // Validations
       if (!this.name || !this.email || !this.password || !this.phone || !this.ruc || !this.address) {
@@ -59,10 +57,6 @@ export default {
       }
       if (!this.isValidEmail(this.email)) {
         alert('Please enter a valid email');
-        return;
-      }
-      if (await this.alreadyExists(this.email)) {
-        alert('Email already signed up');
         return;
       }
       if (this.password.length < 8){
@@ -81,18 +75,27 @@ export default {
         alert('RUC must be at 11 characters long');
         return;
       }
-      // Register user
-      let newUser = new User(0, this.name, this.email, this.phone, this.password, this.ruc, this.address, "Basic");
-      this.userService.create(newUser).then((user) => {
-        let entrepreneur = new Entrepreneur(0, this.logoImage, user.data.id);
-        this.entrepreneurService.create(entrepreneur).then(() => {
-          this.router.push('/login');
+      // Register entrepreneur
+      this.authenticationService.signUp(this.email, this.password).then( (r) => {
+        this.authenticationService.signIn(this.email, this.password).then((response) => {
+          let userId = response.data.id;
+          let token = response.data.token;
+          localStorage.setItem('token', token);
+          this.store.commit('setUserId', userId);
+          this.store.commit('setUserType', 'entrepreneur');
+          this.store.commit('setIsActive', true);
+          let newEntrepreneur = new Entrepreneur(0, this.name, this.phone, this.ruc, this.address, "Basic", userId, this.logoImage);
+          this.entrepreneurService.create(newEntrepreneur).then(() => {
+            this.router.push('/entrepreneur');
+            console.log('El empresario con user-id ' + userId + ' logeado con éxito');
+          });
+          this.configurationService.create(new Configuration(0, userId, 'Light', 'Grid', false, false));
+        }).catch((error) => {
+          alert('Error logging in');
+          console.error(error);
         });
-        this.configurationService.create(new Configuration(0, user.data.id, 'Light', 'Grid', false, false));
-      }).catch((error) => {
-        alert('Error registering client');
-        console.error(error);
       });
+
     },
     triggerFileUploadLogo() {
       if(this.$refs.fileInputLogo)

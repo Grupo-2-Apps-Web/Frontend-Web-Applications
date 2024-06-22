@@ -6,6 +6,10 @@ import { TripService } from "../services/trip.service";
 import {EntrepreneurService} from "../../user/services/entrepreneur.service.js";
 import {Evidence} from "../models/evidence.entity.js";
 import {EvidenceService} from "../services/evidence.service.js";
+import {Trip} from "../models/trip.entity.js";
+import {DriverService} from "../services/driver.service.js";
+import {VehicleService} from "../services/vehicle.service.js";
+import {ClientService} from "../../user/services/client.service.js";
 
 export default {
   name: "register-trip",
@@ -27,6 +31,9 @@ export default {
     const tripService = new TripService();
     const entrepreneurService = new EntrepreneurService();
     const evidenceService = new EvidenceService();
+    const driverService = new DriverService();
+    const vehicleService = new VehicleService();
+    const clientService = new ClientService();
     const trip = reactive({
       id: 0,
       name: "",
@@ -36,21 +43,26 @@ export default {
       loadDate: "",
       unloadLocation: "",
       unloadDate: "",
+      driverDni: "",
       driverId: 0,
+      vehiclePlatePart1: "",
+      vehiclePlatePart2: "",
       vehicleId: 0,
+      clientRUC: "",
       clientId: 0,
-      entrepreneurId: 0
+      entrepreneurId: 0,
+      evidenceLink: ""
     });
     const evidence = new Evidence(
         0,
-        0,
-        ""
+        "",
+        0
     )
     const openDialog = () => {
       console.log(trip);
       if (!trip.name || !trip.type || !trip.weight || !trip.loadLocation || !trip.loadDate ||
-          !trip.unloadLocation || !trip.unloadDate || !trip.driverId || !trip.vehicleId ||
-          !trip.clientId) {
+          !trip.unloadLocation || !trip.unloadDate || !trip.driverDni || !trip.vehiclePlatePart1
+          || !trip.vehiclePlatePart2 || !trip.clientRUC) {
         alert('All fields are required');
         return;
       }
@@ -64,20 +76,59 @@ export default {
           isVisible.value = false;
         },
         accept: async () => {
-          const response = await entrepreneurService.getByUserId(localStorage.getItem('user_id'));
-          trip.entrepreneur_id = Number(response.id);
-          trip.id = Number(trip.id);
-          trip.driverId = Number(trip.driverId);
-          trip.vehicleId = Number(trip.vehicleId);
-          trip.clientId = Number(trip.clientId);
-          trip.weight = Number(trip.weight);
+          // validate driver dni
+          let driver = await driverService.getByDNI(trip.driverDni);
+          if (driver === null){
+            alert('Driver not found');
+            return;
+          }
+          trip.driverId = driver.id;
 
-          tripService.create(trip).then(response => {
-            evidence.tripId = response.data.id;
-            evidenceService.create(evidence);
-            alert('Trip registered successfully');
-            goBack();
-          });
+          // validate vehicle plate
+          let plate = `${trip.vehiclePlatePart1.toUpperCase()}-${trip.vehiclePlatePart2.toUpperCase()}`;
+          let vehicle = await vehicleService.getByPlate(plate);
+          if (vehicle === null){
+            alert('Vehicle not found');
+            return;
+          }
+          trip.vehicleId = vehicle.id;
+
+          // validate client RUC
+          let client = await clientService.getByRuc(trip.clientRUC);
+          if (client === null){
+            alert('Client not found');
+            return;
+          }
+          trip.clientId = client.id;
+
+          entrepreneurService.getByUserId(localStorage.getItem('user_id')).then(
+              (response) => {
+                let entrepreneurId = response.data.id;
+                let newTrip = new Trip(
+                    0,
+                    trip.name,
+                    trip.type,
+                    Number(trip.weight),
+                    trip.loadLocation,
+                    trip.loadDate,
+                    trip.unloadLocation,
+                    trip.unloadDate,
+                    Number(trip.driverId),
+                    Number(trip.vehicleId),
+                    Number(trip.clientId),
+                    Number(entrepreneurId)
+                );
+
+                tripService.create(newTrip).then(response => {
+                  evidence.link = trip.evidenceLink;
+                  evidence.tripId = response.data.id;
+                  evidenceService.create(evidence);
+                  alert('Trip registered successfully');
+                  goBack();
+                });
+              }
+          );
+
         }
       });
     };
@@ -136,18 +187,20 @@ export default {
         <pv-inputtext type="date" v-model="trip.unloadDate" style="width: 100%;"></pv-inputtext>
       </div>
       <div>
-        <p>Driver ID</p>
-        <pv-inputtext type="number" v-model="trip.driverId" style="width: 100%;"></pv-inputtext>
+        <p>Driver DNI</p>
+        <pv-inputtext type="text" v-model="trip.driverDni" maxlength="8" style="width: 100%;"></pv-inputtext>
       </div>
     </div>
     <div class="grid-container-2-columns">
       <div>
-        <p>Vehicle ID</p>
-        <pv-inputtext type="number" v-model="trip.vehicleId" style="width: 100%;"></pv-inputtext>
+        <p>Vehicle Plate</p>
+        <pv-inputtext v-model="trip.vehiclePlatePart1" maxlength="3" style="width: 40%;" required></pv-inputtext>
+        -
+        <pv-inputtext v-model="trip.vehiclePlatePart2" maxlength="3" style="width: 40%;" required></pv-inputtext>
       </div>
       <div>
-        <p>Client ID</p>
-        <pv-inputtext type="number" v-model="trip.clientId" style="width: 100%;"></pv-inputtext>
+        <p>Client RUC</p>
+        <pv-inputtext type="text" v-model="trip.clientRUC" maxlength="11" style="width: 100%;"></pv-inputtext>
       </div>
     </div>
     <div class="grid-container-1-columns">
@@ -156,6 +209,9 @@ export default {
       <div style="text-align: center; width: 20%; margin-left: 25px;">
         <input type="file" ref="fileInputLoad" @change="handleFileUpload" style="display: none" />
         <pv-button @click="triggerFileUploadLoad" style="background-color:#006400;">Upload</pv-button>
+      </div>
+      <div>
+        <pv-inputtext type="text" v-model="trip.evidenceLink"></pv-inputtext>
       </div>
     </div>
     <div class="button">

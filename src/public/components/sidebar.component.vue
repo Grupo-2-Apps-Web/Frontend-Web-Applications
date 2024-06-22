@@ -43,13 +43,18 @@ onMounted(() => {
 
 const logOut = () => {
   store.commit('setIsActive', false);
+  store.commit('setUserId', 0);
+  store.commit('setUserType', null);
+  store.commit('SET_THEME', 'Light');
+  store.commit('SET_VIEW', 'Grid');
+  localStorage.setItem('token', '');
   togglesidebar();
 };
 
 </script>
 
 <template>
-    <pv-sidebar v-model:visible="localVisible" header="Menu">
+    <pv-sidebar v-model:visible="localVisible" header="Menu" style="background-color: #314b97">
     <template #header>
         <h1 class="sidebar-title">CargoApp</h1>
     </template>
@@ -57,7 +62,7 @@ const logOut = () => {
         <i class="pi pi-times" style="color: #686f75;" @click="togglesidebar"/>
       </template>
       <ul>
-        <li v-if="userType === 'client'"><router-link to="/client/history">Record</router-link></li>
+        <li v-if="userType === 'client'"><router-link to="/client/history">Record (Trips)</router-link></li>
         <li v-if="userType === 'client'"><router-link to="/client/expenses">Expenses</router-link></li>
         <li v-if="userType === 'client'"><router-link to="/client/gps">GPS</router-link></li>
         <li v-if="userType === 'client'"><router-link to="/client/statistics">Statistics</router-link></li>
@@ -65,7 +70,7 @@ const logOut = () => {
         <li v-if="userType === 'entrepreneur'"><router-link to="/entrepreneur/clients">Clients</router-link></li>
         <li v-if="userType === 'entrepreneur'"><router-link to="/entrepreneur/drivers">Drivers</router-link></li>
         <li v-if="userType === 'entrepreneur'"><router-link to="/entrepreneur/vehicles">Vehicles</router-link></li>
-        <li v-if="userType === 'entrepreneur'"><router-link to="/entrepreneur/history">Record</router-link></li>
+        <li v-if="userType === 'entrepreneur'"><router-link to="/entrepreneur/history">Record (Trips)</router-link></li>
         <li v-if="userType === 'entrepreneur'"><router-link to="/entrepreneur/gps">GPS</router-link></li>
       </ul>
       <div v-if="isActive === true" class = "button-container">
@@ -116,11 +121,11 @@ ul li {
 ul li a{
   font-size: 24px;
   text-decoration: none;
-  color: #495057;
+  color: #ffffff;
 }
 
 ul li a:hover{
-  color: #1E3A8A;
+  color: #d5be56;
 }
 
 .button-container {
@@ -162,7 +167,7 @@ h1 {
 }
 
 .sidebar-title {
-  color: black;
+  color: #FFFFFF;
 }
 
 .pi {

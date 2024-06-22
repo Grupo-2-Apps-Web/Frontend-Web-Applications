@@ -1,9 +1,27 @@
 import axios from "axios"
 
 export class BaseService {
+    httpOptions = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    }
+
     constructor(endpoint) {
         this.baseURL = "https://cargoappwebservice.azurewebsites.net/api/v1";
         this.endpoint = endpoint;
+        this.token = localStorage.getItem('token');
+    }
+
+    setToken() {
+        this.token = localStorage.getItem('token');
+        this.httpOptions = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.token}`
+            }
+        }
     }
 
     endpointPath() {
@@ -11,23 +29,28 @@ export class BaseService {
     }
 
     getOne(id){
-        return axios.get(`${this.endpointPath()}/${id}`);
+        this.setToken();
+        return axios.get(`${this.endpointPath()}/${id}`, this.httpOptions);
     }
 
     getAll(){
-        return axios.get(this.endpointPath());
+        this.setToken();
+        return axios.get(this.endpointPath(), this.httpOptions);
     }
 
     create(data){
-        return axios.post(this.endpointPath(), data);
+        this.setToken();
+        return axios.post(this.endpointPath(), data, this.httpOptions);
     }
 
     update(id, data){
-        return axios.put(`${this.endpointPath()}/${id}`, data);
+        this.setToken();
+        return axios.put(`${this.endpointPath()}/${id}`, data, this.httpOptions);
     }
 
     delete(id){
-        return axios.delete(`${this.endpointPath()}/${id}`);
+        this.setToken();
+        return axios.delete(`${this.endpointPath()}/${id}`, this.httpOptions);
     }
 
 }

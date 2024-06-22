@@ -1,4 +1,5 @@
 import { BaseService } from "../../shared/services/base.service.js";
+import axios from "axios";
 
 export class OnGoingTripService extends BaseService {
     constructor() {
@@ -6,9 +7,8 @@ export class OnGoingTripService extends BaseService {
     }
 
     async getByTripId(tripId) {
-        const response = await this.getAll();
-        const trips = response.data;
-        const foundTrip = trips.find(trip => trip.tripId === Number(tripId));
-        return foundTrip || null;
+        this.setToken();
+        let url = this.baseURL + '/trips/' + tripId + '/ongoing-trips';
+        return axios.get(url, this.httpOptions);
     }
 }
