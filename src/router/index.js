@@ -27,11 +27,11 @@ import ConfigurationComponent from "../user/pages/configuration.component.vue";
 import SubscriptionComponent from "../user/pages/subscription.component.vue";
 import PaymentComponent from "../user/pages/payment.component.vue";
 
-import FormRegister from '../user/pages/register.component.vue';
-import FormLogin from '../user/pages/login.component.vue';
+import FormRegister from '../iam/pages/register.component.vue';
+import FormLogin from '../iam/pages/login.component.vue';
 import FormRecoverAccount from '../user/pages/recover-account.component.vue';
-import RegisterClientComponent from "../user/pages/register-client.component.vue";
-import RegisterEntrepreneurComponent from "../user/pages/register-entrepreneur.component.vue";
+import RegisterClientComponent from "../iam/pages/register-client.component.vue";
+import RegisterEntrepreneurComponent from "../iam/pages/register-entrepreneur.component.vue";
 
 import DriverList from "../visualization/pages/driver-list.component.vue";
 import VehicleList from "../visualization/pages/vehicle-list.component.vue";

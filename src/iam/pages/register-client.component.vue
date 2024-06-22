@@ -1,16 +1,16 @@
 <script>
 import { useRouter } from 'vue-router';
-import {UserService} from "../services/user.service.js";
-import {User} from "../models/user.entity.js";
-import {Entrepreneur} from "../models/entrepreneur.entity.js";
-import {EntrepreneurService} from "../services/entrepreneur.service.js";
-import {Configuration} from "../models/configuration.entity.js";
-import {ConfigurationService} from "../services/configuration.service.js";
+import {UserService} from "../../user/services/user.service.js";
+import {User} from "../../user/models/user.entity.js";
+import {Client} from "../../user/models/client.entity.js";
+import {ClientService} from "../../user/services/client.service.js";
+import {ConfigurationService} from "../../user/services/configuration.service.js";
+import {Configuration} from "../../user/models/configuration.entity.js";
+import {AuthenticationService} from "../services/authentication.service.js";
 import {inject} from "vue";
-import {AuthenticationService} from "../../iam/services/authentication.service.js";
 
 export default {
-  name: "RegisterEntrepreneurComponent",
+  name: "RegisterClientComponent",
   setup() {
     const router = useRouter();
 
@@ -27,7 +27,7 @@ export default {
   data() {
     return {
       userService: new UserService(),
-      entrepreneurService: new EntrepreneurService(),
+      clientService: new ClientService(),
       configurationService: new ConfigurationService(),
       authenticationService: new AuthenticationService(),
       store: inject('store'),
@@ -36,8 +36,7 @@ export default {
       password: '',
       phone: '',
       ruc: '',
-      address: '',
-      logoImage: ''
+      address: ''
     };
   },
   methods: {
@@ -49,7 +48,7 @@ export default {
       const re = /^\d+$/;
       return re.test(String(value));
     },
-    async registerEntrepreneur() {
+    async registerClient() {
       // Validations
       if (!this.name || !this.email || !this.password || !this.phone || !this.ruc || !this.address) {
         alert('All fields are required');
@@ -75,19 +74,19 @@ export default {
         alert('RUC must be at 11 characters long');
         return;
       }
-      // Register entrepreneur
+      // Register client
       this.authenticationService.signUp(this.email, this.password).then( (r) => {
         this.authenticationService.signIn(this.email, this.password).then((response) => {
           let userId = response.data.id;
           let token = response.data.token;
           localStorage.setItem('token', token);
           this.store.commit('setUserId', userId);
-          this.store.commit('setUserType', 'entrepreneur');
+          this.store.commit('setUserType', 'client');
           this.store.commit('setIsActive', true);
-          let newEntrepreneur = new Entrepreneur(0, this.name, this.phone, this.ruc, this.address, "Basic", userId, this.logoImage);
-          this.entrepreneurService.create(newEntrepreneur).then(() => {
-            this.router.push('/entrepreneur');
-            console.log('El empresario con user-id ' + userId + ' logeado con éxito');
+          let newClient = new Client(0, this.name, this.phone, this.ruc, this.address, "Basic", userId);
+          this.clientService.create(newClient).then(() => {
+            this.router.push('/client');
+            console.log('El cliente con user-id ' + userId + ' logeado con éxito');
           });
           this.configurationService.create(new Configuration(0, userId, 'Light', 'Grid', false, false));
         }).catch((error) => {
@@ -95,62 +94,43 @@ export default {
           console.error(error);
         });
       });
-
-    },
-    triggerFileUploadLogo() {
-      if(this.$refs.fileInputLogo)
-        this.$refs.fileInputLogo.click();
-    },
-    handleFileUploadLogo(event) {
-      const file = event.target.files[0];
-      if (file) {
-        this.logoImage = URL.createObjectURL(file);
-      }
     }
   }
 }
 </script>
 
 <template>
-  <div class="register-entrepreneur">
+  <div class="register-client">
     <form class="registration-form">
-        <h2>Sign Up - Entrepreneur</h2>
-        <div class="form-group">
-          <label>Name</label>
-          <input v-model="name" required>
-        </div>
-        <div class="form-group">
-          <label>Email</label>
-          <input type="email" v-model="email" required>
-        </div>
-        <div class="form-group">
-          <label>Password</label>
-          <input type="password" v-model="password" required>
-        </div>
-        <div class="form-group">
-          <label>Phone</label>
-          <input v-model="phone" maxlength="9" required>
-        </div>
-        <div class="form-group">
-          <label>RUC</label>
-          <input v-model="ruc" maxlength="11" required>
-        </div>
-        <div class="form-group">
-          <label>Address</label>
-          <input v-model="address" required>
-        </div>
-        <div class="form-group">
-          <label>Logo</label>
-        </div>
-        <div class="form-group">
-          <img src="../../assets/images/upload-image.jpg" height="100px" style="margin-right: 10px;">
-          <input type="file" ref="fileInputLogo" style="display: none" @change="handleFileUploadLogo">
-          <pv-button label="Upload" @click="triggerFileUploadLogo"></pv-button>
-        </div>
-        <div class="form-group-btn">
-          <pv-button label="Discard" class="btn" style="background-color: red;" @click="goBack"></pv-button>
-          <pv-button label="Sign Up" class="btn" @click="registerEntrepreneur"></pv-button>
-        </div>
+      <h2>Sign Up - Client</h2>
+      <div class="form-group">
+        <label >Name</label>
+        <input v-model="name" style="width: 100%;" required>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" v-model="email" required>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" v-model="password" required>
+      </div>
+      <div class="form-group">
+        <label>Phone</label>
+        <input v-model="phone" maxlength="9" required>
+      </div>
+      <div class="form-group">
+        <label>RUC</label>
+        <input v-model="ruc" maxlength="11" required>
+      </div>
+      <div class="form-group">
+        <label>Address</label>
+        <input v-model="address" required>
+      </div>
+      <div class="form-group-btn">
+        <pv-button label="Discard" class="btn" style="background-color: red;" @click="goBack"></pv-button>
+        <pv-button label="Sign Up" class="btn" @click="registerClient"></pv-button>
+      </div>
     </form>
   </div>
 
@@ -165,7 +145,7 @@ h2 {
   margin-bottom: 7px;
 }
 
-.register-entrepreneur {
+.register-client {
   margin: 10px;
   display: flex;
   justify-content: center;
@@ -181,7 +161,7 @@ h2 {
   margin: 25px auto;
   border-radius: 25px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  height: 760px;
+  height: 610px;
   width: 391px
 }
 
@@ -221,6 +201,5 @@ h2 {
   justify-content: center;
   align-items: center;
 }
-
 
 </style>

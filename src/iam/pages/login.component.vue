@@ -1,10 +1,10 @@
 <script>
-import {UserService} from "../services/user.service.js";
+import {UserService} from "../../user/services/user.service.js";
 import {useRouter} from "vue-router";
 import {ref, inject} from "vue";
-import {ClientService} from "../services/client.service.js";
-import {EntrepreneurService} from "../services/entrepreneur.service.js";
-import {AuthenticationService} from "../../iam/services/authentication.service.js";
+import {ClientService} from "../../user/services/client.service.js";
+import {EntrepreneurService} from "../../user/services/entrepreneur.service.js";
+import {AuthenticationService} from "../services/authentication.service.js";
 
 export default {
   name: "login.component",
