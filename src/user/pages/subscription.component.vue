@@ -43,7 +43,6 @@ export default {
   methods:{
     selectPlan(plan){
       this.selectedPlan = plan;
-
       if (this.userType === 'client') {
         this.clientService.getByUserId(this.userId).then(response => {
           const updatedClient = new Client(
@@ -56,7 +55,7 @@ export default {
               response.data.userId
           );
           console.log(updatedClient);
-          this.clientService.update(this.userId, updatedClient).then(res => {
+          this.clientService.update(response.data.id, updatedClient).then(res => {
             alert(`You have selected the ${plan} plan.`)
           })
         });
@@ -69,12 +68,12 @@ export default {
               response.data.phone,
               response.data.ruc,
               response.data.address,
-              response.data.logoImage,
               plan,
-              response.data.userId
+              response.data.userId,
+              response.data.logoImage
           );
           console.log(updatedEntrepreneur);
-          this.entrepreneurService.update(this.userId, updatedEntrepreneur).then(res => {
+          this.entrepreneurService.update(response.data.id, updatedEntrepreneur).then(res => {
             alert(`You have selected the ${plan} plan.`)
           })
         });
