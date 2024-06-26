@@ -8,6 +8,7 @@ import {Configuration} from "../../user/models/configuration.entity.js";
 import {ConfigurationService} from "../../user/services/configuration.service.js";
 import {inject} from "vue";
 import {AuthenticationService} from "../services/authentication.service.js";
+import {StorageService} from "../../shared/services/storage.service.js";
 
 export default {
   name: "RegisterEntrepreneurComponent",
@@ -30,6 +31,7 @@ export default {
       entrepreneurService: new EntrepreneurService(),
       configurationService: new ConfigurationService(),
       authenticationService: new AuthenticationService(),
+      storageService: new StorageService(),
       store: inject('store'),
       name: '',
       email: '',
@@ -37,7 +39,8 @@ export default {
       phone: '',
       ruc: '',
       address: '',
-      logoImage: ''
+      logoImage: null,
+      selectedFileName: 'none'
     };
   },
   methods: {
@@ -75,6 +78,10 @@ export default {
         alert('RUC must be at 11 characters long');
         return;
       }
+      if (this.selectedFileName === 'none' || this.logoImage === null) {
+        alert('Please upload a logo image');
+        return;
+      }
       // Register entrepreneur
       this.authenticationService.signUp(this.email, this.password).then( (r) => {
         this.authenticationService.signIn(this.email, this.password).then((response) => {
@@ -97,14 +104,20 @@ export default {
       });
 
     },
-    triggerFileUploadLogo() {
-      if(this.$refs.fileInputLogo)
-        this.$refs.fileInputLogo.click();
-    },
-    handleFileUploadLogo(event) {
-      const file = event.target.files[0];
-      if (file) {
-        this.logoImage = URL.createObjectURL(file);
+    uploadImage(event) {
+      if (event.target.files && event.target.files.length > 0) {
+        const file = event.target.files[0];
+        this.selectedFileName = event.target.files[0].name;
+        console.log(file);
+        let reader = new FileReader();
+        let name = "PROFILEPHOTO_IMAGE_" + Date.now();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          console.log(reader.result);
+          this.storageService.uploadFile(name, reader.result).then((url) => {
+            this.logoImage = url;
+          });
+        };
       }
     }
   }
@@ -142,10 +155,13 @@ export default {
         <div class="form-group">
           <label>Logo</label>
         </div>
-        <div class="form-group">
-          <img src="../../assets/images/upload-image.jpg" height="100px" style="margin-right: 10px;">
-          <input type="file" ref="fileInputLogo" style="display: none" @change="handleFileUploadLogo">
-          <pv-button label="Upload" @click="triggerFileUploadLogo"></pv-button>
+        <div class="image-group">
+          <img src="../../assets/images/upload-image.jpg" height="100px" style="margin-bottom: 5px;">
+          <input id="uploadImage" type="file" ref="fileInputLogo" accept=".png, .jpg, .jpeg" style="display: none" @change="uploadImage($event)">
+          <span v-if="selectedFileName !== 'none'" style="margin: 5px;"> {{selectedFileName}} </span>
+          <label for="uploadImage" id="uploadImageButton" style="margin-bottom: 5px;">
+            Upload
+          </label>
         </div>
         <div class="form-group-btn">
           <pv-button label="Discard" class="btn" style="background-color: red;" @click="goBack"></pv-button>
@@ -181,13 +197,21 @@ h2 {
   margin: 25px auto;
   border-radius: 25px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  height: 760px;
+  height: 850px;
   width: 391px
 }
 
 .form-group {
   margin: 20px;
 }
+
+.image-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 /*Labels*/
 .form-group label {
   font-weight: lighter;
@@ -220,6 +244,19 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#uploadImageButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #006400;
+  color: #FFFFFF;
+  padding: 15px;
+  border-radius: 35px;
+  text-align: center;
+  align-content: center;
+  cursor: pointer;
 }
 
 

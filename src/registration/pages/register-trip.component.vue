@@ -10,17 +10,32 @@ import {Trip} from "../models/trip.entity.js";
 import {DriverService} from "../services/driver.service.js";
 import {VehicleService} from "../services/vehicle.service.js";
 import {ClientService} from "../../user/services/client.service.js";
+import {StorageService} from "../../shared/services/storage.service.js";
 
 export default {
   name: "register-trip",
+  data() {
+    return {
+      selectedFileName: 'none',
+      image: null
+    }
+  },
   methods: {
-    triggerFileUploadLoad() {
-      this.$refs.fileInputLoad.click();
-    },
-    handleFileUpload(event) {
-      const file = event.target.files[0];
-      if (file) {
-        this.evidence.link = URL.createObjectURL(file);
+    uploadImage(event) {
+      const storageService = new StorageService();
+      if (event.target.files && event.target.files.length > 0) {
+        const file = event.target.files[0];
+        this.selectedFileName = event.target.files[0].name;
+        console.log(file);
+        let reader = new FileReader();
+        let name = "EVIDENCEPHOTO_IMAGE_" + Date.now();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          console.log(reader.result);
+          storageService.uploadFile(name, reader.result).then((url) => {
+            this.image = url;
+          });
+        };
       }
     }
   },
@@ -50,19 +65,19 @@ export default {
       vehicleId: 0,
       clientRUC: "",
       clientId: 0,
-      entrepreneurId: 0,
-      evidenceLink: ""
+      entrepreneurId: 0
     });
     const evidence = new Evidence(
         0,
         "",
         0
     )
-    const openDialog = () => {
+    const openDialog = (image) => {
+      console.log(image);
       console.log(trip);
       if (!trip.name || !trip.type || !trip.weight || !trip.loadLocation || !trip.loadDate ||
           !trip.unloadLocation || !trip.unloadDate || !trip.driverDni || !trip.vehiclePlatePart1
-          || !trip.vehiclePlatePart2 || !trip.clientRUC) {
+          || !trip.vehiclePlatePart2 || !trip.clientRUC || !image) {
         alert('All fields are required');
         return;
       }
@@ -120,7 +135,7 @@ export default {
                 );
 
                 tripService.create(newTrip).then(response => {
-                  evidence.link = trip.evidenceLink;
+                  evidence.link = image;
                   evidence.tripId = response.data.id;
                   evidenceService.create(evidence);
                   alert('Trip registered successfully');
@@ -207,11 +222,11 @@ export default {
       <p>Load Evidence</p>
       <img src="../../assets/images/upload-image.jpg" alt="upload image template" height="250px">
       <div style="text-align: center; width: 20%; margin-left: 25px;">
-        <input type="file" ref="fileInputLoad" @change="handleFileUpload" style="display: none" />
-        <pv-button @click="triggerFileUploadLoad" style="background-color:#006400;">Upload</pv-button>
-      </div>
-      <div>
-        <pv-inputtext type="text" v-model="trip.evidenceLink"></pv-inputtext>
+        <input id="uploadImage" type="file" ref="fileInputLogo" accept=".png, .jpg, .jpeg" style="display: none" @change="uploadImage($event)">
+        <span v-if="selectedFileName !== 'none'" style="margin: 5px;"> {{selectedFileName}} </span>
+        <label for="uploadImage" id="uploadImageButton" style="margin-bottom: 5px;">
+          Upload
+        </label>
       </div>
     </div>
     <div class="button">
@@ -219,7 +234,7 @@ export default {
         Cancel
       </pv-button>
       <pv-confirm-dialog id="confirm" />
-      <pv-button @click="openDialog()" label="Confirm" :aria-expanded="isVisible" :aria-controls="isVisible ? 'confirm' : null"
+      <pv-button @click="openDialog(image)" label="Confirm" :aria-expanded="isVisible" :aria-controls="isVisible ? 'confirm' : null"
                  style="background-color: #006400; padding: 15px 45px;" >
         Register
       </pv-button>
@@ -248,5 +263,18 @@ export default {
     margin-top: 20px;
     font-size: 2em;
   }
+
+   #uploadImageButton {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     background-color: #006400;
+     color: #FFFFFF;
+     padding: 15px;
+     border-radius: 35px;
+     text-align: center;
+     align-content: center;
+     cursor: pointer;
+   }
 
 </style>
