@@ -41,7 +41,7 @@ export default {
           tripService.getOne(this.tripId).then((response) => {
             let trip = response.data;
             if (Number(trip.entrepreneurId) !== entrepreneurId) {
-              alert('You are not authorized to modify this expense');
+              alert('You are not authorized to modify this trip');
               return;
             }
             this.tripId = trip.id;

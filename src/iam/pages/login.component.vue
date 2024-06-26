@@ -53,12 +53,12 @@ export default {
                   console.log('El empresario con user-id ' + userId + ' logeado con éxito');
                   router.push('/entrepreneur');
                 }
-              }).catch((error) => {
-                alert("Incorrect username or password");
-              });
+              })
             });
           }
-      );
+      ).catch((error) => {
+        alert("Incorrect username or password");
+      });
 
     };
 
