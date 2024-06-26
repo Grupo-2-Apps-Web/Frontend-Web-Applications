@@ -14,6 +14,7 @@ export default {
     return {
       name: "",
       expense: Expense,
+      tripId: 0,
       expenseService: new ExpenseService(),
       tripService: new TripService(),
       entrepreneurService: new EntrepreneurService(),
@@ -22,25 +23,27 @@ export default {
     }
   },
   created() {
-    this.expenseService.getByTripId(this.id).then(response => {
-        this.expense = new Expense(
-            response.data.id,
-            response.data.fuelAmount,
-            response.data.fuelDescription,
-            response.data.viaticsAmount,
-            response.data.viaticsDescription,
-            response.data.tollsAmount,
-            response.data.tollsDescription,
-            this.id
-        );
-        this.totalExpenses = JSON.parse(this.expense.fuelAmount) + JSON.parse(this.expense.tollsAmount) + JSON.parse(this.expense.viaticsAmount);
-    });
-    this.tripService.getOne(this.id).then(response => {
-      this.name = response.data.name.tripName;
-      this.entrepreneurService.getOne(response.data.entrepreneurId).then(response => {
-        this.logoURL = response.data.logoImage;
+    this.expenseService.getOne(this.id).then(response => {
+      this.tripId = response.data.tripId;
+      this.expense = new Expense(
+          response.data.id,
+          response.data.fuelAmount,
+          response.data.fuelDescription,
+          response.data.viaticsAmount,
+          response.data.viaticsDescription,
+          response.data.tollsAmount,
+          response.data.tollsDescription,
+          response.data.tripId
+      );
+      this.totalExpenses = JSON.parse(this.expense.fuelAmount) + JSON.parse(this.expense.tollsAmount) + JSON.parse(this.expense.viaticsAmount);
+      this.tripService.getOne(this.tripId).then(response => {
+        this.name = response.data.name.tripName;
+        this.entrepreneurService.getOne(response.data.entrepreneurId).then(response => {
+          this.logoURL = response.data.logoImage;
+        });
       });
     });
+
   }
 }
 </script>

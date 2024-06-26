@@ -5,6 +5,7 @@ import { useConfirm } from 'primevue/useconfirm';
 import { ExpenseService } from "../services/expense.service.js";
 import {Expense} from "../models/expense.entity.js";
 import {TripService} from "../services/trip.service.js";
+import {EntrepreneurService} from "../../user/services/entrepreneur.service.js";
 
 export default {
   name: "register-expense.component",
@@ -41,25 +42,33 @@ export default {
         },
         accept: () => {
           tripService.getOne(expenseData.tripId).then((r) => {
-            expenseService.getAll().then(response => {
-              const expenses = response.data;
-              const expense = expenses.find(expense => expense.tripId === Number(expenseData.tripId));
-              if (expense) {
-                alert('An expense with this trip ID already exists. You can change the expense with the Modify option.');
-              } else {
-                const newExpense = new Expense(
-                    0,
-                    Number(expenseData.fuelAmount),
-                    expenseData.fuelDescription,
-                    Number(expenseData.viaticsAmount),
-                    expenseData.viaticsDescription,
-                    Number(expenseData.tollsAmount),
-                    expenseData.tollsDescription,
-                    Number(expenseData.tripId)
-                );
-                expenseService.create(newExpense);
-                alert('Expense registered successfully');
-                goBack();
+            // validate if the entrepreneur is the owner of the trip
+            let entrepreneurIdFromTrip = Number(r.data.entrepreneurId);
+            let userId = Number(localStorage.getItem('user_id'));
+            const entrepreneurService = new EntrepreneurService();
+            entrepreneurService.getByUserId(userId).then((res) => {
+              let entrepreneurId = Number(res.data.id);
+              if (entrepreneurIdFromTrip !== entrepreneurId) {
+                alert('You are not authorized to register expenses for this trip');
+              }
+              else {
+                expenseService.getByTripId(expenseData.tripId).then((response) => {
+                  alert('An expense with this trip ID already exists.')
+                }).catch((e) => {
+                  const newExpense = new Expense(
+                      0,
+                      Number(expenseData.fuelAmount),
+                      expenseData.fuelDescription,
+                      Number(expenseData.viaticsAmount),
+                      expenseData.viaticsDescription,
+                      Number(expenseData.tollsAmount),
+                      expenseData.tollsDescription,
+                      Number(expenseData.tripId)
+                  );
+                  expenseService.create(newExpense);
+                  alert('Expense registered successfully');
+                  goBack();
+                })
               }
             });
           }).catch((error) => {
